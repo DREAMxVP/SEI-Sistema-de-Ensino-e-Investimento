@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SEI - Sistema de Educação Inteligente</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Estilo -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- TOPO -->
+  <section class="topo">
+    <div class="containerTopo">
+      <h1>SEI - Sistema de Educação Inteligente</h1>
+
+      <h4>Bem-vindo ao seu painel de investimentos</h4>
+
+      <!-- ÍNDICES E MOEDAS -->
+      <section class="indicesMoedas">
+        <div class="moedas">
+          <div id="dolar"></div>
+          <div id="euro"></div>
+          <div id="bitcoin"></div>
+          <div id="cdiTicker"></div>
+          <div id="selicTicker"></div>
+          <div id="ibovTicker"></div>
+          <div id="ifixTicker"></div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="menuTopo">
+      <ul class="listaMenu">
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Simulações</a></li>
+        <li><a href="https://analitica.auvp.com.br/acoes" target="_blank" rel="noopener noreferrer">Ações</a></li>
+        <li><a href="https://analitica.auvp.com.br/fiis" target="_blank" rel="noopener noreferrer">FIIs</a></li>
+        <li><a href="https://analitica.auvp.com.br/etfs" target="_blank" rel="noopener noreferrer">ETFs</a></li>
+        <li class="barraPesquisaLi">
+          <input type="text" placeholder="Pesquise os próximos investimentos..." id="barraPesquisa" autocomplete="off"
+            class="inputPesquisa">
+        </li>
+        <li><a href="https://analitica.auvp.com.br/renda-fixa" target="_blank" rel="noopener noreferrer">Renda Fixa</a>
+        </li>
+        <li><a href="https://analitica.auvp.com.br/indices" target="_blank" rel="noopener noreferrer">Índices</a></li>
+        <li><a href="#investimentosMercado">Investimentos</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </nav>
+  </section>
+
+
+
+
+  <!-- ÍNDICES DE INVESTIMENTO -->
+
+  <section class="card orcamento">
+    <h2>Orçamento Mensal</h2>
+
+    <div class="gridOrcamento">
+      <div>
+        <label>Renda mensal:</label>
+        <input type="text" id="rendaMensal" placeholder="R$ 5.000,00" autocomplete="off">
+      </div>
+
+      <div>
+        <label>Gastos fixos (aluguel, contas):</label>
+        <input type="text" id="gastosFixos" placeholder="R$ 1.500,00" autocomplete="off">
+      </div>
+
+      <div>
+        <label>Alimentação:</label>
+        <input type="text" id="alimentacao" placeholder="R$ 800,00" autocomplete="off">
+      </div>
+
+      <div>
+        <label>Transporte:</label>
+        <input type="text" id="transporte" placeholder="R$ 300,00" autocomplete="off">
+      </div>
+
+      <div>
+        <label>Lazer e outros:</label>
+        <input type="text" id="lazer" placeholder="R$ 500,00" autocomplete="off">
+      </div>
+    </div>
+
+    <button id="calcularOrcamento">Calcular Sobras</button>
+
+    <div id="resultadoOrcamento"></div>
+  </section>
+
+  <section class="layoutPrincipal">
+
+    <!-- ESQUERDA, esquema de ações hoje -->
+    <div class="watchlist">
+      <h3>Mais seguidas</h3>
+      <div id="listaAtivos"></div>
+    </div>
+
+
+    <!-- DIREITA,  -->
+    <div class="conteudoPrincipal">
+      <section class="card">
+        <h2>📊 Índices em Tempo Real</h2>
+        <div class="indice" id="ibov"></div>
+        <div class="indice" id="dolar"></div>
+        <div class="indice" id="cdi"></div>
+      </section>
+
+      <div class="card graficoPrincipal">
+        <canvas id="graficoRapido"></canvas>
+      </div>
+
+      <div class="card ranking">
+        <h3>Ranking de Investimentos</h3>
+        <div id="resultadoInvestimentos"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="card dashboard">
+
+    <div class="topoComparacao">
+
+      <!-- 🔹 LADO ESQUERDO -->
+      <div class="ladoValores">
+
+        <h2>📊 Comparação de Investimentos</h2>
+
+        <label>Valor mensal disponível (auto-preenchido):</label>
+        <input type="text" id="valorInvestimento" placeholder="R$ 500,00" autocomplete="off">
+
+        <label>Meses</label>
+        <input type="number" id="mesesInvestimento" value="12" autocomplete="off">
+
+        <!-- Ranking aparece aqui -->
+        <div id="resultadoInvestimentos"></div>
+
+      </div>
+
+      <!-- 🔹 LADO DIREITO -->
+      <div class="ladoGrafico">
+        <canvas id="graficoInvestimentos"></canvas>
+      </div>
+
+    </div>
+    <div id="tradingview_chart"></div>
+
+
+    <hr>
+
+    <!-- 🔹 Crescimento mensal animado -->
+    <h3>📈 Crescimento Mês a Mês</h3>
+    <canvas id="graficoRapido"></canvas>
+
+  </section>
+
+  <section class="card">
+    <h2>💰 Calculadora do Primeiro Milhão</h2>
+    <p>Use o valor das sobras do orçamento acima para simular quanto tempo leva para juntar R$ 1.000.000.</p>
+
+    <div class="gridMilhao">
+
+      <div>
+        <label>Valor inicial:</label>
+        <input type="text" id="valorInicial" placeholder="R$ 0,00" autocomplete="off">
+      </div>
+
+      <div>
+        <label>Valor mensal:</label>
+        <input type="text" id="valorMensal" placeholder="R$ 0,00" autocomplete="off">
+      </div>
+
+      <div>
+        <label>Taxa de juros anual (%):</label>
+        <input type="number" id="taxaJuros" placeholder="8" autocomplete="off">
+      </div>
+
+    </div>
+
+    <button id="calcularMilhao">Calcular</button>
+
+    <div id="resultadoMilhao"></div>
+
+    <canvas id="graficoMilhao"></canvas>
+  </section>
+
+
+
+  <!-- Modal - Explicação de Investimentos -->
+  <div id="overlayModal" class="overlayModal"></div>
+
+  <div id="modalInvestimento" class="modalInvestimento">
+    <button class="btnFecharModal">&times;</button>
+
+    <h2>🚀 Como Usar a Comparação de Investimentos</h2>
+
+    <div class="containerCardsModal">
+      <div class="cardExplicacao">
+        <h3>1️⃣ Passo 1: Valor Mensal</h3>
+        <p>O valor das suas sobras é automaticamente preenchido na seção "Comparação de Investimentos". Este é o valor
+          mensal que você pode investir.</p>
+        <div class="alertaModal alerta-info">
+          <strong>💡 Dica:</strong> Quanto maior o valor e mais tempo investindo, maior será seu retorno!
+        </div>
+      </div>
+
+      <div class="cardExplicacao">
+        <h3>2️⃣ Passo 2: Escolha o Tempo</h3>
+        <p>Defina quantos meses você pretende investir. A simulação mostrará quanto você terá ao final do período.</p>
+        <div class="alertaModal alerta-info">
+          <strong>💡 Dica:</strong> Investimentos a longo prazo (12+ meses) costumam ter melhores retornos!
+        </div>
+      </div>
+
+      <div class="cardExplicacao">
+        <h3>3️⃣ Passo 3: Compare os Investimentos</h3>
+        <p>As opções aparecem em um ranking. Veja qual investimento oferece o melhor retorno para você. O gráfico mostra
+          a evolução mês a mês.</p>
+        <div class="alertaModal alerta-sucesso">
+          <strong>✅ Resultado:</strong> O investimento no topo do ranking é o mais rentável para seu cenário!
+        </div>
+      </div>
+
+      <div class="cardExplicacao">
+        <h3>4️⃣ Passo 4: Simule Seu Primeiro Milhão</h3>
+        <p>Use a seção "Calculadora do Primeiro Milhão" abaixo para descobrir quanto tempo levará para atingir R$
+          1.000.000!</p>
+        <div class="alertaModal alerta-sucesso">
+          <strong>✅ Meta:</strong> Comece agora mesmo com pequenos valores e veja seu patrimônio crescer!
+        </div>
+      </div>
+    </div>
+
+    <div class="alertaDestacado">
+      <h4>🎯 Resumo Rápido</h4>
+      <p>Quanto <strong>maior</strong> o valor mensal, <strong>menor</strong> o tempo de investimento,
+        <strong>melhor</strong> a taxa = <strong>mais riqueza</strong> gerada!
+      </p>
+    </div>
+
+    <button id="btnComecar" class="btnComecar">Vamos Começar! 🎉</button>
+  </div>
+
+  <!-- Tour de orientação -->
+  <div id="overlayTour" class="overlayTour"></div>
+  <div id="tourMessage" class="tourMessage">
+    <p id="tourText"></p>
+    <div class="tourButtons">
+      <button id="tourPrev">Anterior</button>
+      <button id="tourNext">Próximo</button>
+      <button id="tourEnd">Finalizar</button>
+    </div>
+  </div>
+
+  <!-- Script principal -->
+  <script type="module" src="../js/app.js"></script>
+  <script src="https://s3.tradingview.com/tv.js"></script>
+
+</body>
+
+</html>

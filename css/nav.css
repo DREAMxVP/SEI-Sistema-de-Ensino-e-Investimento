@@ -1,0 +1,80 @@
+.menuTopo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #6D6B6B;
+    padding: 0;
+}
+
+.listaMenu {
+    list-style: none;
+    gap: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.listaMenu li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #5C5C5C;
+}
+
+.listaMenu li:first-child {
+    border-left: 1px solid #5C5C5C;
+}
+
+.listaMenu li:last-child {
+    border-right: none;
+}
+
+.listaMenu li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.listaMenu li a:hover {
+    background-color: #3C3C3C;
+    color: #00ff9d;
+    transform: translateY(-1px);
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.barraPesquisaLi {
+    padding: 0 15px !important;
+}
+
+.inputPesquisa {
+    width: 280px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.inputPesquisa:focus {
+    box-shadow: 0 0 8px rgba(0, 255, 157, 0.5);
+    background-color: #f0f0f0;
+    transform: none;
+}
+
+.inputPesquisa::placeholder {
+    color: #999;
+}

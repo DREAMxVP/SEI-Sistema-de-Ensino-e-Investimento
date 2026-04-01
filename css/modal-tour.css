@@ -1,0 +1,203 @@
+.overlayModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+
+.overlayModal.ativo {
+    display: block;
+}
+
+.modalInvestimento {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2b2b2b;
+    border: 2px solid #6f6f72;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+    animation: slideInModal 0.5s ease;
+}
+
+.modalInvestimento.ativo {
+    display: block;
+}
+
+.modalInvestimento h2 {
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 28px;
+}
+
+.btnFecharModal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #ddd;
+    font-size: 32px;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 0;
+}
+
+.btnFecharModal:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.containerCardsModal {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.cardExplicacao {
+    background: #3f3f42;
+    border: 1px solid #6f6f72;
+    border-radius: 15px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.cardExplicacao:hover {
+    background: #4a4a4d;
+    transform: translateY(-3px);
+}
+
+.cardExplicacao h3 {
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.cardExplicacao p {
+    color: #ddd;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.btnComecar,
+.btnSaibaInvestir {
+    background: linear-gradient(135deg, #5c5c5c 0%, #3f3f42 100%);
+    border: 1px solid #8a8a8a;
+    color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btnComecar {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 18px;
+}
+
+.btnSaibaInvestir {
+    padding: 12px 25px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.btnComecar:hover,
+.btnSaibaInvestir:hover {
+    transform: scale(1.02);
+}
+
+.modalInvestimento::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modalInvestimento::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modalInvestimento::-webkit-scrollbar-thumb {
+    background: #8a8a8a;
+    border-radius: 4px;
+}
+
+.modalInvestimento::-webkit-scrollbar-thumb:hover {
+    background: #b0b0b0;
+}
+
+.overlayTour {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+}
+
+.overlayTour.ativo {
+    display: block;
+}
+
+.tourMessage {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2b2b2b;
+    border: 2px solid #6f6f72;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    z-index: 2001;
+    color: #fff;
+    text-align: center;
+}
+
+.tourMessage p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.tourButtons button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background: #4c4c4c;
+    border: 1px solid #8a8a8a;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tourButtons button:hover {
+    background: #5c5c5c;
+    transform: scale(1.03);
+}
+
+.tourHighlight {
+    position: relative;
+    z-index: 2002 !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+}

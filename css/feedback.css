@@ -1,0 +1,63 @@
+.alertaFlutuante {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    text-align: center;
+    justify-content: center;
+    background: #4c4c4c;
+    padding: 10px 18px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+    animation: fadeIn 0.5s ease;
+}
+
+.alertaFlutuante.saindo {
+    animation: slideUp 0.5s ease;
+    animation-fill-mode: forwards;
+}
+
+.alertaModal {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border-left: 4px solid;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.alertaModal strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alerta-info {
+    background: rgba(100, 150, 255, 0.15);
+    border-left-color: #6496ff;
+    color: #a8d0ff;
+}
+
+.alerta-sucesso {
+    background: rgba(0, 255, 157, 0.15);
+    border-left-color: #00ff9d;
+    color: #80ffce;
+}
+
+.alertaDestacado {
+    background: #3f3f42;
+    border: 1px solid #6f6f72;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.alertaDestacado h4 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.alertaDestacado p {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.6;
+}

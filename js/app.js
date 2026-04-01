@@ -1,5 +1,12 @@
 import { simularTodos, crescimentoMensal } from "./analysis.js";
 
+const configuracaoApi = {
+  brapiBaseUrl: "https://brapi.dev/api",
+  brapiToken: "",
+  intervaloAtualizacaoGeralMs: 30000,
+  intervaloAtualizacaoWatchlistMs: 30000
+};
+
 const investimentos = {
   "Poupança": 6.17,
   "Tesouro Selic": 13.25,
@@ -9,13 +16,36 @@ const investimentos = {
   "Fundo DI": 12.8
 };
 
-// Function to update investments
-function atualizarInvestimentos(cdiRate) {
-  investimentos["Tesouro Selic"] = cdiRate;
-  investimentos["CDB 100% CDI"] = cdiRate;
-  investimentos["CDB 110% CDI"] = cdiRate * 1.1;
-  investimentos["LCI/LCA"] = cdiRate * 0.95;
-  investimentos["Fundo DI"] = cdiRate * 0.98;
+const estadoIndicadores = {
+  cdi: 13.25,
+  selic: 13.25
+};
+
+const configuracaoTaxasInvestimentos = {
+  "Poupança": { tipo: "fixo", valor: 6.17 },
+  "Tesouro Selic": { tipo: "selic", ajuste: 0 },
+  "CDB 100% CDI": { tipo: "cdiMultiplicador", multiplicador: 1 },
+  "CDB 110% CDI": { tipo: "cdiMultiplicador", multiplicador: 1.1 },
+  "LCI/LCA": { tipo: "cdiMultiplicador", multiplicador: 0.95 },
+  "Fundo DI": { tipo: "cdiMultiplicador", multiplicador: 0.98 }
+};
+
+function atualizarTaxasInvestimentos(indicadores) {
+  Object.entries(configuracaoTaxasInvestimentos).forEach(([nome, config]) => {
+    if (config.tipo === "fixo") {
+      investimentos[nome] = config.valor;
+      return;
+    }
+
+    if (config.tipo === "selic") {
+      investimentos[nome] = (indicadores.selic ?? estadoIndicadores.selic) + (config.ajuste ?? 0);
+      return;
+    }
+
+    if (config.tipo === "cdiMultiplicador") {
+      investimentos[nome] = (indicadores.cdi ?? estadoIndicadores.cdi) * (config.multiplicador ?? 1);
+    }
+  });
 }
 
 // Modify simularTodos to use the local investimentos
@@ -115,7 +145,7 @@ setInterval(async () => {
   const melhor = resultados[0];
   const historico = crescimentoMensalLocal(valorPadrao, melhor.taxa, mesesPadrao);
   atualizarGraficoMensal(historico);
-}, 30000);
+}, configuracaoApi.intervaloAtualizacaoGeralMs);
 
 
 // 🔥 TABELA PROFISSIONAL
@@ -134,7 +164,7 @@ function criarTabelaRanking(resultados) {
   document.getElementById("resultadoInvestimentos").innerHTML = html;
 }
 
-const ativosFake = [
+const ativosFallback = [
   { nome: "PETR4", variacao: -2.55 },
   { nome: "ITSA4", variacao: -2.20 },
   { nome: "BBAS3", variacao: 4.50 },
@@ -142,27 +172,66 @@ const ativosFake = [
   { nome: "VALE3", variacao: -0.95 }
 ];
 
-function carregarWatchlist() {
+const configuracaoWatchlistApi = {
+  simbolos: ["PETR4", "VALE3", "MGLU3", "ITUB4"]
+};
+
+function renderWatchlist(itens) {
   const lista = document.getElementById("listaAtivos");
+  if (!lista) {
+    return;
+  }
+
   lista.innerHTML = "";
 
-  ativosFake.forEach(ativo => {
+  itens.forEach((ativo) => {
     const div = document.createElement("div");
     div.classList.add("watchItem");
 
-    const cor = ativo.variacao > 0 ? "#00ff9d" : "#ff4d6d";
+    const variacao = Number(ativo.variacao ?? 0);
+    const cor = variacao > 0 ? "#00ff9d" : "#ff4d6d";
+    const variacaoTexto = `${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%`;
+    const precoTexto = Number.isFinite(Number(ativo.preco))
+      ? ` • ${formatarMoedaBRL(ativo.preco)}`
+      : "";
 
     div.innerHTML = `
       <div>
         <strong>${ativo.nome}</strong>
       </div>
       <span style="color:${cor}">
-        ${ativo.variacao > 0 ? "+" : ""}${ativo.variacao}%
+        ${variacaoTexto}${precoTexto}
       </span>
     `;
 
     lista.appendChild(div);
   });
+}
+
+async function carregarWatchlistApi() {
+  try {
+    const simbolos = configuracaoWatchlistApi.simbolos.join(",");
+    const data = await buscarJsonBrapi(`/quote/${simbolos}?range=1d&interval=1d`);
+
+    const ativos = (data?.results || []).map((item) => ({
+      nome: item.symbol,
+      variacao: Number(item.regularMarketChangePercent ?? 0),
+      preco: Number(item.regularMarketPrice)
+    }));
+
+    if (!ativos.length) {
+      renderWatchlist(ativosFallback);
+      return;
+    }
+
+    renderWatchlist(ativos);
+  } catch {
+    renderWatchlist(ativosFallback);
+  }
+}
+
+function carregarWatchlist() {
+  carregarWatchlistApi();
 }
 
 carregarWatchlist();
@@ -197,10 +266,80 @@ async function atualizarIndice(simbolo, elementoId) {
   }
 }
 
-// Atualiza a cada 30 segundos
 setInterval(() => {
-  atualizarIndice("PETR4.SAO", "indice1");
-}, 30000);
+  carregarWatchlistApi();
+}, configuracaoApi.intervaloAtualizacaoWatchlistMs);
+
+function formatarMoedaBRL(valor) {
+  const numero = Number(valor);
+  if (!Number.isFinite(numero)) {
+    return "R$ 0,00";
+  }
+
+  return numero.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+async function buscarJsonBrapi(caminho) {
+  const headers = {};
+
+  if (configuracaoApi.brapiToken) {
+    headers.Authorization = `Bearer ${configuracaoApi.brapiToken}`;
+  }
+
+  const resposta = await fetch(`${configuracaoApi.brapiBaseUrl}${caminho}`, { headers });
+  return resposta.json();
+}
+
+async function buscarQuoteBrapi(simbolo) {
+  const dados = await buscarJsonBrapi(`/quote/${encodeURIComponent(simbolo)}?range=1d&interval=1d`);
+  return dados?.results?.[0] || null;
+}
+
+async function buscarIbovComFallback() {
+  try {
+    const simbolosBrapi = ["^BVSP", "IBOV"];
+
+    for (const simbolo of simbolosBrapi) {
+      const quote = await buscarQuoteBrapi(simbolo);
+      const valor = Number(quote?.regularMarketPrice);
+      const variacao = Number(quote?.regularMarketChangePercent);
+
+      if (Number.isFinite(valor)) {
+        return { valor, variacao: Number.isFinite(variacao) ? variacao : undefined };
+      }
+    }
+  } catch {
+  }
+
+  try {
+    const response = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^BVSP&apikey=${API_KEY}`);
+    const data = await response.json();
+    const quote = data["Global Quote"];
+
+    if (!quote) {
+      return null;
+    }
+
+    const valor = parseFloat(quote["05. price"]);
+    const variacao = parseFloat((quote["10. change percent"] || "").replace("%", ""));
+
+    if (!Number.isFinite(valor)) {
+      return null;
+    }
+
+    return {
+      valor,
+      variacao: Number.isFinite(variacao) ? variacao : undefined
+    };
+  } catch {
+    return null;
+  }
+}
 
 async function atualizarDolar() {
   const response = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL");
@@ -210,11 +349,14 @@ async function atualizarDolar() {
   const variacao = parseFloat(data.USDBRL.pctChange);
 
   document.getElementById("dolar").innerHTML = `
-    💵 Dólar: R$ ${valor.toFixed(2)} 
-    <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
-      ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
-    </span>
+    <a href="https://analitica.auvp.com.br/indices" target="_blank" rel="noopener noreferrer">
+      💵 Dólar: ${formatarMoedaBRL(valor)}
+      <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
+        ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
+      </span>
+    </a>
   `;
+  aplicarFadeEmElemento("dolar");
 }
 
 async function atualizarEuro() {
@@ -225,11 +367,14 @@ async function atualizarEuro() {
   const variacao = parseFloat(data.EURBRL.pctChange);
 
   document.getElementById("euro").innerHTML = `
-    💶 Euro: R$ ${valor.toFixed(2)} 
-    <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
-      ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
-    </span>
+    <a href="https://analitica.auvp.com.br/indices" target="_blank" rel="noopener noreferrer">
+      💶 Euro: ${formatarMoedaBRL(valor)}
+      <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
+        ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
+      </span>
+    </a>
   `;
+  aplicarFadeEmElemento("euro");
 }
 
 async function atualizarBitcoin() {
@@ -240,43 +385,124 @@ async function atualizarBitcoin() {
   const variacao = parseFloat(data.BTCBRL.pctChange);
 
   document.getElementById("bitcoin").innerHTML = `
-    ₿ Bitcoin: R$ ${valor.toLocaleString("pt-BR")}
-    <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
-      ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
-    </span>
+    <a href="https://analitica.auvp.com.br/indices" target="_blank" rel="noopener noreferrer">
+      ₿ Bitcoin: ${formatarMoedaBRL(valor)}
+      <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
+        ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
+      </span>
+    </a>
   `;
+  aplicarFadeEmElemento("bitcoin");
 }
 
 async function atualizarIBOV() {
   try {
-    const response = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^BVSP&apikey=${API_KEY}`);
-    const data = await response.json();
-    const quote = data["Global Quote"];
+    const ibov = await buscarIbovComFallback();
 
-    if (quote) {
-      const valor = parseFloat(quote["05. price"]);
-      const variacao = parseFloat(quote["10. change percent"].replace("%", ""));
-
-      document.getElementById("ibov").innerHTML = `
-        📈 IBOV: ${valor.toLocaleString("pt-BR")}
-        <span style="color:${variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
-          ${variacao > 0 ? "+" : ""}${variacao.toFixed(2)}%
-        </span>
-      `;
+    if (!ibov) {
+      return;
     }
+
+    const variacaoTexto = typeof ibov.variacao === "number"
+      ? `<span style="color:${ibov.variacao > 0 ? "#00ff9d" : "#ff4d6d"}">
+          ${ibov.variacao > 0 ? "+" : ""}${ibov.variacao.toFixed(2)}%
+        </span>`
+      : "";
+
+    document.getElementById("ibov").innerHTML = `
+      📈 IBOV: ${formatarMoedaBRL(ibov.valor)}
+      ${variacaoTexto}
+    `;
   } catch (error) {
     console.log("Erro ao atualizar IBOV:", error);
   }
 }
 
 async function atualizarCDI() {
-  // Usar CDI fixo por enquanto, já que a API está retornando dados incorretos
-  const cdiRate = 13.25;
+  const cdiRate = await buscarTaxaBCB(12, 13.25);
+  estadoIndicadores.cdi = cdiRate;
+
   document.getElementById("cdi").innerHTML = `
     💰 CDI (último valor): ${cdiRate.toFixed(2)}%
   `;
-  atualizarInvestimentos(cdiRate);
+  atualizarTaxasInvestimentos(estadoIndicadores);
 }
+
+async function buscarTaxaBCB(codigoSerie, fallback) {
+  try {
+    const resposta = await fetch(`https://api.bcb.gov.br/dados/serie/bcdata.sgs.${codigoSerie}/dados?formato=json`);
+    const dados = await resposta.json();
+    const ultimo = dados[dados.length - 1];
+    return parseFloat(ultimo.valor);
+  } catch {
+    return fallback;
+  }
+}
+
+function renderIndicadorApi(id, titulo, valor, variacao, link) {
+  const elemento = document.getElementById(id);
+
+  if (!elemento) {
+    return;
+  }
+
+  const variacaoTexto = typeof variacao === "number"
+    ? `<span style="color:${variacao >= 0 ? "#00ff9d" : "#ff4d6d"}"> ${variacao >= 0 ? "+" : ""}${variacao.toFixed(2)}%</span>`
+    : "";
+
+  elemento.innerHTML = `
+    <a href="${link}" target="_blank" rel="noopener noreferrer">
+      ${titulo}: ${valor}${variacaoTexto}
+    </a>
+  `;
+  aplicarFadeEmElemento(id);
+}
+
+async function atualizarIndicadoresApi() {
+  const [cdi, selic] = await Promise.all([
+    buscarTaxaBCB(12, 13.25),
+    buscarTaxaBCB(11, 13.25)
+  ]);
+
+  estadoIndicadores.cdi = cdi;
+  estadoIndicadores.selic = selic;
+  atualizarTaxasInvestimentos(estadoIndicadores);
+
+  renderIndicadorApi("cdiTicker", "CDI", `${cdi.toFixed(2)}%`, undefined, "https://analitica.auvp.com.br/indices/cdi");
+  renderIndicadorApi("selicTicker", "SELIC", `${selic.toFixed(2)}%`, undefined, "https://analitica.auvp.com.br/renda-fixa");
+
+  try {
+    const ibov = await buscarIbovComFallback();
+
+    if (ibov) {
+      renderIndicadorApi("ibovTicker", "IBOV", formatarMoedaBRL(ibov.valor), ibov.variacao, "https://analitica.auvp.com.br/indices/IBOV");
+    } else {
+      renderIndicadorApi("ibovTicker", "IBOV", "R$ --", undefined, "https://analitica.auvp.com.br/indices/IBOV");
+    }
+  } catch {
+    renderIndicadorApi("ibovTicker", "IBOV", "R$ --", undefined, "https://analitica.auvp.com.br/indices/IBOV");
+  }
+
+  try {
+    const ifix = await buscarQuoteBrapi("IFIX");
+
+    if (ifix) {
+      renderIndicadorApi(
+        "ifixTicker",
+        "IFIX",
+        formatarMoedaBRL(Number(ifix.regularMarketPrice || 0)),
+        Number(ifix.regularMarketChangePercent),
+        "https://analitica.auvp.com.br/indices/ifix"
+      );
+    } else {
+      renderIndicadorApi("ifixTicker", "IFIX", "R$ --", undefined, "https://analitica.auvp.com.br/indices/ifix");
+    }
+  } catch {
+    renderIndicadorApi("ifixTicker", "IFIX", "R$ --", undefined, "https://analitica.auvp.com.br/indices/ifix");
+  }
+}
+
+let tickerMoedasController = null;
 
 async function atualizarIndices() {
   await atualizarDolar();
@@ -284,7 +510,115 @@ async function atualizarIndices() {
   await atualizarCDI();
   await atualizarEuro();
   await atualizarBitcoin();
+  await atualizarIndicadoresApi();
 }
+
+function aplicarFadeEmElemento(elementoId) {
+  const elemento = document.getElementById(elementoId);
+  if (!elemento) return;
+  
+  elemento.style.animation = 'none';
+  setTimeout(() => {
+    elemento.style.animation = 'fadeUpdate 0.4s ease-in-out';
+  }, 10);
+}
+
+function configurarTickerMoedasIndividual() {
+  const container = document.querySelector(".indicesMoedas");
+  const faixaMoedas = document.querySelector(".moedas");
+
+  if (!container || !faixaMoedas) {
+    return;
+  }
+
+  const itens = Array.from(faixaMoedas.children);
+
+  if (!itens.length) {
+    return;
+  }
+
+  const espacamento = 48;
+  const velocidadePixelsPorSegundo = 45;
+  const estado = itens.map((item) => ({ item, x: 0, largura: 0 }));
+  let ultimoFrame = null;
+
+  const medirItens = () => {
+    estado.forEach((entrada) => {
+      entrada.largura = Math.max(entrada.item.offsetWidth, 140);
+    });
+  };
+
+  const posicionarInicio = () => {
+    const larguraContainer = container.clientWidth;
+    let acumulado = larguraContainer;
+
+    estado.forEach((entrada) => {
+      entrada.x = acumulado;
+      acumulado += entrada.largura + espacamento;
+      entrada.item.style.transform = `translate3d(${entrada.x}px, -50%, 0)`;
+    });
+  };
+
+  const animar = (tempoAtual) => {
+    if (ultimoFrame === null) {
+      ultimoFrame = tempoAtual;
+      requestAnimationFrame(animar);
+      return;
+    }
+
+    const deltaSegundos = (tempoAtual - ultimoFrame) / 1000;
+    ultimoFrame = tempoAtual;
+    const deslocamento = velocidadePixelsPorSegundo * deltaSegundos;
+
+    let maiorDireita = -Infinity;
+
+    estado.forEach((entrada) => {
+      entrada.x -= deslocamento;
+      const direitaAtual = entrada.x + entrada.largura;
+
+      if (direitaAtual > maiorDireita) {
+        maiorDireita = direitaAtual;
+      }
+    });
+
+    estado.forEach((entrada) => {
+      const saiuDaTela = entrada.x + entrada.largura < 0;
+
+      if (saiuDaTela) {
+        entrada.x = maiorDireita + espacamento;
+        maiorDireita = entrada.x + entrada.largura;
+      }
+
+      entrada.item.style.transform = `translate3d(${entrada.x}px, -50%, 0)`;
+    });
+
+    requestAnimationFrame(animar);
+  };
+
+  const reiniciarTicker = () => {
+    medirItens();
+    posicionarInicio();
+    ultimoFrame = null;
+  };
+
+  let resizeTimeout;
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      reiniciarTicker();
+    }, 300);
+  };
+
+  reiniciarTicker();
+  window.addEventListener("resize", handleResize);
+  requestAnimationFrame(animar);
+
+  return {
+    recalcularLayout: reiniciarTicker
+  };
+}
+
+tickerMoedasController = configurarTickerMoedasIndividual();
 
 // Atualiza ao carregar
 atualizarIndices();
@@ -668,12 +1002,38 @@ function perguntaMilhao() {
   };
 }
 
-
 // Event listeners do modal
 document.addEventListener("DOMContentLoaded", () => {
   const btnFechar = document.querySelector(".btnFecharModal");
   const btnComecar = document.getElementById("btnComecar");
   const overlay = document.getElementById("overlayModal");
+  const topoFixo = document.querySelector(".topo");
+  const OFFSET_MINIMO_TOPO = 160;
+
+  const atualizarOffsetTopo = () => {
+    if (!topoFixo) return;
+    const alturaTopo = Math.ceil(topoFixo.offsetHeight || topoFixo.getBoundingClientRect().height || 0);
+    const offsetFinal = Math.max(alturaTopo + 10, OFFSET_MINIMO_TOPO);
+    document.documentElement.style.setProperty("--topo-offset", `${offsetFinal}px`);
+  };
+
+  let resizeTimeout;
+  const atualizarOffsetTopoDebounced = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(atualizarOffsetTopo, 120);
+  };
+
+  atualizarOffsetTopo();
+  window.addEventListener("resize", atualizarOffsetTopoDebounced);
+  window.addEventListener("load", atualizarOffsetTopo);
+  setTimeout(atualizarOffsetTopo, 250);
+
+  if (topoFixo && "ResizeObserver" in window) {
+    const observadorTopo = new ResizeObserver(() => {
+      atualizarOffsetTopoDebounced();
+    });
+    observadorTopo.observe(topoFixo);
+  }
   
   if (btnFechar) {
     btnFechar.addEventListener("click", fecharModalInvestimento);
@@ -692,7 +1052,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startTour(stepsComparacao, perguntaMilhao);
     });
   }
-  
+
   // Fechar modal ao clicar no overlay
   if (overlay) {
     overlay.addEventListener("click", fecharModalInvestimento);
@@ -704,4 +1064,48 @@ document.addEventListener("DOMContentLoaded", () => {
       fecharModalInvestimento();
     }
   });
+  
+  // Sistema de scroll para ocultar/mostrar header
+  let ultimoScrollY = 0;
+  const LIMIAR_ESCONDER = 90;
+  const LIMIAR_MOSTRAR = 10;
+  
+  window.addEventListener("scroll", () => {
+    const topo = document.querySelector(".topo");
+    if (!topo) return;
+
+    const scrollAtual = Math.max(window.scrollY, 0);
+    const delta = scrollAtual - ultimoScrollY;
+    
+    if (scrollAtual <= 50) {
+      topo.classList.remove("hidden");
+      ultimoScrollY = scrollAtual;
+      return;
+    }
+
+    if (delta > LIMIAR_MOSTRAR && scrollAtual > LIMIAR_ESCONDER) {
+      topo.classList.add("hidden");
+    } else if (delta < -LIMIAR_MOSTRAR) {
+      topo.classList.remove("hidden");
+    }
+
+    ultimoScrollY = scrollAtual;
+  }, { passive: true });
 });
+
+
+import { neonCursor } from 'https://unpkg.com/threejs-toys@0.0.8/build/threejs-toys.module.cdn.min.js'
+
+neonCursor({
+  el: document.getElementById('app'),
+  shaderPoints: 16,
+  curvePoints: 80,
+  curveLerp: 0.5,
+  radius1: 5,
+  radius2: 30,
+  velocityTreshold: 10,
+  sleepRadiusX: 100,
+  sleepRadiusY: 100,
+  sleepTimeCoefX: 0.0025,
+  sleepTimeCoefY: 0.0025
+})

@@ -1,0 +1,56 @@
+@media (max-width: 900px) {
+    .card {
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin: 8px auto;
+        width: min(1200px, calc(100% - 16px));
+    }
+
+    .containerCardsModal {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .gridMilhao,
+    .gridOrcamento,
+    .layoutPrincipal {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: min(1200px, calc(100% - 16px));
+    }
+
+    .gridOrcamento > div,
+    .gridMilhao > div,
+    .ladoValores,
+    .ladoGrafico {
+        padding: 10px;
+    }
+
+    .indicesTop {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px 2px;
+    }
+}
+
+@media (max-width: 600px) {
+    .topo h1 {
+        font-size: 1.2rem;
+    }
+
+    .listaMenu li a {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .inputPesquisa {
+        width: 220px;
+    }
+
+    .card {
+        padding: 12px;
+        border-radius: 6px;
+        margin: 6px auto;
+        width: min(1200px, calc(100% - 12px));
+    }
+}

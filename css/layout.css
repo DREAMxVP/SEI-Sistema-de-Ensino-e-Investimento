@@ -1,0 +1,153 @@
+.card {
+    background: #6D6D6D;
+    border: 1px solid #5c5c5c;
+    padding: 18px 20px;
+    margin: 16px auto;
+    width: min(1200px, calc(100% - 24px));
+    box-sizing: border-box;
+    border-radius: 14px;
+    box-shadow: 0 0 20px 5px rgba(109, 109, 109, 0.5);
+}
+
+.card h2,
+.card h3 {
+    margin: 0 0 14px;
+    line-height: 1.25;
+}
+
+.card p {
+    margin: 0 0 12px;
+    line-height: 1.45;
+}
+
+.topoComparacao {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.ladoValores {
+    flex: 1;
+}
+
+.ladoGrafico {
+    flex: 1;
+}
+
+.indicesTop {
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+    padding: 12px 8px;
+    flex-wrap: wrap;
+}
+
+.investimentos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.investimentos h3 {
+    color: #fff;
+    margin-bottom: 6px;
+    font-size: 16px;
+}
+
+.indice {
+    font-size: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid #3f3f42;
+}
+
+.positivo span {
+    color: #00ff9d;
+}
+
+.negativo span {
+    color: #ff4d6d;
+}
+
+.layoutPrincipal {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    width: min(1220px, calc(100% - 24px));
+    margin: 18px auto;
+    align-items: start;
+}
+
+.watchlist {
+    background: #666;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid #5c5c5c;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+}
+
+.watchlist h3 {
+    margin: 0 0 10px;
+}
+
+.watchItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #3f3f42;
+}
+
+.watchItem span {
+    font-weight: bold;
+}
+
+.conteudoPrincipal {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#resultadoMilhao {
+    margin-top: 20px;
+    padding: 15px;
+    background: #2b2b2b;
+    border-radius: 10px;
+    border: 1px solid #5c5c5c;
+}
+
+.gridMilhao {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+#graficoMilhao {
+    margin-top: 30px;
+}
+
+.gridOrcamento {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.gridOrcamento > div,
+.gridMilhao > div,
+.ladoValores {
+    background: rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.ladoValores {
+    min-width: 280px;
+}
+
+.ladoGrafico {
+    background: rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+}

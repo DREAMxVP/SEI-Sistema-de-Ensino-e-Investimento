@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>SEI - Sistema de Educação Inteligente</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/intro.css">
+</head>
+<body>
+
+    <!-- BOAS VINDAS -->
+
+    <div class="bg-dolar" id="bgDolar" aria-hidden="true"></div>
+
+    <main class="pr1">
+        <h1>Bem-vindo ao SEI - Sistema de Educação Inteligente</h1>
+        <p>Seu acesso foi realizado com sucesso. A partir daqui, você poderá organizar seu orçamento, comparar investimentos e entender cada ferramenta da plataforma.</p>
+
+        <p>Ao clicar em <strong>COMEÇAR</strong>, você será levado para a página principal para iniciar o uso da plataforma.</p>
+
+        <p>O que antes você não sabia, agora pode dizer: <strong>eu SEI</strong>.</p>
+
+        <button id="btnIrParaInicio" type="button">COMEÇAR</button>
+    </main>
+
+    <script>
+        const fundoDolar = document.getElementById("bgDolar");
+        const TOTAL_ICONES = 32;
+        const ICONE_DOLAR_URL = "../src/img/dolar.png";
+
+        const ponteiro = {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2,
+            ativo: false
+        };
+
+        const icones = Array.from({ length: TOTAL_ICONES }, () => {
+            const elemento = document.createElement("span");
+            elemento.className = "coin";
+            elemento.style.backgroundImage = `url(${ICONE_DOLAR_URL})`;
+            fundoDolar.appendChild(elemento);
+
+            const tamanho = 16 + Math.random() * 24;
+
+            return {
+                elemento,
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                tamanho,
+                opacidade: 0.14 + Math.random() * 0.3,
+                velocidadeVertical: (Math.random() - 0.5) * 0.12,
+                amplitude: 6 + Math.random() * 14,
+                fase: Math.random() * Math.PI * 2,
+                velocidadeOscilacao: 0.0008 + Math.random() * 0.0018,
+                rotacaoBase: Math.random() * 360,
+                velocidadeRotacao: (Math.random() - 0.5) * 0.025
+            };
+        });
+
+        function atualizarTamanhoViewport() {
+            const largura = window.innerWidth;
+            const altura = window.innerHeight;
+
+            icones.forEach((icone) => {
+                icone.x = Math.min(icone.x, largura - icone.tamanho);
+                icone.y = Math.min(icone.y, altura - icone.tamanho);
+            });
+        }
+
+        function animarIcones(tempoAtual) {
+            const larguraViewport = window.innerWidth;
+            const alturaViewport = window.innerHeight;
+
+            icones.forEach((icone) => {
+                icone.y += icone.velocidadeVertical;
+
+                if (icone.y < -icone.tamanho) {
+                    icone.y = alturaViewport + icone.tamanho;
+                }
+
+                if (icone.y > alturaViewport + icone.tamanho) {
+                    icone.y = -icone.tamanho;
+                }
+
+                const oscilacaoX = Math.sin(tempoAtual * icone.velocidadeOscilacao + icone.fase) * icone.amplitude;
+                const oscilacaoY = Math.cos(tempoAtual * icone.velocidadeOscilacao + icone.fase) * (icone.amplitude * 0.35);
+
+                let deslocamentoMouseX = 0;
+                let deslocamentoMouseY = 0;
+
+                if (ponteiro.ativo) {
+                    const centroX = icone.x + icone.tamanho / 2;
+                    const centroY = icone.y + icone.tamanho / 2;
+                    const deltaX = centroX - ponteiro.x;
+                    const deltaY = centroY - ponteiro.y;
+                    const distancia = Math.hypot(deltaX, deltaY) || 1;
+                    const raioInfluencia = 220;
+
+                    if (distancia < raioInfluencia) {
+                        const intensidade = (1 - distancia / raioInfluencia) * 26;
+                        deslocamentoMouseX = (deltaX / distancia) * intensidade;
+                        deslocamentoMouseY = (deltaY / distancia) * intensidade;
+                    }
+                }
+
+                const xFinal = icone.x + oscilacaoX + deslocamentoMouseX;
+                const yFinal = icone.y + oscilacaoY + deslocamentoMouseY;
+                const rotacao = icone.rotacaoBase + tempoAtual * icone.velocidadeRotacao;
+
+                icone.elemento.style.width = `${icone.tamanho}px`;
+                icone.elemento.style.height = `${icone.tamanho}px`;
+                icone.elemento.style.opacity = String(icone.opacidade);
+                icone.elemento.style.transform = `translate3d(${xFinal}px, ${yFinal}px, 0) rotate(${rotacao}deg)`;
+            });
+
+            requestAnimationFrame(animarIcones);
+        }
+
+        window.addEventListener("mousemove", (evento) => {
+            ponteiro.x = evento.clientX;
+            ponteiro.y = evento.clientY;
+            ponteiro.ativo = true;
+        });
+
+        window.addEventListener("mouseleave", () => {
+            ponteiro.ativo = false;
+        });
+
+        window.addEventListener("resize", atualizarTamanhoViewport);
+        atualizarTamanhoViewport();
+        requestAnimationFrame(animarIcones);
+
+        document.getElementById("btnIrParaInicio")?.addEventListener("click", function () {
+            localStorage.removeItem("sei:autoStartTour");
+            window.location.href = "../index.html";
+        });
+    </script>
+
+
+</body>
+</html>

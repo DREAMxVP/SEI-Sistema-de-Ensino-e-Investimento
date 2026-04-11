@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>SEI - Sistema de Educação Inteligente</title>
@@ -7,6 +8,7 @@
     <!-- css -->
     <link rel="stylesheet" href="../css/intro.css">
 </head>
+
 <body>
 
     <!-- BOAS VINDAS -->
@@ -15,9 +17,13 @@
 
     <main class="pr1">
         <h1>Bem-vindo ao SEI - Sistema de Educação Inteligente</h1>
-        <p>Seu acesso foi realizado com sucesso. A partir daqui, você poderá organizar seu orçamento, comparar investimentos e entender cada ferramenta da plataforma.</p>
+        <p>Seu acesso foi realizado com sucesso. A partir daqui, você poderá organizar seu orçamento, comparar
+            investimentos e entender cada ferramenta da plataforma.</p>
 
-        <p>Ao clicar em <strong>COMEÇAR</strong>, você será levado para a página principal para iniciar o uso da plataforma.</p>
+        <p>O site irá proporcionar uma experiência completa para que você possa tomar decisões financeiras informadas. Aqui poderá explorar diversas funcionalidades e recursos educativos.</p>
+
+        <p>Ao clicar em <strong>COMEÇAR</strong>, você será levado para a página principal para iniciar o uso da
+            plataforma.</p>
 
         <p>O que antes você não sabia, agora pode dizer: <strong>eu SEI</strong>.</p>
 
@@ -137,6 +143,60 @@
         });
     </script>
 
+    <script>
+        (function () {
+            const dispositivoSemMouse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+            const reduzirMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            if (dispositivoSemMouse || reduzirMovimento) {
+                return;
+            }
+
+            if (document.body.querySelector(".cursorDot")) {
+                return;
+            }
+
+            const pontoPrincipal = document.createElement("div");
+            pontoPrincipal.className = "cursorDot";
+            document.body.appendChild(pontoPrincipal);
+
+            const trilhas = [];
+            const quantidadeTrilhas = 8;
+
+            for (let indice = 0; indice < quantidadeTrilhas; indice++) {
+                const trilha = document.createElement("div");
+                trilha.className = "cursorTrail";
+                trilha.style.opacity = String(0.34 - indice * 0.03);
+                document.body.appendChild(trilha);
+                trilhas.push({ elemento: trilha, x: window.innerWidth / 2, y: window.innerHeight / 2 });
+            }
+
+            let alvoX = window.innerWidth / 2;
+            let alvoY = window.innerHeight / 2;
+
+            window.addEventListener("mousemove", (evento) => {
+                alvoX = evento.clientX;
+                alvoY = evento.clientY;
+            });
+
+            function animarCursorFallback() {
+                trilhas.forEach((item, indice) => {
+                    const referencia = indice === 0 ? { x: alvoX, y: alvoY } : trilhas[indice - 1];
+                    item.x += (referencia.x - item.x) * 0.22;
+                    item.y += (referencia.y - item.y) * 0.22;
+
+                    item.elemento.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${1 - indice * 0.06})`;
+                });
+
+                pontoPrincipal.style.transform = `translate3d(${alvoX}px, ${alvoY}px, 0)`;
+                requestAnimationFrame(animarCursorFallback);
+            }
+
+            requestAnimationFrame(animarCursorFallback);
+        })();
+    </script>
+
 
 </body>
+
 </html>

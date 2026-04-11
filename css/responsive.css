@@ -1,9 +1,19 @@
+@media (max-width: 1200px) {
+    .calcGrid {
+        grid-template-columns: repeat(2, minmax(280px, 1fr));
+        gap: 16px;
+    }
+}
+
+/* ==============================
+   Tablet and Small Laptops
+================================= */
 @media (max-width: 900px) {
     .card {
         padding: 12px 14px;
         border-radius: 8px;
         margin: 8px auto;
-        width: min(1200px, calc(100% - 16px));
+        width: calc(100% - 16px);
     }
 
     .containerCardsModal {
@@ -16,7 +26,49 @@
     .layoutPrincipal {
         grid-template-columns: 1fr;
         gap: 10px;
-        width: min(1200px, calc(100% - 16px));
+        width: calc(100% - 16px);
+        margin: 8px auto;
+    }
+
+    .calcGrid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .calcLinhaDupla,
+    .calcLinhaQuatro {
+        grid-template-columns: 1fr;
+    }
+
+    .calcColunasLegenda {
+        grid-template-columns: 1fr;
+    }
+
+    .opcoesRankingInvestimentos {
+        gap: 6px;
+    }
+
+    .gridIndicesCompletos {
+        grid-template-columns: 1fr;
+    }
+
+    .painelIndicesLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .indicePainelDetalhe {
+        position: static;
+        top: auto;
+    }
+
+    .opcaoRanking {
+        width: 100%;
+        text-align: center;
+    }
+
+    #graficoInvestimentos,
+    #graficoRapido {
+        height: 320px !important;
     }
 
     .gridOrcamento > div,
@@ -33,6 +85,9 @@
     }
 }
 
+/* ==============================
+    Mobile Phones
+================================= */
 @media (max-width: 600px) {
     .topo h1 {
         font-size: 1.2rem;
@@ -51,6 +106,6 @@
         padding: 12px;
         border-radius: 6px;
         margin: 6px auto;
-        width: min(1200px, calc(100% - 12px));
+        width: calc(100% - 12px);
     }
 }

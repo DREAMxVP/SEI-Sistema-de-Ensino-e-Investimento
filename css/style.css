@@ -1,7 +1,27 @@
+/* ==============================
+	Core / Foundation
+================================= */
 @import url("./base.css");
+
+/* ==============================
+	Top Bar and Navigation
+================================= */
 @import url("./topo.css");
 @import url("./nav.css");
+
+/* ==============================
+	Main Page Sections
+================================= */
 @import url("./layout.css");
+
+/* ==============================
+	UI Feedback and Overlays
+================================= */
 @import url("./feedback.css");
 @import url("./modal-tour.css");
+
+/* ==============================
+	Responsive Overrides
+================================= */
 @import url("./responsive.css");
+

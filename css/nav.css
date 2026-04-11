@@ -1,21 +1,30 @@
+/* ==============================
+   Top Navigation Bar
+================================= */
 .menuTopo {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
     background-color: #6D6B6B;
     padding: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
 }
 
+/* ==============================
+   Navigation List
+================================= */
 .listaMenu {
     list-style: none;
     gap: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: stretch;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 0;
+    min-width: max-content;
 }
 
 .listaMenu li {
@@ -23,6 +32,7 @@
     display: flex;
     align-items: center;
     border-right: 1px solid #5C5C5C;
+    flex-shrink: 0;
 }
 
 .listaMenu li:first-child {

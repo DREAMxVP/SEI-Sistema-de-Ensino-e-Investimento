@@ -15,7 +15,7 @@
 <body>
 
   <!-- TOPO -->
-  <section class="topo">
+  <section class="topo" id="topoInicio">
     <div class="containerTopo">
       <h1>SEI - Sistema de Educação Inteligente</h1>
 
@@ -26,33 +26,41 @@
         <div class="moedas">
           <div id="dolar"></div>
           <div id="euro"></div>
+          <div id="libra"></div>
+          <div id="iene"></div>
+          <div id="yuan"></div>
+          <div id="pesoArgentino"></div>
+          <div id="dolarCanadense"></div>
           <div id="bitcoin"></div>
+          <div id="ethereum"></div>
           <div id="cdiTicker"></div>
           <div id="selicTicker"></div>
           <div id="ibovTicker"></div>
           <div id="ifixTicker"></div>
         </div>
       </section>
-    </div>
 
-    <nav class="menuTopo">
-      <ul class="listaMenu">
-        <li><a href="#">Início</a></li>
-        <li><a href="#">Simulações</a></li>
-        <li><a href="https://analitica.auvp.com.br/acoes" target="_blank" rel="noopener noreferrer">Ações</a></li>
-        <li><a href="https://analitica.auvp.com.br/fiis" target="_blank" rel="noopener noreferrer">FIIs</a></li>
-        <li><a href="https://analitica.auvp.com.br/etfs" target="_blank" rel="noopener noreferrer">ETFs</a></li>
-        <li class="barraPesquisaLi">
-          <input type="text" placeholder="Pesquise os próximos investimentos..." id="barraPesquisa" autocomplete="off"
-            class="inputPesquisa">
-        </li>
-        <li><a href="https://analitica.auvp.com.br/renda-fixa" target="_blank" rel="noopener noreferrer">Renda Fixa</a>
-        </li>
-        <li><a href="https://analitica.auvp.com.br/indices" target="_blank" rel="noopener noreferrer">Índices</a></li>
-        <li><a href="#investimentosMercado">Investimentos</a></li>
-        <li><a href="#">Contato</a></li>
-      </ul>
-    </nav>
+
+      <nav class="menuTopo">
+        <ul class="listaMenu">
+          <li><a href="#topoInicio" id="menuInicio">Início</a></li>
+          <li><a href="#hubSimulacoes" id="menuSimulacoes">Simulações</a></li>
+          <li><a href="#hubSimulacoes" id="menuCalculadoras">Calculadoras</a></li>
+          <li><a href="https://analitica.auvp.com.br/acoes" target="_blank" rel="noopener noreferrer">Ações</a></li>
+          <li><a href="https://analitica.auvp.com.br/fiis" target="_blank" rel="noopener noreferrer">FIIs</a></li>
+          <li><a href="https://analitica.auvp.com.br/etfs" target="_blank" rel="noopener noreferrer">ETFs</a></li>
+          <li class="barraPesquisaLi">
+            <input type="text" placeholder="Pesquise os próximos investimentos..." id="barraPesquisa" autocomplete="off"
+              class="inputPesquisa">
+          </li>
+          <li><a href="https://analitica.auvp.com.br/renda-fixa" target="_blank" rel="noopener noreferrer">Renda
+              Fixa</a>
+          </li>
+          <li><a href="https://analitica.auvp.com.br/indices" target="_blank" rel="noopener noreferrer">Índices</a></li>
+          <li><a href="#investimentosMercado">Investimentos</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
   </section>
 
 
@@ -60,32 +68,86 @@
 
   <!-- ÍNDICES DE INVESTIMENTO -->
 
-  <section class="card orcamento">
+  <section class="card simulacoesHub" id="hubSimulacoes">
+    <h2>🧮 Central de Simulações e Calculadoras</h2>
+    <p>Esta área reúne apenas ferramentas práticas para projeções e planejamento financeiro.</p>
+
+    <!-- Botão para atualizar simulações (caso necessário) -->
+    <button id="btnAtualizarSimulacoes" type="button">Atualizar Simulações</button>
+
+    <div class="simulacoesHubAcoes">
+      <button id="btnVoltarPainel" type="button">Voltar para o painel completo</button>
+    </div>
+  </section>
+
+  <section class="card painelIndicesCompletos" id="painelIndicesCompletos">
+    <h2>📈 Painel de Índices em Tempo Real</h2>
+    <p>Atualização automática com múltiplas APIs (AUVP, BCB, brapi e fallback).</p>
+    <div class="painelIndicesLayout">
+      <aside class="indicePainelDetalhe" id="indicePainelDetalhe">
+        <h3 id="indiceDetalheTitulo">Selecione um índice</h3>
+        <p id="indiceDetalheDescricao">Clique em um card para ver explicação prática e testar uma mini simulação.</p>
+        <div class="indicePainelControles">
+          <div class="controleLinha">
+            <label for="nivelExplicacaoIndice">Nível da explicação</label>
+            <select id="nivelExplicacaoIndice">
+              <option value="iniciante" selected>Iniciante</option>
+              <option value="tecnico">Técnico</option>
+            </select>
+          </div>
+        </div>
+        <p id="indiceDetalhePratica" class="indiceDetalhePratica"></p>
+
+        <div class="miniGameIndice" id="miniGameIndice">
+          <h4>🎯 Mini Simulação Rápida</h4>
+          <label for="miniGamePerfil">Perfil do investidor</label>
+          <select id="miniGamePerfil">
+            <option value="conservador">Conservador</option>
+            <option value="moderado" selected>Moderado</option>
+            <option value="arrojado">Arrojado</option>
+          </select>
+
+          <label for="miniGameValor">Aporte mensal (R$)</label>
+          <input type="number" id="miniGameValor" min="50" step="50" value="500" autocomplete="off">
+
+          <label for="miniGameMeses">Prazo (meses)</label>
+          <input type="number" id="miniGameMeses" min="1" step="1" value="12" autocomplete="off">
+
+          <button type="button" id="btnMiniGameSimular">Simular com este índice</button>
+          <div id="miniGameResultado" class="miniGameResultado"></div>
+        </div>
+      </aside>
+
+      <div id="gridIndicesCompletos" class="gridIndicesCompletos"></div>
+    </div>
+  </section>
+
+  <section class="card orcamento" id="investimentosMercado">
     <h2>Orçamento Mensal</h2>
 
     <div class="gridOrcamento">
       <div>
-        <label>Renda mensal:</label>
+        <label>Renda mensal:<br></label>
         <input type="text" id="rendaMensal" placeholder="R$ 5.000,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Gastos fixos (aluguel, contas):</label>
+        <label>Gastos fixos (aluguel, contas):<br></label>
         <input type="text" id="gastosFixos" placeholder="R$ 1.500,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Alimentação:</label>
+        <label>Alimentação:<br></label>
         <input type="text" id="alimentacao" placeholder="R$ 800,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Transporte:</label>
+        <label>Transporte:<br></label>
         <input type="text" id="transporte" placeholder="R$ 300,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Lazer e outros:</label>
+        <label>Lazer e outros:<br></label>
         <input type="text" id="lazer" placeholder="R$ 500,00" autocomplete="off">
       </div>
     </div>
@@ -95,23 +157,19 @@
     <div id="resultadoOrcamento"></div>
   </section>
 
-  <section class="layoutPrincipal">
+  <section class="layoutPrincipal simulacoes-only-hidden">
 
     <!-- ESQUERDA, esquema de ações hoje -->
-    <div class="watchlist">
-      <h3>Mais seguidas</h3>
-      <div id="listaAtivos"></div>
-    </div>
+
 
 
     <!-- DIREITA,  -->
     <div class="conteudoPrincipal">
-      <section class="card">
-        <h2>📊 Índices em Tempo Real</h2>
-        <div class="indice" id="ibov"></div>
-        <div class="indice" id="dolar"></div>
-        <div class="indice" id="cdi"></div>
-      </section>
+
+      <div class="watchlist">
+        <h3>Mais seguidas</h3>
+        <div id="listaAtivos"></div>
+      </div>
 
       <div class="card graficoPrincipal">
         <canvas id="graficoRapido"></canvas>
@@ -119,7 +177,7 @@
 
       <div class="card ranking">
         <h3>Ranking de Investimentos</h3>
-        <div id="resultadoInvestimentos"></div>
+        <div id="resultadoInvestimentosResumo" class="resultadoInvestimentosContainer"></div>
       </div>
     </div>
 
@@ -141,8 +199,10 @@
         <label>Meses</label>
         <input type="number" id="mesesInvestimento" value="12" autocomplete="off">
 
+        <div id="opcoesRankingInvestimentos" class="opcoesRankingInvestimentos"></div>
+
         <!-- Ranking aparece aqui -->
-        <div id="resultadoInvestimentos"></div>
+        <div id="resultadoInvestimentos" class="resultadoInvestimentosContainer"></div>
 
       </div>
 
@@ -159,7 +219,7 @@
 
     <!-- 🔹 Crescimento mensal animado -->
     <h3>📈 Crescimento Mês a Mês</h3>
-    <canvas id="graficoRapido"></canvas>
+    <canvas id="graficoRapidoDetalhe"></canvas>
 
   </section>
 
@@ -191,6 +251,250 @@
     <div id="resultadoMilhao"></div>
 
     <canvas id="graficoMilhao"></canvas>
+  </section>
+
+  <section class="card ferramentasExtras" id="secaoCalculadorasExtras">
+    <h2>📌 Mais Simulações e Calculadoras</h2>
+    <p>Inspirado nos portais de educação financeira, adicionamos novas ferramentas para complementar sua análise.</p>
+
+    <div class="calcGrid">
+      <article class="calcBox">
+        <h3>Reserva de Emergência</h3>
+        <label>Despesa mensal:</label>
+        <input type="text" id="reservaDespesaMensal" placeholder="R$ 3.000,00" autocomplete="off">
+
+        <label>Meses de proteção:</label>
+        <input type="number" id="reservaMeses" value="6" min="1" autocomplete="off">
+
+        <label>Valor já guardado:</label>
+        <input type="text" id="reservaAtual" placeholder="R$ 0,00" autocomplete="off">
+
+        <button id="calcularReserva" type="button">Calcular Reserva</button>
+        <div id="resultadoReserva" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Meta de Renda Passiva</h3>
+        <label>Renda passiva desejada/mês:</label>
+        <input type="text" id="rendaDesejadaMensal" placeholder="R$ 5.000,00" autocomplete="off">
+
+        <label>Rendimento anual da carteira (%):</label>
+        <input type="number" id="rendimentoAnualCarteira" value="10" step="0.1" autocomplete="off">
+
+        <button id="calcularRendaPassiva" type="button">Calcular Patrimônio Necessário</button>
+        <div id="resultadoRendaPassiva" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Simulador de Juros Compostos</h3>
+        <label>Aporte inicial:</label>
+        <input type="text" id="aporteInicialJC" placeholder="R$ 1.000,00" autocomplete="off">
+
+        <label>Aporte mensal:</label>
+        <input type="text" id="aporteMensalJC" placeholder="R$ 500,00" autocomplete="off">
+
+        <label>Prazo (anos):</label>
+        <input type="number" id="prazoAnosJC" value="10" min="1" autocomplete="off">
+
+        <label>Taxa anual (%):</label>
+        <input type="number" id="taxaAnualJC" value="12" step="0.1" autocomplete="off">
+
+        <button id="calcularJurosCompostos" type="button">Simular Juros Compostos</button>
+        <div id="resultadoJurosCompostos" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Aluguel x Financiamento</h3>
+        <label>Valor do imóvel:</label>
+        <input type="text" id="valorImovelAF" placeholder="R$ 400.000,00" autocomplete="off">
+
+        <label>Entrada:</label>
+        <input type="text" id="entradaAF" placeholder="R$ 80.000,00" autocomplete="off">
+
+        <div class="calcLinhaDupla">
+          <div>
+            <label>Prazo (anos):</label>
+            <input type="number" id="prazoAnosAF" value="30" min="1" autocomplete="off">
+          </div>
+          <div>
+            <label>Taxa financiamento anual (%):</label>
+            <input type="number" id="taxaFinanciamentoAF" value="11" step="0.1" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="calcLinhaDupla">
+          <div>
+            <label>Aluguel mensal inicial:</label>
+            <input type="text" id="aluguelMensalAF" placeholder="R$ 2.000,00" autocomplete="off">
+          </div>
+          <div>
+            <label>Inflação anual aluguel (%):</label>
+            <input type="number" id="inflacaoAluguelAF" value="5" step="0.1" autocomplete="off">
+          </div>
+        </div>
+
+        <label>Valorização anual do imóvel (%):</label>
+        <input type="number" id="valorizacaoImovelAF" value="4" step="0.1" autocomplete="off">
+
+        <button id="calcularAluguelFinanciamento" type="button">Comparar Cenários</button>
+        <div id="resultadoAluguelFinanciamento" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Simulador de Carteira por Perfil</h3>
+        <label>Perfil:</label>
+        <select id="perfilCarteira">
+          <option value="conservador">Conservador</option>
+          <option value="moderado" selected>Moderado</option>
+          <option value="arrojado">Arrojado</option>
+        </select>
+
+        <label>Patrimônio inicial:</label>
+        <input type="text" id="patrimonioInicialPerfil" placeholder="R$ 10.000,00" autocomplete="off">
+
+        <label>Aporte mensal:</label>
+        <input type="text" id="aporteMensalPerfil" placeholder="R$ 1.000,00" autocomplete="off">
+
+        <div class="calcLinhaDupla">
+          <div>
+            <label>Prazo (anos):</label>
+            <input type="number" id="prazoAnosPerfil" value="10" min="1" autocomplete="off">
+          </div>
+          <div>
+            <label>Retorno anual estimado (%):</label>
+            <input type="number" id="retornoAnualPerfil" value="12" step="0.1" autocomplete="off">
+          </div>
+        </div>
+
+        <button id="calcularPerfilCarteira" type="button">Simular Carteira</button>
+        <div id="resultadoPerfilCarteira" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Rebalanceamento por Classes de Ativos</h3>
+        <label>Patrimônio total:</label>
+        <input type="text" id="patrimonioRebalanceamento" placeholder="R$ 100.000,00" autocomplete="off">
+
+        <label>Percentuais atuais (%) - RF / FIIs / Ações / Exterior:</label>
+        <div class="calcColunasLegenda">
+          <span>RF</span>
+          <span>FIIs</span>
+          <span>Ações</span>
+          <span>Exterior</span>
+        </div>
+        <div class="calcLinhaQuatro">
+          <input type="number" id="atualRF" value="50" min="0" max="100" autocomplete="off">
+          <input type="number" id="atualFIIs" value="20" min="0" max="100" autocomplete="off">
+          <input type="number" id="atualAcoes" value="20" min="0" max="100" autocomplete="off">
+          <input type="number" id="atualExterior" value="10" min="0" max="100" autocomplete="off">
+        </div>
+
+        <label>Percentuais alvo (%) - RF / FIIs / Ações / Exterior:</label>
+        <div class="calcColunasLegenda">
+          <span>RF</span>
+          <span>FIIs</span>
+          <span>Ações</span>
+          <span>Exterior</span>
+        </div>
+        <div class="calcLinhaQuatro">
+          <input type="number" id="alvoRF" value="40" min="0" max="100" autocomplete="off">
+          <input type="number" id="alvoFIIs" value="20" min="0" max="100" autocomplete="off">
+          <input type="number" id="alvoAcoes" value="30" min="0" max="100" autocomplete="off">
+          <input type="number" id="alvoExterior" value="10" min="0" max="100" autocomplete="off">
+        </div>
+
+        <button id="calcularRebalanceamento" type="button">Calcular Ajustes</button>
+        <div id="resultadoRebalanceamento" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Compra à Vista x Parcelado</h3>
+        <label>Preço à vista:</label>
+        <input type="text" id="precoVistaCVP" placeholder="R$ 3.000,00" autocomplete="off">
+
+        <div class="calcLinhaDupla">
+          <div>
+            <label>Qtd. parcelas:</label>
+            <input type="number" id="qtdParcelasCVP" value="12" min="1" autocomplete="off">
+          </div>
+          <div>
+            <label>Valor da parcela:</label>
+            <input type="text" id="valorParcelaCVP" placeholder="R$ 280,00" autocomplete="off">
+          </div>
+        </div>
+
+        <label>Rendimento anual do capital (%):</label>
+        <input type="number" id="rendimentoCapitalCVP" value="12" step="0.1" autocomplete="off">
+
+        <button id="calcularVistaParcelado" type="button">Comparar Compra</button>
+        <div id="resultadoVistaParcelado" class="resultadoCalc"></div>
+      </article>
+
+      <article class="calcBox">
+        <h3>Custos de Cartão e Cashback Efetivo</h3>
+        <label>Gasto mensal no cartão:</label>
+        <input type="text" id="gastoMensalCartao" placeholder="R$ 2.500,00" autocomplete="off">
+
+        <div class="calcLinhaDupla">
+          <div>
+            <label>Cashback (%):</label>
+            <input type="number" id="cashbackCartao" value="1.5" step="0.1" autocomplete="off">
+          </div>
+          <div>
+            <label>Anuidade anual:</label>
+            <input type="text" id="anuidadeCartao" placeholder="R$ 600,00" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="calcLinhaDupla">
+          <div>
+            <label>Percentual médio em rotativo (%):</label>
+            <input type="number" id="percentualRotativoCartao" value="0" step="0.1" autocomplete="off">
+          </div>
+          <div>
+            <label>Juros rotativo mensal (%):</label>
+            <input type="number" id="jurosRotativoCartao" value="12" step="0.1" autocomplete="off">
+          </div>
+        </div>
+
+        <button id="calcularCustosCartao" type="button">Calcular Custo Efetivo</button>
+        <div id="resultadoCustosCartao" class="resultadoCalc"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card videoAulas simulacoes-only-hidden">
+    <h2>🎥 Videoaulas sobre Investimentos</h2>
+    <p>Aprenda com conteúdos dos canais mais conhecidos do mercado financeiro brasileiro.</p>
+
+    <div class="videosGrid">
+      <article class="videoCanal">
+        <h3>Me Poupe!</h3>
+        <iframe src="https://www.youtube.com/embed?listType=search&list=Me%20Poupe%20investimentos"
+          title="Videoaulas Me Poupe!" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+      </article>
+
+      <article class="videoCanal">
+        <h3>Primo Rico</h3>
+        <iframe src="https://www.youtube.com/embed?listType=search&list=Primo%20Rico%20investimentos"
+          title="Videoaulas Primo Rico" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+      </article>
+
+      <article class="videoCanal">
+        <h3>Nath Finanças</h3>
+        <iframe src="https://www.youtube.com/embed?listType=search&list=Nath%20Finan%C3%A7as%20investimentos"
+          title="Videoaulas Nath Finanças" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+      </article>
+    </div>
   </section>
 
 
@@ -260,6 +564,80 @@
       <button id="tourEnd">Finalizar</button>
     </div>
   </div>
+
+  <button id="btnAjudaInvestimentos" class="btnAjudaInvestimentos" type="button"
+    aria-label="Abrir ajuda sobre investimentos">?</button>
+
+  <section id="painelAjudaInvestimentos" class="painelAjudaInvestimentos" aria-hidden="true">
+    <div class="ajudaCabecalho">
+      <h2>📌 Guia Prático de Investimentos</h2>
+      <button id="btnFecharAjudaInvestimentos" type="button" aria-label="Fechar ajuda">×</button>
+    </div>
+
+    <p class="ajudaIntro">Abra cada tópico e execute os passos na ordem para montar seu plano com disciplina.</p>
+
+    <div class="ajudaGrid">
+      <article class="ajudaQuadrante">
+        <button class="ajudaTitulo" type="button">1) Ordem correta para começar</button>
+        <div class="ajudaConteudo">
+          <p>Antes de buscar retorno alto, organize a base financeira. Sequência recomendada:</p>
+          <p><strong>Passo 1:</strong> quitar dívidas caras (rotativo/cartão/cheque especial).</p>
+          <p><strong>Passo 2:</strong> construir reserva de emergência (6 a 12 meses do custo fixo).</p>
+          <p><strong>Passo 3:</strong> iniciar carteira de longo prazo com aportes mensais.</p>
+        </div>
+      </article>
+
+      <article class="ajudaQuadrante">
+        <button class="ajudaTitulo" type="button">2) Quanto investir por mês</button>
+        <div class="ajudaConteudo">
+          <p>Use regra simples e objetiva para sair do zero:</p>
+          <p><strong>Meta mínima:</strong> investir de 15% a 20% da renda líquida.</p>
+          <p><strong>Se ainda não dá:</strong> comece com valor fixo pequeno e aumente 1% por mês.</p>
+          <p><strong>Ação prática:</strong> programe aporte automático no dia seguinte ao salário.</p>
+        </div>
+      </article>
+
+      <article class="ajudaQuadrante">
+        <button class="ajudaTitulo" type="button">3) Reserva de emergência sem erro</button>
+        <div class="ajudaConteudo">
+          <p>Reserva não é para rentabilidade máxima; é para segurança e liquidez.</p>
+          <p><strong>Onde priorizar:</strong> Tesouro Selic, CDB de liquidez diária, fundo DI de baixo custo.</p>
+          <p><strong>Checklist:</strong> baixo risco + resgate rápido + taxa baixa.</p>
+        </div>
+      </article>
+
+      <article class="ajudaQuadrante">
+        <button class="ajudaTitulo" type="button">4) Como escolher investimento por objetivo</button>
+        <div class="ajudaConteudo">
+          <p>Decida pelo prazo, não pela “moda” do momento:</p>
+          <p><strong>Até 2 anos:</strong> foco em liquidez e proteção.</p>
+          <p><strong>De 2 a 5 anos:</strong> renda fixa indexada e híbridos.</p>
+          <p><strong>Acima de 5 anos:</strong> combinar renda fixa + renda variável diversificada.</p>
+        </div>
+      </article>
+
+      <article class="ajudaQuadrante">
+        <button class="ajudaTitulo" type="button">5) Carteira profissional na prática</button>
+        <div class="ajudaConteudo">
+          <p>Exemplo de estrutura inicial (perfil moderado):</p>
+          <p><strong>50%</strong> renda fixa pós-fixada, <strong>20%</strong> IPCA+, <strong>20%</strong> ações/ETFs,
+            <strong>10%</strong> exterior.
+          </p>
+          <p><strong>Rebalanceamento:</strong> a cada 6 meses ou quando desvio passar de 5 pontos percentuais.</p>
+        </div>
+      </article>
+
+      <article class="ajudaQuadrante">
+        <button class="ajudaTitulo" type="button">6) Rotina mensal (20 minutos)</button>
+        <div class="ajudaConteudo">
+          <p><strong>Semana 1:</strong> revisar orçamento e definir aporte do mês.</p>
+          <p><strong>Semana 2:</strong> executar os aportes e registrar.</p>
+          <p><strong>Semana 3:</strong> checar progresso das metas (reserva, longo prazo, renda passiva).</p>
+          <p><strong>Semana 4:</strong> ajustar percentuais e preparar próximo ciclo.</p>
+        </div>
+      </article>
+    </div>
+  </section>
 
   <!-- Script principal -->
   <script type="module" src="../js/app.js"></script>

@@ -10,11 +10,16 @@ body {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    cursor: none;
+}
+
+body * {
+    cursor: none !important;
 }
 
 h1 {
     text-align: center;
-    color: #fff;    
+    color: #fff;
     font-family: 'Trebuchet MS', sans-serif;
     font-size: 2em;
 }
@@ -102,4 +107,36 @@ button:focus-visible {
     .bg-dolar .coin {
         transition: none;
     }
+}
+
+.cursorDot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #adaaaa;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow:
+        0 0 6px rgba(173, 170, 170, 0.95),
+        0 0 14px rgba(173, 170, 170, 0.55),
+        0 0 26px rgba(173, 170, 170, 0.35);
+    transform: translate3d(-999px, -999px, 0);
+}
+
+.cursorTrail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #a7a4a4;
+    pointer-events: none;
+    z-index: 9998;
+    filter: blur(0.45px);
+    box-shadow: 0 0 10px rgba(167, 164, 164, 0.45);
+    transform: translate3d(-999px, -999px, 0);
 }

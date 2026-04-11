@@ -1,21 +1,46 @@
+/* ==============================
+   Design Tokens / Base Variables
+================================= */
 :root {
     --topo-offset: 190px;
+    --container-max: 1200px;
+    --container-gutter: 24px;
+    --bg-primary: #1E1E1E;
+    --text-primary: #fff;
+    --brand-accent: #00ff9d;
+    --cursor-neon-main: #adaaaa;
+    --cursor-neon-trail: #a7a4a4;
 }
 
+/* ==============================
+   Page Reset / Global Structure
+================================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1E1E1E;
-    color: #fff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
     padding-top: var(--topo-offset);
+    overflow-x: hidden;
 }
 
+body.sei-neon-cursor,
+body.sei-neon-cursor * {
+    cursor: none !important;
+}
+
+/* ==============================
+   Typography
+================================= */
 h1 {
     text-align: center;
-    color: #fff;
+    color: var(--text-primary);
 }
 
+/* ==============================
+   Form Elements
+================================= */
 input {
     padding: 10px 12px;
     margin: 6px 0;
@@ -28,6 +53,9 @@ input {
     transition: border 0.2s;
 }
 
+/* ==============================
+   Buttons
+================================= */
 button {
     padding: 10px 20px;
     background: linear-gradient(135deg, #5c5c5c 0%, #3f3f42 100%);
@@ -45,6 +73,9 @@ button:hover {
     transform: scale(1.02);
 }
 
+/* ==============================
+   Media / Tables
+================================= */
 canvas {
     max-width: 100%;
 }
@@ -70,7 +101,11 @@ tr:nth-child(1) {
     font-weight: bold;
 }
 
+/* ==============================
+   Animations
+================================= */
 @keyframes fadeUpdate {
+
     0%,
     100% {
         opacity: 1;
@@ -110,4 +145,39 @@ tr:nth-child(1) {
         opacity: 1;
         transform: translate(-50%, -50%);
     }
+}
+
+/* ==============================
+   Neon Cursor (Main)
+================================= */
+.cursorDot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--cursor-neon-main);
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow:
+        0 0 6px rgba(173, 170, 170, 0.95),
+        0 0 14px rgba(173, 170, 170, 0.55),
+        0 0 26px rgba(173, 170, 170, 0.35);
+    transform: translate3d(-999px, -999px, 0);
+}
+
+.cursorTrail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--cursor-neon-trail);
+    pointer-events: none;
+    z-index: 9998;
+    filter: blur(0.45px);
+    box-shadow: 0 0 10px rgba(167, 164, 164, 0.45);
+    transform: translate3d(-999px, -999px, 0);
 }

@@ -145,6 +145,7 @@ button:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 24px auto 0;
 }
 
 #btnIrParaInicio:hover {

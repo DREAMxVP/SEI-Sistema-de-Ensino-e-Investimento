@@ -16,18 +16,59 @@
     <div class="bg-dolar" id="bgDolar" aria-hidden="true"></div>
 
     <main class="pr1">
-        <h1>Bem-vindo ao SEI - Sistema de Educação Inteligente</h1>
-        <p>Seu acesso foi realizado com sucesso. A partir daqui, você poderá organizar seu orçamento, comparar
-            investimentos e entender cada ferramenta da plataforma.</p>
+        <!-- TOPO DE IMPACTO -->
+        <section class="card" style="background: linear-gradient(120deg,#181a1b 60%,#22c55e 120%);text-align:center;box-shadow:0 4px 32px #22c55e22;">
+            <h1 style="font-size:2.2em;font-weight:700;margin-bottom:0.2em;letter-spacing:-1px;">Aprenda a investir do zero 🚀</h1>
+            <h2 style="font-size:1.3em;font-weight:400;margin-bottom:1.2em;">Sem complicação, direto ao ponto</h2>
+            <button id="btnIrParaInicio" type="button" style="font-size:1.1em;padding:12px 32px;background:#22c55e;color:#181a1b;border:none;border-radius:8px;font-weight:600;box-shadow:0 2px 8px #22c55e44;cursor:pointer;transition:background 0.2s;">COMEÇAR</button>
+        </section>
 
-        <p>O site irá proporcionar uma experiência completa para que você possa tomar decisões financeiras informadas. Aqui poderá explorar diversas funcionalidades e recursos educativos.</p>
+        <!-- BLOCO 1: O que é investir -->
+        <section class="card" style="margin-top:28px;display:flex;align-items:center;gap:18px;">
+            <span style="font-size:2.2em;">💰</span>
+            <div>
+                <h3 style="margin:0 0 6px 0;font-size:1.15em;">O que é investir?</h3>
+                <p style="margin:0;font-size:1em;">Investir é colocar seu dinheiro para trabalhar por você, buscando crescimento e segurança para o seu futuro.</p>
+            </div>
+        </section>
 
-        <p>Ao clicar em <strong>COMEÇAR</strong>, você será levado para a página principal para iniciar o uso da
-            plataforma.</p>
+        <!-- BLOCO 2: Por que investir -->
+        <section class="card" style="margin-top:18px;display:flex;align-items:center;gap:18px;">
+            <span style="font-size:2.2em;">📈</span>
+            <div>
+                <h3 style="margin:0 0 6px 0;font-size:1.15em;">Por que investir?</h3>
+                <p style="margin:0;font-size:1em;">Investir é a melhor forma de conquistar sonhos, proteger seu patrimônio e vencer a inflação.</p>
+            </div>
+        </section>
 
-        <p>O que antes você não sabia, agora pode dizer: <strong>eu SEI</strong>.</p>
+        <!-- BLOCO 3: Erros comuns -->
+        <section class="card" style="margin-top:18px;display:flex;align-items:center;gap:18px;">
+            <span style="font-size:2.2em;">⚠️</span>
+            <div>
+                <h3 style="margin:0 0 6px 0;font-size:1.15em;">Erros comuns</h3>
+                <p style="margin:0;font-size:1em;">Deixar dinheiro parado, investir sem objetivo ou cair em promessas de lucro fácil.</p>
+            </div>
+        </section>
 
-        <button id="btnIrParaInicio" type="button">COMEÇAR</button>
+        <!-- BLOCO 4: Simulação rápida -->
+        <section class="card" style="margin-top:28px;text-align:center;">
+            <h3 style="font-size:1.1em;margin-bottom:10px;">Veja o impacto de investir todo mês</h3>
+            <div style="margin-bottom:10px;">
+                <label for="simValor" style="margin-right:8px;">Valor mensal:</label>
+                <input id="simValor" type="number" min="10" value="100" style="width:90px;padding:4px 8px;border-radius:6px;border:1px solid #333;">
+                <label for="simAnos" style="margin:0 8px 0 18px;">Anos:</label>
+                <input id="simAnos" type="number" min="1" value="5" style="width:60px;padding:4px 8px;border-radius:6px;border:1px solid #333;">
+                <button id="btnSimular" style="margin-left:16px;padding:6px 18px;background:#22c55e;color:#181a1b;border:none;border-radius:6px;font-weight:600;cursor:pointer;">Simular</button>
+            </div>
+            <div id="simResultado" style="font-size:1.1em;margin-bottom:8px;"></div>
+            <canvas id="simGrafico" width="320" height="120" style="margin:0 auto;"></canvas>
+        </section>
+
+        <!-- FINAL: Chamada para ação -->
+        <section class="card" style="margin-top:32px;text-align:center;background:linear-gradient(120deg,#22c55e 0%,#181a1b 100%);color:#fff;">
+            <h2 style="font-size:1.3em;font-weight:600;">Pronto para mudar sua vida financeira?</h2>
+            <button id="btnIrParaInicio2" type="button" style="font-size:1.1em;padding:12px 32px;background:#fff;color:#22c55e;border:none;border-radius:8px;font-weight:700;box-shadow:0 2px 8px #22c55e44;cursor:pointer;transition:background 0.2s;">Ir para o sistema</button>
+        </section>
     </main>
 
     <script>
@@ -137,10 +178,70 @@
         atualizarTamanhoViewport();
         requestAnimationFrame(animarIcones);
 
-        document.getElementById("btnIrParaInicio")?.addEventListener("click", function () {
+        function navegarParaMain() {
             localStorage.removeItem("sei:autoStartTour");
             window.location.href = "main.html";
-        });
+        }
+        document.getElementById("btnIrParaInicio")?.addEventListener("click", navegarParaMain);
+        document.getElementById("btnIrParaInicio2")?.addEventListener("click", navegarParaMain);
+
+        // Simulação rápida
+        function calcularMontante(valor, anos, taxa = 0.12) {
+            const meses = anos * 12;
+            const taxaMensal = Math.pow(1 + taxa, 1 / 12) - 1;
+            let total = 0;
+            let dados = [];
+            for (let i = 0; i < meses; i++) {
+                total = total * (1 + taxaMensal) + valor;
+                dados.push(total);
+            }
+            return dados;
+        }
+        function atualizarSimulacao() {
+            const valor = Number(document.getElementById('simValor').value) || 0;
+            const anos = Number(document.getElementById('simAnos').value) || 1;
+            if (valor <= 0 || anos <= 0) {
+                document.getElementById('simResultado').textContent = '';
+                return;
+            }
+            const dados = calcularMontante(valor, anos);
+            const total = dados[dados.length - 1] || 0;
+            document.getElementById('simResultado').innerHTML = `Se investir <span class="entrada">R$ ${valor.toLocaleString('pt-BR')}</span> por mês, em <b>${anos} anos</b> você pode ter <span class="entrada">R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2})}</span>`;
+            desenharGraficoSimulacao(dados, anos);
+        }
+        function desenharGraficoSimulacao(dados, anos) {
+            const ctx = document.getElementById('simGrafico').getContext('2d');
+            if (window.simChart) window.simChart.destroy();
+            window.simChart = new window.Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: anos*12}, (_,i)=>`${Math.floor(i/12)+1}a${(i%12)+1}m`),
+                    datasets: [{
+                        label: 'Total acumulado',
+                        data: dados,
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34,197,94,0.12)',
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { display: false },
+                        y: { ticks: { color: '#22c55e' } }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+        document.getElementById('btnSimular').addEventListener('click', atualizarSimulacao);
+        document.getElementById('simValor').addEventListener('input', atualizarSimulacao);
+        document.getElementById('simAnos').addEventListener('input', atualizarSimulacao);
+        // Inicializa simulação
+        setTimeout(atualizarSimulacao, 100);
         // ====== Tema Escuro/Claro ======
         const btnTheme = document.getElementById("toggleTheme");
         const root = document.documentElement;

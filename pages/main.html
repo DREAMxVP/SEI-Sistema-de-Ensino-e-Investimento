@@ -13,7 +13,7 @@
 </head>
 
 <body>
-
+  <button id="toggleTheme" style="position:fixed;top:16px;right:16px;z-index:1000;">🌙 Modo Escuro</button>
   <!-- TOPO -->
   <section class="topo" id="topoInicio">
     <div class="containerTopo">
@@ -154,7 +154,9 @@
 
     <button id="calcularOrcamento">Calcular Sobras</button>
 
-    <div id="resultadoOrcamento"></div>
+    <div id="resultadoOrcamento" style="margin-top:18px;max-width:480px;padding:16px 18px;background:rgba(0,0,0,0.07);border-radius:10px;font-size:1.1em;"></div>
+
+    <!-- NOVA SEÇÃO: Controle de Gastos -->
   </section>
 
   <section class="layoutPrincipal simulacoes-only-hidden">
@@ -641,7 +643,38 @@
 
   <!-- Script principal -->
   <script type="module" src="../js/app.js"></script>
+    <script type="module">
+      import { inicializarOrcamento } from '../js/orcamento.js';
+      inicializarOrcamento();
+    </script>
   <script src="https://s3.tradingview.com/tv.js"></script>
+
+    <script>
+    // ====== Tema Escuro/Claro ======
+    const btnTheme = document.getElementById("toggleTheme");
+    const root = document.documentElement;
+    function setTheme(dark) {
+      if (dark) {
+        root.style.setProperty('--bg-primary', '#181818');
+        root.style.setProperty('--text-primary', '#fff');
+        btnTheme.textContent = '☀️ Modo Claro';
+        localStorage.setItem('sei_theme', 'dark');
+      } else {
+        root.style.setProperty('--bg-primary', '#f5f5f5');
+        root.style.setProperty('--text-primary', '#222');
+        btnTheme.textContent = '🌙 Modo Escuro';
+        localStorage.setItem('sei_theme', 'light');
+      }
+    }
+    // Detecta preferência inicial
+    const savedTheme = localStorage.getItem('sei_theme');
+    if (savedTheme === 'dark') setTheme(true);
+    else if (savedTheme === 'light') setTheme(false);
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme(true);
+    btnTheme.addEventListener('click', () => {
+      setTheme(btnTheme.textContent.includes('Escuro'));
+    });
+    </script>
 
 </body>
 

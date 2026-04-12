@@ -11,6 +11,7 @@
 
 <body>
 
+    <button id="toggleTheme" style="position:fixed;top:16px;right:16px;z-index:1000;">🌙 Modo Escuro</button>
 
     <main class="pr1 login-card">
         <h1>Login</h1>
@@ -97,6 +98,30 @@
 
             requestAnimationFrame(animarCursorFallback);
         })();
+        // ====== Tema Escuro/Claro ======
+        const btnTheme = document.getElementById("toggleTheme");
+        const root = document.documentElement;
+        function setTheme(dark) {
+            if (dark) {
+                root.style.setProperty('--bg-primary', '#181818');
+                root.style.setProperty('--text-primary', '#fff');
+                btnTheme.textContent = '☀️ Modo Claro';
+                localStorage.setItem('sei_theme', 'dark');
+            } else {
+                root.style.setProperty('--bg-primary', '#f5f5f5');
+                root.style.setProperty('--text-primary', '#222');
+                btnTheme.textContent = '🌙 Modo Escuro';
+                localStorage.setItem('sei_theme', 'light');
+            }
+        }
+        // Detecta preferência inicial
+        const savedTheme = localStorage.getItem('sei_theme');
+        if (savedTheme === 'dark') setTheme(true);
+        else if (savedTheme === 'light') setTheme(false);
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme(true);
+        btnTheme.addEventListener('click', () => {
+            setTheme(btnTheme.textContent.includes('Escuro'));
+        });
     </script>
 
 </body>

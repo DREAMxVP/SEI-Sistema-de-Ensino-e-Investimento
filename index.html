@@ -23,6 +23,10 @@
 
             <button type="submit">Entrar</button>
         </form>
+        <p>
+            <small>Use <strong>admin</strong> como usuário e <strong>1234</strong> como senha para acessar a plataforma.</small>
+        </p>
+        <p id="errorMessage"></p>
     </main>
 
     <script>
@@ -37,7 +41,7 @@
                 // Redireciona para a página de boas-vindas
                 window.location.href = "./pages/intro.html";
             } else {
-                alert("Usuário ou senha incorretos. Tente novamente.");
+                document.getElementById("errorMessage").textContent = "Usuário ou senha incorretos. Tente novamente.";
             }
         });
     </script>

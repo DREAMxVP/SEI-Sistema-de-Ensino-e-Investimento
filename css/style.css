@@ -25,3 +25,7 @@
 ================================= */
 @import url("./responsive.css");
 
+/* ==============================
+	Custom Styles for Intro Page
+================================= */
+@import url("./intro.css");

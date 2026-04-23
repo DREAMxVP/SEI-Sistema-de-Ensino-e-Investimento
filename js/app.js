@@ -2261,66 +2261,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: true });
 });
 
-function inicializarCursorFallback() {
-  if (document.body.querySelector(".cursorDot")) {
-    return;
-  }
 
-  document.body.classList.add("sei-neon-cursor");
 
-  const pontoPrincipal = document.createElement("div");
-  pontoPrincipal.className = "cursorDot";
-  document.body.appendChild(pontoPrincipal);
 
-  const trilhas = [];
-  const quantidadeTrilhas = 8;
 
-  for (let indice = 0; indice < quantidadeTrilhas; indice++) {
-    const trilha = document.createElement("div");
-    trilha.className = "cursorTrail";
-    trilha.style.opacity = String(0.34 - indice * 0.03);
-    document.body.appendChild(trilha);
-    trilhas.push({ elemento: trilha, x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  }
 
-  let alvoX = window.innerWidth / 2;
-  let alvoY = window.innerHeight / 2;
-
-  window.addEventListener("mousemove", (evento) => {
-    alvoX = evento.clientX;
-    alvoY = evento.clientY;
-  });
-
-  function animarCursorFallback() {
-    trilhas.forEach((item, indice) => {
-      const referencia = indice === 0 ? { x: alvoX, y: alvoY } : trilhas[indice - 1];
-      item.x += (referencia.x - item.x) * 0.22;
-      item.y += (referencia.y - item.y) * 0.22;
-
-      item.elemento.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${1 - indice * 0.06})`;
-    });
-
-    pontoPrincipal.style.transform = `translate3d(${alvoX}px, ${alvoY}px, 0)`;
-    requestAnimationFrame(animarCursorFallback);
-  }
-
-  requestAnimationFrame(animarCursorFallback);
-}
-
-function inicializarCursorNeon() {
-  const dispositivoSemMouse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-  const reduzirMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (dispositivoSemMouse || reduzirMovimento) {
-    return;
-  }
-
-  inicializarCursorFallback();
-}
-
-inicializarCursorNeon();
-
-function atualizarSimulacaoInvestimentos() {
-  const valorInvestimento = unformatCurrency(document.getElementById("valorInvestimento").value);
-  const mesesInvestimento = Number(document.getElementById("mesesInvestimento").value);
-}

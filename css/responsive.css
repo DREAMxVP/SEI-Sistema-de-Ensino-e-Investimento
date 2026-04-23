@@ -89,8 +89,24 @@
     Mobile Phones
 ================================= */
 @media (max-width: 600px) {
+    :root {
+        --topo-offset: 210px;
+    }
+
     .topo h1 {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
+    }
+
+    .brandMain {
+        gap: 8px;
+    }
+
+    .logoMain--transparente {
+        width: 122px;
+    }
+
+    .logoMain--fundo {
+        width: 44px;
     }
 
     .listaMenu li a {

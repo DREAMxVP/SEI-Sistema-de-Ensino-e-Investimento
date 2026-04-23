@@ -2,13 +2,14 @@
    Generic Cards
 ================================= */
 .card {
-    background: #6D6D6D;
+    background: linear-gradient(145deg, rgba(27, 41, 55, 0.96), rgba(20, 31, 42, 0.96));
+    border: 1px solid var(--border-main);
     padding: 18px 20px;
     margin: 12px auto;
     width: 80%;
     box-sizing: border-box;
     border-radius: 14px;
-    box-shadow: 0px 0px 10px rgba(109, 109, 109, 0.2);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
 }
 
 .card h2,
@@ -87,10 +88,10 @@
 }
 
 .watchlist {
-    background: #666;
+    background: rgba(18, 33, 46, 0.92);
     padding: 16px;
     border-radius: 14px;
-    border: 1px solid #5c5c5c;
+    border: 1px solid var(--border-main);
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -102,7 +103,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid #3f3f42;
+    border-bottom: 1px solid rgba(121, 170, 205, 0.2);
 }
 
 .watchItem span {
@@ -121,9 +122,9 @@
 #resultadoMilhao {
     margin-top: 20px;
     padding: 15px;
-    background: #2b2b2b;
+    background: rgba(15, 27, 39, 0.9);
     border-radius: 10px;
-    border: 1px solid #5c5c5c;
+    border: 1px solid var(--border-main);
 }
 
 .gridMilhao {
@@ -147,8 +148,8 @@
 .gridOrcamento > div,
 .gridMilhao > div,
 .ladoValores {
-    background: rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(13, 23, 34, 0.7);
+    border: 1px solid var(--border-main);
     border-radius: 10px;
     padding: 12px;
 }
@@ -158,8 +159,8 @@
 }
 
 .ladoGrafico {
-    background: rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(13, 23, 34, 0.7);
+    border: 1px solid var(--border-main);
     border-radius: 10px;
     padding: 12px;
 }
@@ -184,16 +185,16 @@
     margin: 0;
     padding: 8px 12px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    border: 1px solid rgba(121, 170, 205, 0.24);
+    background: rgba(122, 151, 179, 0.1);
+    color: var(--text-primary);
     font-size: 0.85rem;
 }
 
 .opcaoRanking.ativa {
-    border-color: #00ff9d;
-    box-shadow: 0 0 0 1px rgba(0, 255, 157, 0.25) inset;
-    background: rgba(0, 255, 157, 0.15);
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.28) inset;
+    background: var(--brand-accent-soft);
 }
 
 .resultadoInvestimentosContainer .linhaRanking {
@@ -206,7 +207,7 @@
 }
 
 .resultadoInvestimentosContainer .linhaRankingAtiva {
-    background: rgba(0, 255, 157, 0.16);
+    background: rgba(34, 197, 94, 0.18);
     font-weight: 700;
 }
 
@@ -214,8 +215,8 @@
    Simulations Hub + Indices Panel
 ================================= */
 .simulacoesHub {
-    border-color: #8e7dff;
-    box-shadow: 0 0 22px rgba(142, 125, 255, 0.28);
+    border-color: rgba(34, 197, 94, 0.45);
+    box-shadow: 0 0 22px rgba(34, 197, 94, 0.2);
 }
 
 .simulacoesHubAcoes {
@@ -224,7 +225,7 @@
 }
 
 .painelIndicesCompletos {
-    border-color: rgba(0, 212, 255, 0.35);
+    border-color: rgba(104, 189, 255, 0.35);
 }
 
 .painelIndicesLayout {
@@ -237,8 +238,8 @@
 .indicePainelDetalhe {
     position: sticky;
     top: calc(var(--topo-offset) + 8px);
-    background: #141b2a;
-    border: 1px solid #304366;
+    background: #122131;
+    border: 1px solid var(--border-main);
     border-radius: 12px;
     padding: 14px;
 }
@@ -246,15 +247,15 @@
 .indicePainelDetalhe h3 {
     margin-top: 0;
     margin-bottom: 8px;
-    color: #7ac2ff;
+    color: #9fd5ff;
 }
 
 .indiceDetalhePratica {
     padding: 8px 10px;
     border-radius: 8px;
-    background: rgba(0, 212, 255, 0.08);
-    border: 1px solid rgba(0, 212, 255, 0.25);
-    color: #dfe9ff;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #d8e9f8;
 }
 
 .indicePainelControles {
@@ -422,7 +423,7 @@ body.simulacoes-only .simulacoes-only-hidden {
    Extra Calculators
 ================================= */
 .ferramentasExtras {
-    border-color: rgba(0, 255, 157, 0.35);
+    border-color: rgba(34, 197, 94, 0.35);
 }
 
 .calcGrid {
@@ -436,8 +437,8 @@ body.simulacoes-only .simulacoes-only-hidden {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: rgba(0, 0, 0, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(14, 25, 37, 0.72);
+    border: 1px solid var(--border-main);
     border-radius: 12px;
     padding: 14px;
 }
@@ -451,7 +452,7 @@ body.simulacoes-only .simulacoes-only-hidden {
     display: block;
     margin-top: 6px;
     font-size: 0.92rem;
-    color: #e8e8e8;
+    color: var(--text-secondary);
 }
 
 .calcBox input,
@@ -463,9 +464,9 @@ body.simulacoes-only .simulacoes-only-hidden {
 .calcBox select {
     padding: 10px 12px;
     margin: 6px 0;
-    background: #3f3f42;
-    border: 1px solid #6f6f72;
-    color: #fff;
+    background: #13202c;
+    border: 1px solid var(--border-main);
+    color: var(--text-primary);
     border-radius: 8px;
     font-size: 16px;
     outline: none;
@@ -480,8 +481,8 @@ body.simulacoes-only .simulacoes-only-hidden {
 
 .calcLinhaDupla > div,
 .calcLinhaQuatro {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(13, 24, 35, 0.72);
+    border: 1px solid rgba(121, 170, 205, 0.22);
     border-radius: 10px;
     padding: 8px;
 }
@@ -517,8 +518,8 @@ body.simulacoes-only .simulacoes-only-hidden {
 
 .resultadoCalc {
     margin-top: auto;
-    background: #2b2b2b;
-    border: 1px solid #5c5c5c;
+    background: rgba(11, 21, 31, 0.85);
+    border: 1px solid var(--border-main);
     border-radius: 10px;
     padding: 10px;
     min-height: 46px;
@@ -526,8 +527,8 @@ body.simulacoes-only .simulacoes-only-hidden {
 
 .calcIdeias {
     margin-top: 16px;
-    background: rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(13, 25, 36, 0.72);
+    border: 1px solid var(--border-main);
     border-radius: 12px;
     padding: 14px;
 }
@@ -553,8 +554,8 @@ body.simulacoes-only .simulacoes-only-hidden {
 }
 
 .videoCanal {
-    background: rgba(0, 0, 0, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(14, 25, 37, 0.72);
+    border: 1px solid var(--border-main);
     border-radius: 12px;
     padding: 12px;
 }
@@ -581,15 +582,15 @@ body.simulacoes-only .simulacoes-only-hidden {
     width: 54px;
     height: 54px;
     border-radius: 50%;
-    border: 1px solid #9a9a9a;
-    background: linear-gradient(135deg, #7b6dff 0%, #4f45cc 100%);
-    color: #fff;
+    border: 1px solid rgba(34, 197, 94, 0.46);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #052412;
     font-size: 30px;
     font-weight: 700;
     display: grid;
     place-items: center;
     z-index: 2100;
-    box-shadow: 0 8px 20px rgba(79, 69, 204, 0.35);
+    box-shadow: 0 8px 20px rgba(22, 163, 74, 0.35);
 }
 
 .painelAjudaInvestimentos {
@@ -599,8 +600,8 @@ body.simulacoes-only .simulacoes-only-hidden {
     width: min(460px, calc(100vw - 24px));
     max-height: min(76vh, 720px);
     overflow-y: auto;
-    background: #2b2b2b;
-    border: 1px solid #6f6f72;
+    background: #101c29;
+    border: 1px solid var(--border-main);
     border-radius: 14px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
     padding: 14px;
@@ -632,7 +633,7 @@ body.simulacoes-only .simulacoes-only-hidden {
 
 .ajudaIntro {
     text-align: center;
-    color: #ddd;
+    color: var(--text-secondary);
 }
 
 .ajudaGrid {
@@ -642,7 +643,7 @@ body.simulacoes-only .simulacoes-only-hidden {
 }
 
 .ajudaQuadrante {
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(121, 170, 205, 0.26);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -653,15 +654,16 @@ body.simulacoes-only .simulacoes-only-hidden {
     border: 0;
     border-radius: 0;
     text-align: left;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(121, 170, 205, 0.12);
     padding: 12px;
     font-size: 0.98rem;
+    color: var(--text-primary);
 }
 
 .ajudaConteudo {
     display: none;
     padding: 10px 12px 12px;
-    background: rgba(0, 0, 0, 0.16);
+    background: rgba(12, 22, 33, 0.82);
 }
 
 .ajudaQuadrante.ativo .ajudaConteudo {
@@ -675,7 +677,7 @@ body.simulacoes-only .simulacoes-only-hidden {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #adaaaa;
+    background: rgba(34, 197, 94, 0.82);
     pointer-events: none;
     z-index: 9999;
     transform: translate3d(-999px, -999px, 0);
@@ -688,7 +690,7 @@ body.simulacoes-only .simulacoes-only-hidden {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #a7a4a4;
+    background: rgba(34, 197, 94, 0.62);
     pointer-events: none;
     z-index: 9998;
     filter: blur(0.2px);

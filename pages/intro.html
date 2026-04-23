@@ -3,200 +3,126 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>SEI - Sistema de Educação Inteligente</title>
-
-    <!-- css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução - SEI</title>
     <link rel="stylesheet" href="../css/intro.css">
 </head>
 
 <body>
 
-    <!-- BOAS VINDAS -->
+    <main class="intro-wrapper">
+        <section class="intro-hero" aria-label="Aprenda a investir do zero">
+            <h1>Aprenda a investir do zero 🚀</h1>
+            <p>Sem complicação, direto ao ponto</p>
+            <button type="button" id="btnComecar">COMEÇAR</button>
+        </section>
 
-    <div class="bg-dolar" id="bgDolar" aria-hidden="true"></div>
+        <section class="intro-content" aria-label="Introdução ao investimento">
+            <article class="topic-row">
+                <span class="topic-icon" aria-hidden="true">💰</span>
+                <div>
+                    <h2>O que é investir?</h2>
+                    <p>Investir é colocar seu dinheiro para trabalhar por você, buscando crescimento e segurança para o seu futuro.</p>
+                </div>
+            </article>
 
-    <main class="pr1">
-        <h1>Bem-vindo ao SEI - Sistema de Educação Inteligente</h1>
-        <p>Seu acesso foi realizado com sucesso. A partir daqui, você poderá organizar seu orçamento, comparar
-            investimentos e entender cada ferramenta da plataforma.</p>
+            <article class="topic-row">
+                <span class="topic-icon" aria-hidden="true">📈</span>
+                <div>
+                    <h2>Por que investir?</h2>
+                    <p>Investir é a melhor forma de conquistar sonhos, proteger seu patrimônio e vencer a inflação.</p>
+                </div>
+            </article>
 
-        <p>O site irá proporcionar uma experiência completa para que você possa tomar decisões financeiras informadas. Aqui poderá explorar diversas funcionalidades e recursos educativos.</p>
+            <article class="topic-row">
+                <span class="topic-icon" aria-hidden="true">⚠️</span>
+                <div>
+                    <h2>Erros comuns</h2>
+                    <p>Deixar dinheiro parado, investir sem objetivo ou cair em promessas de lucro fácil.</p>
+                </div>
+            </article>
+        </section>
 
-        <p>Ao clicar em <strong>COMEÇAR</strong>, você será levado para a página principal para iniciar o uso da
-            plataforma.</p>
+        <section class="impacto" aria-label="Simulador de investimento mensal">
+            <h3>Veja o impacto de investir todo mês</h3>
 
-        <p>O que antes você não sabia, agora pode dizer: <strong>eu SEI</strong>.</p>
+            <form id="simuladorForm" class="simulador-form">
+                <label for="valorMensal">Valor mensal:</label>
+                <input type="number" id="valorMensal" min="1" step="1" value="100" required>
 
-        <button id="btnIrParaInicio" type="button">COMEÇAR</button>
+                <label for="anosInvestimento">Anos:</label>
+                <input type="number" id="anosInvestimento" min="1" step="1" value="5" required>
+
+                <button type="submit" class="btn-simular">Simular</button>
+            </form>
+
+            <p id="resultadoSimulador" class="resultado-simulador">
+                Se investir R$ 100 por mês, em 5 anos você pode ter R$ 8.034,13
+            </p>
+        </section>
+
+        <section class="cta-final" aria-label="Entrada no sistema">
+            <h3>Pronto para mudar sua vida financeira?</h3>
+            <a href="main.html" class="btn-cta">Ir para o sistema</a>
+        </section>
     </main>
 
     <script>
-        const fundoDolar = document.getElementById("bgDolar");
-        const TOTAL_ICONES = 32;
-        const ICONE_DOLAR_URL = "../src/img/dolar.png";
-
-        const ponteiro = {
-            x: window.innerWidth / 2,
-            y: window.innerHeight / 2,
-            ativo: false
-        };
-
-        const icones = Array.from({ length: TOTAL_ICONES }, () => {
-            const elemento = document.createElement("span");
-            elemento.className = "coin";
-            elemento.style.backgroundImage = `url(${ICONE_DOLAR_URL})`;
-            fundoDolar.appendChild(elemento);
-
-            const tamanho = 16 + Math.random() * 24;
-
-            return {
-                elemento,
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                tamanho,
-                opacidade: 0.14 + Math.random() * 0.3,
-                velocidadeVertical: (Math.random() - 0.5) * 0.12,
-                amplitude: 6 + Math.random() * 14,
-                fase: Math.random() * Math.PI * 2,
-                velocidadeOscilacao: 0.0008 + Math.random() * 0.0018,
-                rotacaoBase: Math.random() * 360,
-                velocidadeRotacao: (Math.random() - 0.5) * 0.025
-            };
-        });
-
-        function atualizarTamanhoViewport() {
-            const largura = window.innerWidth;
-            const altura = window.innerHeight;
-
-            icones.forEach((icone) => {
-                icone.x = Math.min(icone.x, largura - icone.tamanho);
-                icone.y = Math.min(icone.y, altura - icone.tamanho);
-            });
-        }
-
-        function animarIcones(tempoAtual) {
-            const larguraViewport = window.innerWidth;
-            const alturaViewport = window.innerHeight;
-
-            icones.forEach((icone) => {
-                icone.y += icone.velocidadeVertical;
-
-                if (icone.y < -icone.tamanho) {
-                    icone.y = alturaViewport + icone.tamanho;
-                }
-
-                if (icone.y > alturaViewport + icone.tamanho) {
-                    icone.y = -icone.tamanho;
-                }
-
-                const oscilacaoX = Math.sin(tempoAtual * icone.velocidadeOscilacao + icone.fase) * icone.amplitude;
-                const oscilacaoY = Math.cos(tempoAtual * icone.velocidadeOscilacao + icone.fase) * (icone.amplitude * 0.35);
-
-                let deslocamentoMouseX = 0;
-                let deslocamentoMouseY = 0;
-
-                if (ponteiro.ativo) {
-                    const centroX = icone.x + icone.tamanho / 2;
-                    const centroY = icone.y + icone.tamanho / 2;
-                    const deltaX = centroX - ponteiro.x;
-                    const deltaY = centroY - ponteiro.y;
-                    const distancia = Math.hypot(deltaX, deltaY) || 1;
-                    const raioInfluencia = 220;
-
-                    if (distancia < raioInfluencia) {
-                        const intensidade = (1 - distancia / raioInfluencia) * 26;
-                        deslocamentoMouseX = (deltaX / distancia) * intensidade;
-                        deslocamentoMouseY = (deltaY / distancia) * intensidade;
-                    }
-                }
-
-                const xFinal = icone.x + oscilacaoX + deslocamentoMouseX;
-                const yFinal = icone.y + oscilacaoY + deslocamentoMouseY;
-                const rotacao = icone.rotacaoBase + tempoAtual * icone.velocidadeRotacao;
-
-                icone.elemento.style.width = `${icone.tamanho}px`;
-                icone.elemento.style.height = `${icone.tamanho}px`;
-                icone.elemento.style.opacity = String(icone.opacidade);
-                icone.elemento.style.transform = `translate3d(${xFinal}px, ${yFinal}px, 0) rotate(${rotacao}deg)`;
-            });
-
-            requestAnimationFrame(animarIcones);
-        }
-
-        window.addEventListener("mousemove", (evento) => {
-            ponteiro.x = evento.clientX;
-            ponteiro.y = evento.clientY;
-            ponteiro.ativo = true;
-        });
-
-        window.addEventListener("mouseleave", () => {
-            ponteiro.ativo = false;
-        });
-
-        window.addEventListener("resize", atualizarTamanhoViewport);
-        atualizarTamanhoViewport();
-        requestAnimationFrame(animarIcones);
-
-        document.getElementById("btnIrParaInicio")?.addEventListener("click", function () {
-            localStorage.removeItem("sei:autoStartTour");
-            window.location.href = "main.html";
-        });
-    </script>
-
-    <script>
         (function () {
-            const dispositivoSemMouse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-            const reduzirMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const taxaAnual = 0.1138656512;
+            const campoValor = document.getElementById("valorMensal");
+            const campoAnos = document.getElementById("anosInvestimento");
+            const resultado = document.getElementById("resultadoSimulador");
+            const form = document.getElementById("simuladorForm");
+            const btnComecar = document.getElementById("btnComecar");
 
-            if (dispositivoSemMouse || reduzirMovimento) {
-                return;
+            function formatarReal(valor) {
+                return valor.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                });
             }
 
-            if (document.body.querySelector(".cursorDot")) {
-                return;
+            function calcularFuturoMensal(valorMensal, anos, taxaAno) {
+                const meses = anos * 12;
+                const taxaMensal = taxaAno / 12;
+
+                if (taxaMensal === 0) {
+                    return valorMensal * meses;
+                }
+
+                return valorMensal * (((1 + taxaMensal) ** meses - 1) / taxaMensal);
             }
 
-            const pontoPrincipal = document.createElement("div");
-            pontoPrincipal.className = "cursorDot";
-            document.body.appendChild(pontoPrincipal);
+            function atualizarResultado() {
+                const valorMensal = Number(campoValor.value) || 0;
+                const anos = Number(campoAnos.value) || 0;
 
-            const trilhas = [];
-            const quantidadeTrilhas = 8;
+                if (valorMensal <= 0 || anos <= 0) {
+                    resultado.textContent = "Informe um valor mensal e prazo válidos para simular.";
+                    return;
+                }
 
-            for (let indice = 0; indice < quantidadeTrilhas; indice++) {
-                const trilha = document.createElement("div");
-                trilha.className = "cursorTrail";
-                trilha.style.opacity = String(0.34 - indice * 0.03);
-                document.body.appendChild(trilha);
-                trilhas.push({ elemento: trilha, x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                const montante = calcularFuturoMensal(valorMensal, anos, taxaAnual);
+                resultado.textContent = `Se investir ${formatarReal(valorMensal)} por mês, em ${anos} anos você pode ter ${formatarReal(montante)}.`;
             }
 
-            let alvoX = window.innerWidth / 2;
-            let alvoY = window.innerHeight / 2;
-
-            window.addEventListener("mousemove", (evento) => {
-                alvoX = evento.clientX;
-                alvoY = evento.clientY;
+            form.addEventListener("submit", function (evento) {
+                evento.preventDefault();
+                atualizarResultado();
             });
 
-            function animarCursorFallback() {
-                trilhas.forEach((item, indice) => {
-                    const referencia = indice === 0 ? { x: alvoX, y: alvoY } : trilhas[indice - 1];
-                    item.x += (referencia.x - item.x) * 0.22;
-                    item.y += (referencia.y - item.y) * 0.22;
+            campoValor.addEventListener("input", atualizarResultado);
+            campoAnos.addEventListener("input", atualizarResultado);
 
-                    item.elemento.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${1 - indice * 0.06})`;
-                });
+            btnComecar.addEventListener("click", function () {
+                const blocoSimulador = document.getElementById("simuladorForm");
+                blocoSimulador.scrollIntoView({ behavior: "smooth", block: "center" });
+            });
 
-                pontoPrincipal.style.transform = `translate3d(${alvoX}px, ${alvoY}px, 0)`;
-                requestAnimationFrame(animarCursorFallback);
-            }
-
-            requestAnimationFrame(animarCursorFallback);
+            atualizarResultado();
         })();
     </script>
-
-
 </body>
 
 </html>

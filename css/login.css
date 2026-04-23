@@ -8,11 +8,6 @@ body {
     place-items: center;
     padding: 24px;
     box-sizing: border-box;
-    cursor: none;
-}
-
-body * {
-    cursor: none !important;
 }
 
 .pr1 {
@@ -118,29 +113,3 @@ button:focus-visible {
     }
 }
 
-.cursorDot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #adaaaa;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate3d(-999px, -999px, 0);
-}
-
-.cursorTrail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #6D6D6D;
-    pointer-events: none;
-    z-index: 9998;
-    filter: blur(0.2px);
-    transform: translate3d(-999px, -999px, 0);
-}

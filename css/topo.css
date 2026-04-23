@@ -4,11 +4,13 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #5C5C5C;
-    color: #fff;
+    background: linear-gradient(110deg, #0f1822 0%, #152434 55%, #153a2a 100%);
+    color: var(--text-primary);
     padding: 0;
     text-align: center;
     box-sizing: border-box;
+    border-bottom: 1px solid rgba(121, 170, 205, 0.28);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
@@ -17,12 +19,35 @@
 }
 
 .topo h1 {
-    margin: 15px 0 10px 0;
-    font-size: 1.8rem;
+    margin: 8px 0 8px 0;
+    font-size: 1.65rem;
 }
 
 .containerTopo {
-    padding: 0 20px;
+    padding: 10px 20px 0;
+}
+
+.brandMain {
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+
+    h1{
+        font-family: sans-serif;
+        margin: 0;
+        letter-spacing: 20px;
+    }
+}
+
+
+.LogoMain {
+    width: clamp(120px, 15vw, 180px);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .conteinerTopo {
@@ -36,7 +61,7 @@
     align-items: center;
     justify-content: flex-start;
     overflow: hidden;
-    background-color: #4C4C4C;
+    background: linear-gradient(90deg, #102430 0%, #143027 100%);
     position: relative;
     height: 52px;
 }
@@ -88,8 +113,9 @@
 }
 
 .apiIndicadores {
-    background-color: #4C4C4C;
-    color: #fff;
+    background: rgba(16, 31, 44, 0.9);
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
     border-radius: 10px;
     padding: 14px;
     margin: 14px auto;
@@ -107,8 +133,8 @@
 }
 
 .apiIndicador {
-    background: #3f3f42;
-    border: 1px solid #6f6f72;
+    background: #162636;
+    border: 1px solid var(--border-main);
     border-radius: 10px;
     padding: 10px 12px;
     font-weight: 600;

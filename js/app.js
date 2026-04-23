@@ -1549,55 +1549,6 @@ function criarNovoAlerta(mensagem) {
 }
 
 let graficoMilhao;
-let investorListenerAdded = false; // control for Saiba Investir delegation
-
-document.getElementById("calcularOrcamento").addEventListener("click", () => {
-  const renda = unformatCurrency(document.getElementById("rendaMensal").value);
-  const fixos = unformatCurrency(document.getElementById("gastosFixos").value);
-  const ali = unformatCurrency(document.getElementById("alimentacao").value);
-  const trans = unformatCurrency(document.getElementById("transporte").value);
-  const laz = unformatCurrency(document.getElementById("lazer").value);
-
-  // Validação: obrigar renda a ser informada e positiva
-  if (isNaN(renda) || renda <= 0) {
-    mostrarAlerta('Por favor, insira uma renda mensal válida e positiva.');
-    return;
-  }
-
-  const totalGastos = fixos + ali + trans + laz;
-  const sobras = renda - totalGastos;
-
-  document.getElementById("resultadoOrcamento").innerHTML = `
-    <h3>📊 Resultado do Orçamento</h3>
-    <p>Renda: R$ ${renda.toFixed(2)}</p>
-    <p>Total de Gastos: R$ ${totalGastos.toFixed(2)}</p>
-    <p><strong>Sobras para Investir: R$ ${sobras.toFixed(2)}</strong></p>
-    ${sobras > 0 ? `<p>💡 Com R$ ${sobras.toFixed(2)} por mês, você pode investir e alcançar seus objetivos!</p><button class="btnSaibaInvestir">💼 Saiba Investir!</button>` : `<p>⚠️ Seus gastos estão acima da renda. Considere reduzir despesas.</p>`}
-  `;
-
-  // Adiciona evento ao botão "Saiba Investir!" (delegação para evitar múltiplos handlers)
-  if (!investorListenerAdded) {
-    const container = document.getElementById("resultadoOrcamento");
-    if (container) {
-      container.addEventListener("click", (e) => {
-        if (e.target && e.target.classList.contains("btnSaibaInvestir")) {
-          abrirModalInvestimento();
-        }
-      });
-      investorListenerAdded = true;
-    }
-  }
-
-
-  // Auto-preencher o valor de investimento com as sobras
-  if (sobras > 0) {
-    document.getElementById("valorInvestimento").value = sobras;
-    // Trigger the update
-    atualizarAutomatico();
-    // Also set in million calculator
-    document.getElementById("valorMensal").value = sobras;
-  }
-});
 
 document.getElementById("calcularMilhao").addEventListener("click", () => {
 

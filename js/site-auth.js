@@ -26,6 +26,7 @@
     }
 
     messageNode.textContent = message || "";
+    messageNode.setAttribute("aria-live", isError ? "assertive" : "polite");
     if (isError) {
       messageNode.classList.add("error");
       return;
@@ -42,21 +43,56 @@
     window.location.href = "./dashboard.html";
   }
 
+  function markInvalid(input) {
+    if (!input) {
+      return;
+    }
+
+    input.setAttribute("aria-invalid", "true");
+    input.setAttribute("aria-describedby", "authMessage");
+  }
+
+  function clearInvalid(inputs) {
+    (inputs || []).forEach(function (input) {
+      if (!input) {
+        return;
+      }
+
+      input.removeAttribute("aria-invalid");
+      input.removeAttribute("aria-describedby");
+    });
+  }
+
   function handleRegister(form) {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      var name = document.getElementById("registerName").value.trim();
-      var email = normalizeEmail(document.getElementById("registerEmail").value);
-      var password = document.getElementById("registerPassword").value;
+      var nameInput = document.getElementById("registerName");
+      var emailInput = document.getElementById("registerEmail");
+      var passwordInput = document.getElementById("registerPassword");
+      var name = nameInput.value.trim();
+      var email = normalizeEmail(emailInput.value);
+      var password = passwordInput.value;
+
+      clearInvalid([nameInput, emailInput, passwordInput]);
 
       if (!name || !email || !password) {
-        showMessage("Preencha todos os campos.", true);
+        if (!name) {
+          markInvalid(nameInput);
+        }
+        if (!email) {
+          markInvalid(emailInput);
+        }
+        if (!password) {
+          markInvalid(passwordInput);
+        }
+        showMessage("Erro: preencha todos os campos.", true);
         return;
       }
 
       if (password.length < 4) {
-        showMessage("A senha deve ter no mínimo 4 caracteres.", true);
+        markInvalid(passwordInput);
+        showMessage("Erro: a senha deve ter no mínimo 4 caracteres.", true);
         return;
       }
 
@@ -66,7 +102,8 @@
       });
 
       if (exists) {
-        showMessage("Esse e-mail já está cadastrado.", true);
+        markInvalid(emailInput);
+        showMessage("Erro: esse e-mail já está cadastrado.", true);
         return;
       }
 
@@ -88,11 +125,21 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      var email = normalizeEmail(document.getElementById("loginEmail").value);
-      var password = document.getElementById("loginPassword").value;
+      var emailInput = document.getElementById("loginEmail");
+      var passwordInput = document.getElementById("loginPassword");
+      var email = normalizeEmail(emailInput.value);
+      var password = passwordInput.value;
+
+      clearInvalid([emailInput, passwordInput]);
 
       if (!email || !password) {
-        showMessage("Informe e-mail e senha.", true);
+        if (!email) {
+          markInvalid(emailInput);
+        }
+        if (!password) {
+          markInvalid(passwordInput);
+        }
+        showMessage("Erro: informe e-mail e senha.", true);
         return;
       }
 
@@ -108,7 +155,9 @@
       });
 
       if (!user) {
-        showMessage("Usuário ou senha incorretos.", true);
+        markInvalid(emailInput);
+        markInvalid(passwordInput);
+        showMessage("Erro: usuário ou senha incorretos.", true);
         return;
       }
 

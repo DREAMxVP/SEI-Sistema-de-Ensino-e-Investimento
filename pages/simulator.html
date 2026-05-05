@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
     <header class="site-header">
         <a class="brand" href="../index.html">
             <span class="brand-dot" aria-hidden="true">
@@ -24,7 +25,7 @@
         </nav>
     </header>
 
-    <main class="content-page">
+    <main id="mainContent" class="content-page">
         <section class="hero mini-hero">
             <p class="eyebrow">Simulador</p>
             <h1>Planeje sua evolução com juros compostos</h1>
@@ -49,7 +50,7 @@
                 <p data-indicator-value="ipca">--</p>
             </article>
         </section>
-        <p class="ticker-meta" id="simulatorTickerMeta">Atualizando indicadores...</p>
+        <p class="ticker-meta" id="simulatorTickerMeta" role="status" aria-live="polite" aria-atomic="true">Atualizando indicadores...</p>
 
         <section class="tool-grid">
             <article class="panel-card">
@@ -66,12 +67,12 @@
 
                     <button type="submit" class="btn-primary">Simular</button>
                 </form>
-                <p id="simulatorResult" class="result-text">Preencha os campos e clique em simular.</p>
+                <p id="simulatorResult" class="result-text" role="status" aria-live="polite" aria-atomic="true">Preencha os campos e clique em simular.</p>
             </article>
 
             <article class="panel-card">
                 <h3>Resumo do cenário</h3>
-                <div class="summary-list" id="scenarioSummary">
+                <div class="summary-list" id="scenarioSummary" aria-live="polite" aria-atomic="true">
                     <p>Aporte mensal: <strong>R$ 200,00</strong></p>
                     <p>Prazo: <strong>10 anos</strong></p>
                     <p>Taxa: <strong>11,65% a.a.</strong></p>

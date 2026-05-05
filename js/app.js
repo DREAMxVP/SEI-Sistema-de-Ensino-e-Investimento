@@ -1901,6 +1901,7 @@ function abrirModalInvestimento() {
   const overlay = document.getElementById("overlayModal");
 
   modal.classList.add("ativo");
+  modal.setAttribute("aria-hidden", "false");
   overlay.classList.add("ativo");
 
   // Impede scroll do body quando modal está aberto
@@ -1912,6 +1913,7 @@ function fecharModalInvestimento() {
   const overlay = document.getElementById("overlayModal");
 
   modal.classList.remove("ativo");
+  modal.setAttribute("aria-hidden", "true");
   overlay.classList.remove("ativo");
 
   // Restaura scroll do body
@@ -1956,6 +1958,7 @@ function startTour(steps, callback) {
 
   overlay.classList.add("ativo");
   message.style.display = "block";
+  message.setAttribute("aria-hidden", "false");
 
   function showStep() {
     const step = tourSteps[tourCurrent];
@@ -1997,6 +2000,7 @@ function startTour(steps, callback) {
     if (el) el.classList.remove("tourHighlight");
     overlay.classList.remove("ativo");
     message.style.display = "none";
+    message.setAttribute("aria-hidden", "true");
     if (tourCallback) tourCallback();
   };
 
@@ -2032,6 +2036,7 @@ function perguntaMilhao() {
     cancel.addEventListener("click", () => {
       overlay.classList.remove("ativo");
       message.style.display = "none";
+      message.setAttribute("aria-hidden", "true");
     });
     message.querySelector(".tourButtons").appendChild(cancel);
   }
@@ -2039,6 +2044,7 @@ function perguntaMilhao() {
   btnEnd.onclick = () => {
     overlay.classList.remove("ativo");
     message.style.display = "none";
+    message.setAttribute("aria-hidden", "true");
     // iniciar tour do milhão
     const stepsMilhao = [
       { selector: "#valorInicial", text: "Comece informando o valor inicial que você já possui." },

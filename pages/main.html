@@ -15,15 +15,17 @@
 
 <body>
 
+  <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+
   <!-- TOPO -->
-  <section class="topo" id="topoInicio">
+  <header class="topo" id="topoInicio">
     <div class="containerTopo">
       <div class="brandMain" aria-label="Identidade visual do SEI">
         <img src="../src/img/logo-sei-transparente.png" alt="Logo SEI versão transparente" class="LogoMain">
         <h1>SEI • Sistema de Ensino e Investimento</h1>
       </div>
 
-      <h4>Bem-vindo ao seu painel de investimentos</h4>
+      <p class="topoBoasVindas">Bem-vindo ao seu painel de investimentos</p>
 
       <button id="btnToggleMenuTopo" class="btnToggleMenuTopo" type="button" aria-expanded="false" aria-controls="menuTopoPrincipal">
         <span class="seta" aria-hidden="true">▾</span>
@@ -59,6 +61,7 @@
           <li><a href="https://analitica.auvp.com.br/fiis" target="_blank" rel="noopener noreferrer">FIIs</a></li>
           <li><a href="https://analitica.auvp.com.br/etfs" target="_blank" rel="noopener noreferrer">ETFs</a></li>
           <li class="barraPesquisaLi">
+            <label for="barraPesquisa" class="sr-only">Pesquisar investimentos no painel</label>
             <input type="text" placeholder="Pesquise os próximos investimentos..." id="barraPesquisa" autocomplete="off"
               class="inputPesquisa">
           </li>
@@ -71,7 +74,9 @@
         </ul>
       </nav>
     </div>
-  </section>
+  </header>
+
+  <main id="mainContent">
 
 
 
@@ -143,27 +148,27 @@
 
     <div class="gridOrcamento">
       <div>
-        <label>Renda mensal:<br></label>
+        <label for="rendaMensal">Renda mensal:<br></label>
         <input type="text" id="rendaMensal" placeholder="R$ 5.000,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Gastos fixos (aluguel, contas):<br></label>
+        <label for="gastosFixos">Gastos fixos (aluguel, contas):<br></label>
         <input type="text" id="gastosFixos" placeholder="R$ 1.500,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Alimentação:<br></label>
+        <label for="alimentacao">Alimentação:<br></label>
         <input type="text" id="alimentacao" placeholder="R$ 800,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Transporte:<br></label>
+        <label for="transporte">Transporte:<br></label>
         <input type="text" id="transporte" placeholder="R$ 300,00" autocomplete="off">
       </div>
 
       <div>
-        <label>Lazer e outros:<br></label>
+        <label for="lazer">Lazer e outros:<br></label>
         <input type="text" id="lazer" placeholder="R$ 500,00" autocomplete="off">
       </div>
     </div>
@@ -518,10 +523,10 @@
   <!-- Modal - Explicação de Investimentos -->
   <div id="overlayModal" class="overlayModal"></div>
 
-  <div id="modalInvestimento" class="modalInvestimento">
+  <div id="modalInvestimento" class="modalInvestimento" role="dialog" aria-modal="true" aria-labelledby="modalInvestimentoTitulo" aria-hidden="true">
     <button class="btnFecharModal">&times;</button>
 
-    <h2>🚀 Como Usar a Comparação de Investimentos</h2>
+    <h2 id="modalInvestimentoTitulo">🚀 Como Usar a Comparação de Investimentos</h2>
 
     <div class="containerCardsModal">
       <div class="cardExplicacao">
@@ -572,7 +577,7 @@
 
   <!-- Tour de orientação -->
   <div id="overlayTour" class="overlayTour"></div>
-  <div id="tourMessage" class="tourMessage">
+  <div id="tourMessage" class="tourMessage" role="dialog" aria-modal="true" aria-labelledby="tourText" aria-hidden="true">
     <p id="tourText"></p>
     <div class="tourButtons">
       <button id="tourPrev">Anterior</button>
@@ -584,9 +589,9 @@
   <button id="btnAjudaInvestimentos" class="btnAjudaInvestimentos" type="button"
     aria-label="Abrir ajuda sobre investimentos">?</button>
 
-  <section id="painelAjudaInvestimentos" class="painelAjudaInvestimentos" aria-hidden="true">
+  <section id="painelAjudaInvestimentos" class="painelAjudaInvestimentos" aria-hidden="true" role="region" aria-labelledby="painelAjudaTitulo">
     <div class="ajudaCabecalho">
-      <h2>📌 Guia Prático de Investimentos</h2>
+      <h2 id="painelAjudaTitulo">📌 Guia Prático de Investimentos</h2>
       <button id="btnFecharAjudaInvestimentos" type="button" aria-label="Fechar ajuda">×</button>
     </div>
 
@@ -656,6 +661,8 @@
   </section>
 
   <!-- Script principal -->
+  </main>
+
   <script type="module" src="../js/app.js"></script>
 
 </body>

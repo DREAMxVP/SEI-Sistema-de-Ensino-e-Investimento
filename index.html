@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
     <header class="site-header">
         <a class="brand" href="./index.html" aria-label="Ir para a página inicial do SEI">
             <span class="brand-dot" aria-hidden="true">
@@ -27,7 +28,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="mainContent">
         <section class="hero">
             <p class="eyebrow">Educação financeira sem enrolação</p>
             <h1>Aprenda a investir do zero, no seu ritmo.</h1>
@@ -59,7 +60,7 @@
                 <p data-indicator-value="ipca">--</p>
             </article>
         </section>
-        <p class="ticker-meta" id="tickerMeta">Atualizando indicadores...</p>
+        <p class="ticker-meta" id="tickerMeta" role="status" aria-live="polite" aria-atomic="true">Atualizando indicadores...</p>
 
         <section class="feature-grid" aria-label="Recursos principais da plataforma">
             <article class="feature-card">

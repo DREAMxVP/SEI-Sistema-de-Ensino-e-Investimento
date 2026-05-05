@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
     <header class="site-header">
         <a class="brand" href="../index.html">
             <span class="brand-dot" aria-hidden="true">
@@ -24,12 +25,14 @@
         </nav>
     </header>
 
-    <main class="content-page">
+    <main id="mainContent" class="content-page">
         <section class="hero mini-hero">
             <p class="eyebrow">Glossário</p>
             <h1>Termos financeiros sem complicação</h1>
             <p class="hero-text">Busque rapidamente conceitos de investimentos com exemplos práticos.</p>
-            <input id="glossarySearch" class="page-search" type="search" placeholder="Ex.: CDI, inflação, reserva de emergência">
+            <label for="glossarySearch" class="sr-only">Buscar termo no glossário</label>
+            <input id="glossarySearch" class="page-search" type="search" placeholder="Ex.: CDI, inflação, reserva de emergência" aria-describedby="glossarySearchHint">
+            <p id="glossarySearchHint" class="sr-only">Digite um termo como CDI, inflação ou reserva de emergência.</p>
         </section>
 
         <section class="ticker" aria-label="Indicadores financeiros em tempo real">
@@ -50,7 +53,7 @@
                 <p data-indicator-value="ipca">--</p>
             </article>
         </section>
-        <p class="ticker-meta" id="glossaryTickerMeta">Atualizando indicadores...</p>
+        <p class="ticker-meta" id="glossaryTickerMeta" role="status" aria-live="polite" aria-atomic="true">Atualizando indicadores...</p>
 
         <section id="glossaryGrid" class="topic-grid" aria-label="Termos do glossário"></section>
     </main>

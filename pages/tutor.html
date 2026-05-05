@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
     <header class="site-header">
         <a class="brand" href="../index.html">
             <span class="brand-dot" aria-hidden="true">
@@ -24,7 +25,7 @@
         </nav>
     </header>
 
-    <main class="content-page">
+    <main id="mainContent" class="content-page">
         <section class="hero mini-hero">
             <p class="eyebrow">Tutor IA</p>
             <h1>Tire dúvidas com contexto do mercado</h1>
@@ -49,13 +50,15 @@
                 <p data-indicator-value="ipca">--</p>
             </article>
         </section>
-        <p class="ticker-meta" id="tutorTickerMeta">Atualizando indicadores...</p>
+        <p class="ticker-meta" id="tutorTickerMeta" role="status" aria-live="polite" aria-atomic="true">Atualizando indicadores...</p>
 
         <section class="panel-card chat-card">
             <h3>Conversa com tutor</h3>
-            <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+            <div id="chatMessages" class="chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
             <form id="chatForm" class="chat-form">
-                <input id="chatInput" type="text" placeholder="Ex.: Como usar CDI e Selic na minha estratégia?" required>
+                <label for="chatInput" class="sr-only">Digite sua pergunta para o tutor</label>
+                <input id="chatInput" type="text" placeholder="Ex.: Como usar CDI e Selic na minha estratégia?" required aria-describedby="chatHint">
+                <p id="chatHint" class="sr-only">Digite sua pergunta e pressione o botão Perguntar.</p>
                 <button type="submit" class="btn-primary">Perguntar</button>
             </form>
         </section>

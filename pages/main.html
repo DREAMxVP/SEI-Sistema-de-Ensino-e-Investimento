@@ -60,11 +60,7 @@
           <li><a href="https://analitica.auvp.com.br/acoes" target="_blank" rel="noopener noreferrer">Ações</a></li>
           <li><a href="https://analitica.auvp.com.br/fiis" target="_blank" rel="noopener noreferrer">FIIs</a></li>
           <li><a href="https://analitica.auvp.com.br/etfs" target="_blank" rel="noopener noreferrer">ETFs</a></li>
-          <li class="barraPesquisaLi">
-            <label for="barraPesquisa" class="sr-only">Pesquisar investimentos no painel</label>
-            <input type="text" placeholder="Pesquise os próximos investimentos..." id="barraPesquisa" autocomplete="off"
-              class="inputPesquisa">
-          </li>
+          
           <li><a href="https://analitica.auvp.com.br/renda-fixa" target="_blank" rel="noopener noreferrer">Renda
               Fixa</a>
           </li>
@@ -77,6 +73,7 @@
   </header>
 
   <main id="mainContent">
+    
 
 
 
@@ -96,12 +93,18 @@
   </section>
 
   <section class="card painelIndicesCompletos" id="painelIndicesCompletos">
+    
     <div class="painelCabecalhoIndices">
       <h2>📈 Painel de Índices em Tempo Real</h2>
       <button id="btnToggleListaIndices" class="btnToggleListaIndices" type="button" aria-expanded="true" aria-controls="gridIndicesCompletos">
         <span class="seta" aria-hidden="true">▴</span>
         Ocultar lista
       </button>
+      <div class="barraPesquisaLi">
+            <label for="barraPesquisa" class="sr-only">Pesquisar investimentos no painel</label>
+            <input type="text" placeholder="Pesquise os próximos investimentos..." id="barraPesquisa" autocomplete="off"
+              class="inputPesquisa">
+      </div>
     </div>
     <p>Atualização automática com múltiplas APIs (AUVP, BCB, brapi e fallback).</p>
     <div class="painelIndicesLayout">

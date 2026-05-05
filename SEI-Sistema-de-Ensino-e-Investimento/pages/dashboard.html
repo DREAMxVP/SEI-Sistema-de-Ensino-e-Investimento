@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+</head>
+
+<body>
+    <div class="dash-shell">
+        <aside class="dash-sidebar">
+            <a class="brand" href="../index.html">
+                <span class="brand-dot" aria-hidden="true">
+                    <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+                </span>
+                <span>SEI</span>
+            </a>
+
+            <nav class="dash-nav" aria-label="Navegação do dashboard">
+                <a href="#">Visão geral</a>
+                <a href="intro.html">Trilha inicial</a>
+                <a href="lessons.html">Aulas</a>
+                <a href="glossary.html">Glossário</a>
+                <a href="simulator.html">Simulador</a>
+                <a href="tutor.html">Tutor IA</a>
+                <a href="main.html">Painel completo</a>
+                <a href="../index.html">Voltar ao início</a>
+            </nav>
+
+            <button id="logoutButton" class="btn-secondary" type="button">Sair</button>
+        </aside>
+
+        <main class="dash-main">
+            <header class="dash-topbar">
+                <div>
+                    <p class="eyebrow">Dashboard</p>
+                    <h1 id="welcomeTitle">Olá!</h1>
+                </div>
+                <a class="btn-primary" href="main.html">Abrir painel avançado</a>
+            </header>
+
+            <section class="dash-cards" aria-label="Indicadores principais">
+                <article class="metric-card" data-indicator-card="cdi">
+                    <h2>CDI</h2>
+                    <p data-indicator-value="cdi">--</p>
+                </article>
+                <article class="metric-card" data-indicator-card="selic">
+                    <h2>SELIC</h2>
+                    <p data-indicator-value="selic">--</p>
+                </article>
+                <article class="metric-card" data-indicator-card="ipca">
+                    <h2>IPCA</h2>
+                    <p data-indicator-value="ipca">--</p>
+                </article>
+                <article class="metric-card" data-indicator-card="ibov">
+                    <h2>Ibovespa</h2>
+                    <p data-indicator-value="ibov">--</p>
+                </article>
+            </section>
+            <p class="ticker-meta" id="dashboardTickerMeta">Atualizando indicadores...</p>
+
+            <section class="dash-grid" aria-label="Módulos de aprendizado">
+                <article class="panel-card">
+                    <h3>Próxima trilha recomendada</h3>
+                    <p>Renda fixa para iniciantes — entenda onde investir sua reserva com segurança.</p>
+                    <a class="panel-link" href="intro.html">Continuar trilha</a>
+                </article>
+
+                <article class="panel-card">
+                    <h3>Simulação rápida</h3>
+                    <p>Se investir R$ 200/mês por 10 anos a 11% a.a., pode chegar em torno de <strong>R$ 41.332</strong>.</p>
+                    <a class="panel-link" href="main.html#hubSimulacoes">Abrir simuladores</a>
+                </article>
+
+                <article class="panel-card full-width">
+                    <h3>Resumo da sua evolução</h3>
+                    <div class="progress-row">
+                        <span>Fundamentos</span>
+                        <div class="progress-bar"><i style="width: 72%;"></i></div>
+                    </div>
+                    <div class="progress-row">
+                        <span>Renda fixa</span>
+                        <div class="progress-bar"><i style="width: 58%;"></i></div>
+                    </div>
+                    <div class="progress-row">
+                        <span>Renda variável</span>
+                        <div class="progress-bar"><i style="width: 31%;"></i></div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="../js/dashboard.js"></script>
+</body>
+
+</html>

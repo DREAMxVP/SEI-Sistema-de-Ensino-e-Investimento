@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossário | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+        <nav class="site-nav">
+            <a href="lessons.html">Aulas</a>
+            <a href="simulator.html">Simulador</a>
+            <a href="tutor.html">Tutor IA</a>
+            <a href="dashboard.html">Dashboard</a>
+        </nav>
+    </header>
+
+    <main class="content-page">
+        <section class="hero mini-hero">
+            <p class="eyebrow">Glossário</p>
+            <h1>Termos financeiros sem complicação</h1>
+            <p class="hero-text">Busque rapidamente conceitos de investimentos com exemplos práticos.</p>
+            <input id="glossarySearch" class="page-search" type="search" placeholder="Ex.: CDI, inflação, reserva de emergência">
+        </section>
+
+        <section class="ticker" aria-label="Indicadores financeiros em tempo real">
+            <article data-indicator-card="cdi">
+                <h2>CDI</h2>
+                <p data-indicator-value="cdi">--</p>
+            </article>
+            <article data-indicator-card="selic">
+                <h2>SELIC</h2>
+                <p data-indicator-value="selic">--</p>
+            </article>
+            <article data-indicator-card="ibov">
+                <h2>Ibovespa</h2>
+                <p data-indicator-value="ibov">--</p>
+            </article>
+            <article data-indicator-card="ipca">
+                <h2>IPCA</h2>
+                <p data-indicator-value="ipca">--</p>
+            </article>
+        </section>
+        <p class="ticker-meta" id="glossaryTickerMeta">Atualizando indicadores...</p>
+
+        <section id="glossaryGrid" class="topic-grid" aria-label="Termos do glossário"></section>
+    </main>
+
+    <script type="module" src="../js/glossary.js"></script>
+</body>
+
+</html>

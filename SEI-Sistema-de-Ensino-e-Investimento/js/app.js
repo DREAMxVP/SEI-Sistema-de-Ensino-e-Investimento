@@ -2056,15 +2056,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnComecar = document.getElementById("btnComecar");
   const overlay = document.getElementById("overlayModal");
   const topoFixo = document.querySelector(".topo");
+  const btnToggleMenuTopo = document.getElementById("btnToggleMenuTopo");
   const menuInicio = document.getElementById("menuInicio");
   const menuSimulacoes = document.getElementById("menuSimulacoes");
   const menuCalculadoras = document.getElementById("menuCalculadoras");
   const hubSimulacoes = document.getElementById("hubSimulacoes");
   const btnVoltarPainel = document.getElementById("btnVoltarPainel");
+  const painelIndicesCompletos = document.getElementById("painelIndicesCompletos");
+  const btnToggleListaIndices = document.getElementById("btnToggleListaIndices");
   const btnAjudaInvestimentos = document.getElementById("btnAjudaInvestimentos");
   const painelAjudaInvestimentos = document.getElementById("painelAjudaInvestimentos");
   const btnFecharAjudaInvestimentos = document.getElementById("btnFecharAjudaInvestimentos");
   const OFFSET_MINIMO_TOPO = 160;
+  const BREAKPOINT_MOBILE = 900;
 
   const ativarModoSimulacoes = () => {
     document.body.classList.add("simulacoes-only");
@@ -2090,10 +2094,58 @@ document.addEventListener("DOMContentLoaded", () => {
     resizeTimeout = setTimeout(atualizarOffsetTopo, 120);
   };
 
+  const atualizarTextoBotaoMenu = () => {
+    if (!btnToggleMenuTopo || !topoFixo) return;
+    const menuFechado = topoFixo.classList.contains("menu-fechado");
+    const seta = btnToggleMenuTopo.querySelector(".seta");
+    btnToggleMenuTopo.setAttribute("aria-expanded", menuFechado ? "false" : "true");
+    btnToggleMenuTopo.lastChild.textContent = menuFechado ? " Menu rápido" : " Fechar menu";
+    if (seta) {
+      seta.textContent = menuFechado ? "▸" : "▾";
+    }
+  };
+
+  const atualizarTextoBotaoIndices = () => {
+    if (!btnToggleListaIndices || !painelIndicesCompletos) return;
+    const colapsado = painelIndicesCompletos.classList.contains("is-collapsed");
+    const seta = btnToggleListaIndices.querySelector(".seta");
+    btnToggleListaIndices.setAttribute("aria-expanded", colapsado ? "false" : "true");
+    btnToggleListaIndices.lastChild.textContent = colapsado ? " Mostrar lista" : " Ocultar lista";
+    if (seta) {
+      seta.textContent = colapsado ? "▾" : "▴";
+    }
+  };
+
   atualizarOffsetTopo();
   window.addEventListener("resize", atualizarOffsetTopoDebounced);
   window.addEventListener("load", atualizarOffsetTopo);
   setTimeout(atualizarOffsetTopo, 250);
+
+  if (topoFixo && window.innerWidth <= BREAKPOINT_MOBILE) {
+    topoFixo.classList.add("menu-fechado");
+  }
+
+  if (painelIndicesCompletos && window.innerWidth <= BREAKPOINT_MOBILE) {
+    painelIndicesCompletos.classList.add("is-collapsed");
+  }
+
+  atualizarTextoBotaoMenu();
+  atualizarTextoBotaoIndices();
+
+  if (btnToggleMenuTopo && topoFixo) {
+    btnToggleMenuTopo.addEventListener("click", () => {
+      topoFixo.classList.toggle("menu-fechado");
+      atualizarTextoBotaoMenu();
+      atualizarOffsetTopoDebounced();
+    });
+  }
+
+  if (btnToggleListaIndices && painelIndicesCompletos) {
+    btnToggleListaIndices.addEventListener("click", () => {
+      painelIndicesCompletos.classList.toggle("is-collapsed");
+      atualizarTextoBotaoIndices();
+    });
+  }
 
   if (topoFixo && "ResizeObserver" in window) {
     const observadorTopo = new ResizeObserver(() => {

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor IA | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+        <nav class="site-nav">
+            <a href="lessons.html">Aulas</a>
+            <a href="glossary.html">Glossário</a>
+            <a href="simulator.html">Simulador</a>
+            <a href="dashboard.html">Dashboard</a>
+        </nav>
+    </header>
+
+    <main class="content-page">
+        <section class="hero mini-hero">
+            <p class="eyebrow">Tutor IA</p>
+            <h1>Tire dúvidas com contexto do mercado</h1>
+            <p class="hero-text">Respostas rápidas sobre investimentos usando os indicadores mais recentes como referência didática.</p>
+        </section>
+
+        <section class="ticker" aria-label="Indicadores financeiros em tempo real">
+            <article data-indicator-card="cdi">
+                <h2>CDI</h2>
+                <p data-indicator-value="cdi">--</p>
+            </article>
+            <article data-indicator-card="selic">
+                <h2>SELIC</h2>
+                <p data-indicator-value="selic">--</p>
+            </article>
+            <article data-indicator-card="ibov">
+                <h2>Ibovespa</h2>
+                <p data-indicator-value="ibov">--</p>
+            </article>
+            <article data-indicator-card="ipca">
+                <h2>IPCA</h2>
+                <p data-indicator-value="ipca">--</p>
+            </article>
+        </section>
+        <p class="ticker-meta" id="tutorTickerMeta">Atualizando indicadores...</p>
+
+        <section class="panel-card chat-card">
+            <h3>Conversa com tutor</h3>
+            <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+            <form id="chatForm" class="chat-form">
+                <input id="chatInput" type="text" placeholder="Ex.: Como usar CDI e Selic na minha estratégia?" required>
+                <button type="submit" class="btn-primary">Perguntar</button>
+            </form>
+        </section>
+    </main>
+
+    <script type="module" src="../js/tutor.js"></script>
+</body>
+
+</html>

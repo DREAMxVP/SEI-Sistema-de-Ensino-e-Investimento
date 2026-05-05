@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEI | Educação financeira sem enrolação</title>
+    <link rel="stylesheet" href="./css/site.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="./index.html" aria-label="Ir para a página inicial do SEI">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="./src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegação principal">
+            <a href="./pages/lessons.html">Aulas</a>
+            <a href="./pages/glossary.html">Glossário</a>
+            <a href="./pages/simulator.html">Simulador</a>
+            <a href="./pages/tutor.html">Tutor IA</a>
+            <a href="./pages/login.html">Entrar</a>
+            <a class="btn-link" href="./pages/register.html">Criar conta</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <p class="eyebrow">Educação financeira sem enrolação</p>
+            <h1>Aprenda a investir do zero, no seu ritmo.</h1>
+            <p class="hero-text">
+                Trilhas guiadas, indicadores atualizados de CDI, SELIC, IPCA e Ibovespa, simuladores e orientação prática para suas decisões.
+            </p>
+            <div class="hero-actions">
+                <a class="btn-primary" href="./pages/register.html">Começar gratuitamente</a>
+                <a class="btn-secondary" href="./pages/login.html">Já tenho conta</a>
+            </div>
+        </section>
+
+        <!-- Indicadores financeiros do dia devem funcionar como um ticker, atualizando automaticamente a cada 30 segundos com os dados mais recentes do Banco Central e B3. O layout deve ser limpo e responsivo, garantindo fácil leitura em dispositivos móveis e desktops. -->
+        <section class="ticker" aria-label="Indicadores financeiros do dia">
+            <article data-indicator-card="cdi">
+                <h2>CDI</h2>
+                <p data-indicator-value="cdi">--</p>
+            </article>
+            <article data-indicator-card="selic">
+                <h2>SELIC</h2>
+                <p data-indicator-value="selic">--</p>
+            </article>
+            <article data-indicator-card="ibov">
+                <h2>Ibovespa</h2>
+                <p data-indicator-value="ibov">--</p>
+            </article>
+            <article data-indicator-card="ipca">
+                <h2>IPCA</h2>
+                <p data-indicator-value="ipca">--</p>
+            </article>
+        </section>
+        <p class="ticker-meta" id="tickerMeta">Atualizando indicadores...</p>
+
+        <section class="feature-grid" aria-label="Recursos principais da plataforma">
+            <article class="feature-card">
+                <h3>Mercado em tempo real</h3>
+                <p>CDI e SELIC direto do Banco Central para acompanhar tendências e oportunidades.</p>
+            </article>
+            <article class="feature-card">
+                <h3>Trilhas práticas</h3>
+                <p>Do básico ao avançado com linguagem simples e foco em tomada de decisão.</p>
+            </article>
+            <article class="feature-card">
+                <h3>Glossário descomplicado</h3>
+                <p>Aprenda termos de investimentos com exemplos claros e rápidos.</p>
+                <a class="panel-link" href="./pages/glossary.html">Abrir glossário</a>
+            </article>
+            <article class="feature-card">
+                <h3>Simulador inteligente</h3>
+                <p>Visualize cenários de longo prazo e entenda o impacto dos juros compostos.</p>
+                <a class="panel-link" href="./pages/simulator.html">Abrir simulador</a>
+            </article>
+            <article class="feature-card">
+                <h3>Tutor financeiro</h3>
+                <p>Tire dúvidas sobre renda fixa, inflação e carteira com respostas guiadas.</p>
+                <a class="panel-link" href="./pages/tutor.html">Conversar com tutor</a>
+            </article>
+            <article class="feature-card">
+                <h3>Aulas e trilhas</h3>
+                <p>Estude por módulos e avance por níveis com foco prático.</p>
+                <a class="panel-link" href="./pages/lessons.html">Ver aulas</a>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 SEI — Conteúdo educacional. Não constitui recomendação de investimento.</p>
+        <a href="./pages/dashboard.html">Ir para dashboard</a>
+    </footer>
+    <script type="module" src="./js/home.js"></script>
+</body>
+
+</html>

@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>SEI - Sistema de Educação Inteligente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEI - Sistema de Ensino e Investimento</title>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,13 +19,16 @@
   <section class="topo" id="topoInicio">
     <div class="containerTopo">
       <div class="brandMain" aria-label="Identidade visual do SEI">
-        <h1>SEI</h1>  
-    <img src="../src/img/logo-sei-transparente.png" alt="Logo SEI versão transparente" class="LogoMain">
+        <img src="../src/img/logo-sei-transparente.png" alt="Logo SEI versão transparente" class="LogoMain">
+        <h1>SEI • Sistema de Ensino e Investimento</h1>
       </div>
 
-      
-
       <h4>Bem-vindo ao seu painel de investimentos</h4>
+
+      <button id="btnToggleMenuTopo" class="btnToggleMenuTopo" type="button" aria-expanded="false" aria-controls="menuTopoPrincipal">
+        <span class="seta" aria-hidden="true">▾</span>
+        Menu rápido
+      </button>
 
       <!-- ÍNDICES E MOEDAS -->
       <section class="indicesMoedas">
@@ -46,7 +50,7 @@
       </section>
 
 
-      <nav class="menuTopo">
+      <nav class="menuTopo" id="menuTopoPrincipal">
         <ul class="listaMenu">
           <li><a href="#topoInicio" id="menuInicio">Início</a></li>
           <li><a href="#hubSimulacoes" id="menuSimulacoes">Simulações</a></li>
@@ -66,6 +70,7 @@
           <li><a href="#">Contato</a></li>
         </ul>
       </nav>
+    </div>
   </section>
 
 
@@ -86,7 +91,13 @@
   </section>
 
   <section class="card painelIndicesCompletos" id="painelIndicesCompletos">
-    <h2>📈 Painel de Índices em Tempo Real</h2>
+    <div class="painelCabecalhoIndices">
+      <h2>📈 Painel de Índices em Tempo Real</h2>
+      <button id="btnToggleListaIndices" class="btnToggleListaIndices" type="button" aria-expanded="true" aria-controls="gridIndicesCompletos">
+        <span class="seta" aria-hidden="true">▴</span>
+        Ocultar lista
+      </button>
+    </div>
     <p>Atualização automática com múltiplas APIs (AUVP, BCB, brapi e fallback).</p>
     <div class="painelIndicesLayout">
       <aside class="indicePainelDetalhe" id="indicePainelDetalhe">

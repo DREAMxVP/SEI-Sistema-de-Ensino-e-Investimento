@@ -697,3 +697,8 @@ body.simulacoes-only .simulacoes-only-hidden {
     transform: translate3d(-999px, -999px, 0);
 }
 
+imglogo{
+    width: 32px;
+    height: 32px;
+    display: block;
+}

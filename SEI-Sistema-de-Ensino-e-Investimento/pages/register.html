@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar conta | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+</head>
+
+<body>
+    <header class="site-header auth-header">
+        <a class="brand" href="../index.html">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+        <nav class="site-nav">
+            <a href="login.html">Entrar</a>
+        </nav>
+    </header>
+
+    <main class="auth-page">
+        <section class="auth-card" aria-label="Formulário de cadastro">
+            <p class="eyebrow">Criar conta</p>
+            <h1>Vamos começar</h1>
+            <p class="auth-subtitle">É grátis, sem cartão e com acesso imediato ao dashboard.</p>
+
+            <form id="registerForm" class="auth-form">
+                <label for="registerName">Nome</label>
+                <input type="text" id="registerName" name="name" required autocomplete="name" placeholder="Seu nome completo">
+
+                <label for="registerEmail">E-mail</label>
+                <input type="email" id="registerEmail" name="email" required autocomplete="email" placeholder="seuemail@exemplo.com">
+
+                <label for="registerPassword">Senha</label>
+                <input type="password" id="registerPassword" name="password" required minlength="4" autocomplete="new-password" placeholder="Mínimo 4 caracteres">
+
+                <button type="submit" class="btn-primary">Criar conta</button>
+            </form>
+
+            <p id="authMessage" class="auth-message" role="status" aria-live="polite"></p>
+            <p class="auth-link">Já tem conta? <a href="login.html">Entre aqui</a></p>
+        </section>
+    </main>
+
+    <script src="../js/site-auth.js"></script>
+</body>
+
+</html>

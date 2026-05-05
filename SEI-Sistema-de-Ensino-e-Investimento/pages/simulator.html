@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+        <nav class="site-nav">
+            <a href="lessons.html">Aulas</a>
+            <a href="glossary.html">Glossário</a>
+            <a href="tutor.html">Tutor IA</a>
+            <a href="dashboard.html">Dashboard</a>
+        </nav>
+    </header>
+
+    <main class="content-page">
+        <section class="hero mini-hero">
+            <p class="eyebrow">Simulador</p>
+            <h1>Planeje sua evolução com juros compostos</h1>
+            <p class="hero-text">Use indicadores de mercado atualizados automaticamente para simulações mais realistas.</p>
+        </section>
+
+        <section class="ticker" aria-label="Indicadores financeiros em tempo real">
+            <article data-indicator-card="cdi">
+                <h2>CDI</h2>
+                <p data-indicator-value="cdi">--</p>
+            </article>
+            <article data-indicator-card="selic">
+                <h2>SELIC</h2>
+                <p data-indicator-value="selic">--</p>
+            </article>
+            <article data-indicator-card="ibov">
+                <h2>Ibovespa</h2>
+                <p data-indicator-value="ibov">--</p>
+            </article>
+            <article data-indicator-card="ipca">
+                <h2>IPCA</h2>
+                <p data-indicator-value="ipca">--</p>
+            </article>
+        </section>
+        <p class="ticker-meta" id="simulatorTickerMeta">Atualizando indicadores...</p>
+
+        <section class="tool-grid">
+            <article class="panel-card">
+                <h3>Simulação de aporte mensal</h3>
+                <form id="simulatorForm" class="auth-form compact-form">
+                    <label for="aporteMensal">Aporte mensal (R$)</label>
+                    <input id="aporteMensal" type="number" min="50" step="50" value="200" required>
+
+                    <label for="prazoAnos">Prazo (anos)</label>
+                    <input id="prazoAnos" type="number" min="1" max="50" value="10" required>
+
+                    <label for="taxaAnual">Taxa anual (%)</label>
+                    <input id="taxaAnual" type="number" step="0.01" value="11.65" required>
+
+                    <button type="submit" class="btn-primary">Simular</button>
+                </form>
+                <p id="simulatorResult" class="result-text">Preencha os campos e clique em simular.</p>
+            </article>
+
+            <article class="panel-card">
+                <h3>Resumo do cenário</h3>
+                <div class="summary-list" id="scenarioSummary">
+                    <p>Aporte mensal: <strong>R$ 200,00</strong></p>
+                    <p>Prazo: <strong>10 anos</strong></p>
+                    <p>Taxa: <strong>11,65% a.a.</strong></p>
+                    <p>Valor investido: <strong>R$ 24.000,00</strong></p>
+                    <p>Patrimônio final: <strong>R$ 43.068,98</strong></p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script type="module" src="../js/simulator.js"></script>
+</body>
+
+</html>

@@ -92,11 +92,72 @@
                 <a class="panel-link" href="./pages/lessons.html">Ver aulas</a>
             </article>
         </section>
+
+        <section class="about-section" aria-labelledby="about-heading">
+            <h2 id="about-heading">Sobre o projeto</h2>
+            <p>
+                O <strong>SEI — Sistema de Ensino e Investimento</strong> é um Trabalho de Conclusão de Curso (TCC)
+                desenvolvido na <strong>Etec</strong> para o curso de Desenvolvimento de Sistemas.
+                A plataforma é 100&nbsp;% front-end (HTML, CSS e JavaScript puro), sem servidor dedicado,
+                e usa as APIs do <strong>Banco Central do Brasil</strong> e da <strong>Brapi</strong>
+                para exibir indicadores financeiros atualizados em tempo real.
+            </p>
+            <p>
+                O objetivo é tornar a educação financeira acessível para jovens e adultos iniciantes,
+                oferecendo conteúdo estruturado e ferramentas práticas diretamente no navegador.
+            </p>
+            <a class="btn-secondary about-repo-link"
+               href="https://github.com/DREAMxVP/SEI-Sistema-de-Ensino-e-Investimento"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="Ver código-fonte no GitHub">
+                Ver repositório no GitHub ↗
+            </a>
+        </section>
+
+        <section class="quick-access" aria-labelledby="quick-access-heading">
+            <h2 id="quick-access-heading">Acessos rápidos</h2>
+            <nav class="quick-access-grid" aria-label="Links rápidos para as páginas do SEI">
+                <a href="./pages/dashboard.html" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">📊</span>
+                    <strong>Dashboard</strong>
+                    <span>Painel pessoal e progresso</span>
+                </a>
+                <a href="./pages/simulator.html" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🧮</span>
+                    <strong>Simulador</strong>
+                    <span>Juros compostos na prática</span>
+                </a>
+                <a href="./pages/glossary.html" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">📖</span>
+                    <strong>Glossário</strong>
+                    <span>Termos do mercado financeiro</span>
+                </a>
+                <a href="./pages/tutor.html" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🤖</span>
+                    <strong>Tutor</strong>
+                    <span>Orientação financeira guiada</span>
+                </a>
+                <a href="./pages/lessons.html" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🎓</span>
+                    <strong>Aulas</strong>
+                    <span>Trilhas do básico ao avançado</span>
+                </a>
+                <a href="./pages/login.html" class="quick-card">
+                    <span class="quick-card-icon" aria-hidden="true">🔐</span>
+                    <strong>Entrar</strong>
+                    <span>Login na plataforma</span>
+                </a>
+            </nav>
+        </section>
     </main>
 
     <footer class="site-footer">
         <p>© 2026 SEI — Conteúdo educacional. Não constitui recomendação de investimento.</p>
-        <a href="./pages/dashboard.html">Ir para dashboard</a>
+        <div class="footer-links">
+            <a href="./pages/dashboard.html">Ir para dashboard</a>
+            <a href="https://github.com/DREAMxVP/SEI-Sistema-de-Ensino-e-Investimento"
+               target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
     </footer>
     <script type="module" src="./js/home.js"></script>
 </body>

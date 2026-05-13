@@ -11,15 +11,29 @@ function getActiveUser() {
   }
 }
 
+function ensureAuthenticated() {
+  const user = getActiveUser();
+  if (!user) {
+    window.location.href = "./login.html";
+    return null;
+  }
+  return user;
+}
+
 function updateGreeting() {
   const title = document.getElementById("welcomeTitle");
   if (!title) {
     return;
   }
 
-  const user = getActiveUser();
-  const userName = user && user.name ? user.name : "investidor";
-  title.textContent = `Olá, ${userName}!`;
+  const user = ensureAuthenticated();
+  if (!user) {
+    return;
+  }
+
+  const userName = user.name || "investidor";
+  const tipoPerfil = user.investorProfile && user.investorProfile.tipo ? user.investorProfile.tipo : "moderado";
+  title.textContent = `Olá, ${userName}! Perfil ${tipoPerfil}.`;
 }
 
 function configureLogout() {

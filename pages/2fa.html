@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecionando | SEI</title>
+  <link rel="stylesheet" href="../css/site.css">
+</head>
+<body>
+  <main class="auth-page" id="mainContent">
+    <section class="auth-card" aria-label="Aviso de redirecionamento">
+      <p class="eyebrow">SEI</p>
+      <h1>Este passo foi removido</h1>
+      <p class="auth-subtitle">A verificação em duas etapas foi desativada neste exemplo.</p>
+      <p id="authMessage" class="auth-message" role="status" aria-live="polite">Redirecionando...</p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var raw = localStorage.getItem("sei-active-user");
+      var hasSession = !!raw;
+      window.location.replace(hasSession ? "./dashboard.html" : "./login.html");
+    })();
+  </script>
+</body>
+</html>

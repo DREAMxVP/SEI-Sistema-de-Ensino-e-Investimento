@@ -109,6 +109,13 @@ SEI-Sistema-de-Ensino-e-Investimento/
 
 > **Nota:** o projeto usa ES Modules (`type="module"`), por isso é necessário um servidor local — não funciona abrindo o arquivo diretamente no navegador (`file://`).
 
+### Login local (exemplo)
+
+- O projeto usa autenticação **100% local** no navegador com `localStorage`.
+- Ao criar conta ou entrar, a sessão fica salva em `sei-active-user`.
+- Quando a pessoa volta ao site no mesmo navegador, continua logada automaticamente.
+- Cada conta salva um `investorProfile` próprio (perfil de investidor básico).
+
 ---
 
 ## 🗺 Próximos passos

@@ -43,6 +43,38 @@
     window.location.href = "./dashboard.html";
   }
 
+  function getActiveSession() {
+    try {
+      var raw = localStorage.getItem(sessionKey);
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function saveActiveSession(user) {
+    localStorage.setItem(
+      sessionKey,
+      JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        investorProfile: user.investorProfile || { tipo: "iniciante", risco: "moderado", objetivo: "longo prazo" }
+      })
+    );
+  }
+
+  function makeInvestorProfile(name) {
+    var letters = String(name || "").replace(/\s+/g, "").length;
+    if (letters <= 5) {
+      return { tipo: "conservador", risco: "baixo", objetivo: "reserva de emergência" };
+    }
+    if (letters <= 10) {
+      return { tipo: "moderado", risco: "médio", objetivo: "crescimento consistente" };
+    }
+    return { tipo: "arrojado", risco: "alto", objetivo: "acúmulo de patrimônio" };
+  }
+
   function markInvalid(input) {
     if (!input) {
       return;
@@ -60,6 +92,52 @@
 
       input.removeAttribute("aria-invalid");
       input.removeAttribute("aria-describedby");
+    });
+  }
+
+  function ensureRedirectIfSessionExists() {
+    var current = window.location.pathname.toLowerCase();
+    var isAuthPage = current.endsWith("/login.html") || current.endsWith("/register.html");
+    if (!isAuthPage) {
+      return;
+    }
+
+    if (getActiveSession()) {
+      redirectToDashboard();
+    }
+  }
+
+  function setupPasswordToggles() {
+    var passwordInputs = document.querySelectorAll(".auth-form input[type='password']");
+
+    passwordInputs.forEach(function (input) {
+      if (input.dataset.toggleReady === "true") {
+        return;
+      }
+
+      var wrapper = document.createElement("div");
+      wrapper.className = "password-field";
+
+      input.parentNode.insertBefore(wrapper, input);
+      wrapper.appendChild(input);
+
+      var toggleButton = document.createElement("button");
+      toggleButton.type = "button";
+      toggleButton.className = "password-toggle";
+      toggleButton.setAttribute("aria-label", "Mostrar senha");
+      toggleButton.setAttribute("aria-pressed", "false");
+      toggleButton.textContent = "Mostrar";
+
+      toggleButton.addEventListener("click", function () {
+        var shouldReveal = input.type === "password";
+        input.type = shouldReveal ? "text" : "password";
+        toggleButton.textContent = shouldReveal ? "Ocultar" : "Mostrar";
+        toggleButton.setAttribute("aria-label", shouldReveal ? "Ocultar senha" : "Mostrar senha");
+        toggleButton.setAttribute("aria-pressed", shouldReveal ? "true" : "false");
+      });
+
+      wrapper.appendChild(toggleButton);
+      input.dataset.toggleReady = "true";
     });
   }
 
@@ -97,27 +175,31 @@
       }
 
       var users = getUsers();
-      var exists = users.some(function (user) {
-        return user.email === email;
+      var exists = users.some(function (item) {
+        return item.email === email;
       });
 
       if (exists) {
         markInvalid(emailInput);
-        showMessage("Erro: esse e-mail já está cadastrado.", true);
+        showMessage("Erro: já existe uma conta com este e-mail.", true);
         return;
       }
 
-      users.push({
+      var newUser = {
+        id: "u_" + Date.now(),
         name: name,
         email: email,
-        password: password
-      });
+        password: password,
+        investorProfile: makeInvestorProfile(name),
+        createdAt: new Date().toISOString()
+      };
 
+      users.push(newUser);
       setUsers(users);
-      localStorage.setItem(sessionKey, JSON.stringify({ name: name, email: email }));
-      showMessage("Conta criada com sucesso! Redirecionando...");
+      saveActiveSession(newUser);
 
-      setTimeout(redirectToDashboard, 700);
+      showMessage("Conta criada e login ativo no navegador. Redirecionando...");
+      setTimeout(redirectToDashboard, 600);
     });
   }
 
@@ -125,8 +207,8 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      var emailInput = document.getElementById("loginEmail");
-      var passwordInput = document.getElementById("loginPassword");
+      var emailInput = document.getElementById("loginEmail") || document.getElementById("username");
+      var passwordInput = document.getElementById("loginPassword") || document.getElementById("password");
       var email = normalizeEmail(emailInput.value);
       var password = passwordInput.value;
 
@@ -143,12 +225,6 @@
         return;
       }
 
-      if (email === "admin" && password === "1234") {
-        localStorage.setItem(sessionKey, JSON.stringify({ name: "Administrador", email: "admin" }));
-        redirectToDashboard();
-        return;
-      }
-
       var users = getUsers();
       var user = users.find(function (item) {
         return item.email === email && item.password === password;
@@ -161,7 +237,7 @@
         return;
       }
 
-      localStorage.setItem(sessionKey, JSON.stringify({ name: user.name, email: user.email }));
+      saveActiveSession(user);
       showMessage("Login realizado. Redirecionando...");
       setTimeout(redirectToDashboard, 500);
     });
@@ -169,6 +245,9 @@
 
   var registerForm = document.getElementById("registerForm");
   var loginForm = document.getElementById("loginForm");
+
+  ensureRedirectIfSessionExists();
+  setupPasswordToggles();
 
   if (registerForm) {
     handleRegister(registerForm);

@@ -1,4 +1,5 @@
 import { mountMarketAutoRefresh, formatRate } from "./market-data.js";
+import { getProfileSummary, getRecommendations } from "./learning-state.js";
 
 function formatCurrency(value) {
   return Number(value).toLocaleString("pt-BR", {
@@ -47,6 +48,13 @@ function updateSimulation() {
     <p>Valor investido: <strong>${formatCurrency(totalInvestido)}</strong></p>
     <p>Lucro estimado: <strong>${formatCurrency(lucro)}</strong></p>
     <p>Patrimônio final: <strong>${formatCurrency(patrimonioFinal)}</strong></p>
+  `;
+
+  const profile = getProfileSummary();
+  const recommendations = getRecommendations(1);
+  summaryNode.innerHTML += `
+    <p>Nível educacional atual: <strong>${profile.level}</strong></p>
+    <p>Dica de estudo: <strong>${recommendations[0] || "Continue evoluindo nos módulos."}</strong></p>
   `;
 }
 

@@ -11,28 +11,32 @@
 <body>
     <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
     <header class="site-header">
-        <a class="brand" href="../index.html">
+        <a class="brand" href="/">
             <span class="brand-dot" aria-hidden="true">
                 <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
             </span>
             <span>SEI • Sistema de Ensino e Investimento</span>
         </a>
         <nav class="site-nav">
-            <a href="lessons.html">Aulas</a>
-            <a href="glossary.html">Glossário</a>
-            <a href="simulator.html">Simulador</a>
-            <a href="tutor.html">Tutor IA</a>
-            <a href="dashboard.html" style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Dashboard</a>
+            <a href="/modules">Módulos</a>
+            <a href="/glossary">Glossário</a>
+            <a href="/simulator">Simulador</a>
+            <a href="/ai-tutor">Tutor IA</a>
+            <a href="/dashboard" style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Dashboard</a>
+            <a href="/profile">Perfil</a>
         </nav>
     </header>
 
-        <main class="dash-main">
+        <main id="mainContent" class="dash-main">
             <header class="dash-topbar">
                 <div>
                     <p class="eyebrow">Dashboard</p>
                     <h1 id="welcomeTitle">Olá!</h1>
                 </div>
-                <a class="btn-primary" href="main.html">Abrir painel avançado</a>
+                <div class="hero-actions">
+                    <a class="btn-primary" href="/pages/main.html">Abrir painel avançado</a>
+                    <a class="btn-secondary" href="/modules">Ir para módulos</a>
+                </div>
             </header>
 
             <section class="dash-cards" aria-label="Indicadores principais">
@@ -56,32 +60,35 @@
             <p class="ticker-meta" id="dashboardTickerMeta">Atualizando indicadores...</p>
 
             <section class="dash-grid" aria-label="Módulos de aprendizado">
-                
+                <article class="panel-card">
+                    <h3>Seu nível</h3>
+                    <p>Nível atual: <strong id="dashboardLevelValue">Iniciante</strong></p>
+                    <p>XP acumulado: <strong id="dashboardXpValue">0</strong></p>
+                    <p>Progresso geral: <strong id="dashboardOverallValue">0%</strong></p>
+                </article>
+
+                <article class="panel-card">
+                    <h3>Recomendações</h3>
+                    <ul id="dashboardRecommendations" class="summary-list"></ul>
+                </article>
 
                 <article class="panel-card">
                     <h3>Simulação rápida</h3>
                     <p>Se investir R$ 200/mês por 10 anos a 11% a.a., pode chegar em torno de <strong>R$ 41.332</strong>.</p>
-                    <a class="panel-link" href="main.html#hubSimulacoes">Abrir simuladores</a>
+                    <a class="panel-link" href="/pages/main.html#hubSimulacoes">Abrir simuladores</a>
+                </article>
+
+                <article class="panel-card full-width">
+                    <h3>Módulos disponíveis</h3>
+                    <section id="dashboardModulesList" class="topic-grid" aria-label="Módulos disponíveis"></section>
                 </article>
 
                 <article class="panel-card full-width">
                     <h3>Resumo da sua evolução</h3>
-                    <div class="progress-row">
-                        <span>Fundamentos</span>
-                        <div class="progress-bar"><i style="width: 72%;"></i></div>
-                    </div>
-                    <div class="progress-row">
-                        <span>Renda fixa</span>
-                        <div class="progress-bar"><i style="width: 58%;"></i></div>
-                    </div>
-                    <div class="progress-row">
-                        <span>Renda variável</span>
-                        <div class="progress-bar"><i style="width: 31%;"></i></div>
-                    </div>
+                    <div id="dashboardProgressBars"></div>
                 </article>
             </section>
         </main>
-    </div>
 
     <script type="module" src="../js/dashboard.js"></script>
 </body>

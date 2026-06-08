@@ -40,7 +40,7 @@
   }
 
   function redirectToDashboard() {
-    window.location.href = "./dashboard.html";
+    window.location.href = "/dashboard";
   }
 
   function getActiveSession() {
@@ -168,9 +168,9 @@
         return;
       }
 
-      if (password.length < 4) {
+      if (password.length < 4 || !/^[A-Za-z0-9]{4,}$/.test(password)) {
         markInvalid(passwordInput);
-        showMessage("Erro: a senha deve ter no mínimo 4 caracteres.", true);
+        showMessage("Erro: a senha deve ter no mínimo 4 caracteres e conter apenas letras e números.", true);
         return;
       }
 

@@ -1,4 +1,5 @@
 import { mountMarketAutoRefresh } from "./market-data.js";
+import { getProfileSummary, getRecommendations } from "./learning-state.js";
 
 const glossaryTerms = [
   {
@@ -20,6 +21,26 @@ const glossaryTerms = [
     termo: "Ibovespa",
     definicao: "Índice que representa o desempenho médio das ações mais negociadas da bolsa brasileira.",
     exemplo: "Usar o Ibovespa como referência ajuda a comparar uma carteira de ações com o mercado."
+  },
+  {
+    termo: "Ações",
+    definicao: "Pequenas partes de uma empresa negociadas em bolsa, com potencial de valorização e dividendos.",
+    exemplo: "Ao comprar ações, você se torna sócio da empresa e participa dos resultados no longo prazo."
+  },
+  {
+    termo: "FIIs",
+    definicao: "Fundos de Investimento Imobiliário negociados em bolsa, focados em renda e/ou ganho de capital.",
+    exemplo: "FIIs de tijolo podem distribuir rendimentos mensais com base em aluguéis dos imóveis."
+  },
+  {
+    termo: "ETF",
+    definicao: "Fundo de índice negociado em bolsa, usado para diversificação com custo eficiente.",
+    exemplo: "Um ETF atrelado ao Ibovespa replica a carteira do índice em uma única compra."
+  },
+  {
+    termo: "Perfil de Investidor",
+    definicao: "Classificação de tolerância ao risco e objetivos financeiros: conservador, moderado ou arrojado.",
+    exemplo: "Perfil moderado costuma equilibrar renda fixa e renda variável."
   },
   {
     termo: "Reserva de Emergência",
@@ -63,7 +84,18 @@ function renderTerms(filter = "") {
     return;
   }
 
-  container.innerHTML = filtered
+  const profile = getProfileSummary();
+  const recommendation = getRecommendations(1)[0];
+
+  const contextCard = `
+    <article class="topic-card">
+      <h3>Seu contexto de aprendizado</h3>
+      <p>Nível: <strong>${profile.level}</strong> • Progresso: <strong>${profile.overallProgress}%</strong> • XP: <strong>${profile.xp}</strong></p>
+      <p class="topic-example">Sugestão: ${recommendation || "Siga estudando os módulos em sequência."}</p>
+    </article>
+  `;
+
+  container.innerHTML = contextCard + filtered
     .map((item) => `
       <article class="topic-card">
         <h3>${item.termo}</h3>

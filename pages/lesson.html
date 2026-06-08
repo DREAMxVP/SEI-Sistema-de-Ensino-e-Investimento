@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+    <header class="site-header">
+        <a class="brand" href="/">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+        <nav class="site-nav">
+            <a href="/modules">Módulos</a>
+            <a href="/glossary">Glossário</a>
+            <a href="/simulator">Simulador</a>
+            <a href="/ai-tutor">Tutor IA</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/profile">Perfil</a>
+        </nav>
+    </header>
+
+    <main id="mainContent" class="content-page">
+        <section class="hero mini-hero">
+            <p class="eyebrow">Aula</p>
+            <h1 id="lessonTitle">Carregando aula...</h1>
+            <p id="lessonSummary" class="hero-text">Aguarde.</p>
+        </section>
+
+        <section class="panel-card">
+            <h3>Conteúdo</h3>
+            <p id="lessonContent"></p>
+            <p id="lessonExample" class="topic-example"></p>
+            <div class="hero-actions">
+                <a id="lessonQuizButton" class="btn-secondary" href="/modules">Ir para quiz</a>
+                <button id="completeLessonButton" class="btn-primary" type="button">Concluir aula</button>
+                <button id="askTutorButton" class="btn-secondary" type="button">Perguntar ao Tutor IA</button>
+                <a class="btn-secondary" href="/modules">Voltar</a>
+            </div>
+            <p id="lessonFeedback" class="result-text" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script type="module" src="../js/lesson.js"></script>
+</body>
+
+</html>

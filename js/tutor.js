@@ -1,4 +1,5 @@
 import { mountMarketAutoRefresh, formatRate, formatPoints } from "./market-data.js";
+import { getDashboardSnapshot, getRecommendations } from "./learning-state.js";
 
 const chatMessages = document.getElementById("chatMessages");
 const chatForm = document.getElementById("chatForm");
@@ -20,6 +21,7 @@ function appendMessage(text, role) {
 
 function buildTutorReply(question) {
   const lower = question.toLowerCase();
+  const snapshot = getDashboardSnapshot();
 
   const cdiText = latestSnapshot ? formatRate(latestSnapshot.cdi) : "--";
   const selicText = latestSnapshot ? formatRate(latestSnapshot.selic) : "--";
@@ -42,7 +44,12 @@ function buildTutorReply(question) {
     return "Comece pela reserva de emergência: de 6 a 12 meses de despesas em ativos de baixo risco e liquidez diária.";
   }
 
-  return `Bom ponto. Cenário atual: CDI ${cdiText}, Selic ${selicText}, IPCA ${ipcaText} e Ibovespa ${ibovText}. Se quiser, te ajudo a montar um plano por perfil (conservador, moderado ou arrojado).`;
+  if (lower.includes("estudo") || lower.includes("trilha") || lower.includes("módulo") || lower.includes("modulo")) {
+    const suggestions = getRecommendations(2);
+    return `Seu progresso atual é ${snapshot.overallProgress}% e você está no nível ${snapshot.level}. Sugestões: ${suggestions.join(" ")}`;
+  }
+
+  return `Bom ponto. Cenário atual: CDI ${cdiText}, Selic ${selicText}, IPCA ${ipcaText} e Ibovespa ${ibovText}. Seu nível está em ${snapshot.level} com ${snapshot.xp} XP. Se quiser, monto um plano de estudo + alocação por perfil.`;
 }
 
 if (chatForm && chatInput) {
@@ -60,7 +67,7 @@ if (chatForm && chatInput) {
   });
 }
 
-appendMessage("Olá! Sou seu tutor financeiro. Pode perguntar sobre CDI, Selic, inflação, bolsa ou reserva de emergência.", "bot");
+appendMessage("Olá! Sou seu tutor financeiro. Posso responder dúvidas e sugerir sua próxima aula com base no seu progresso.", "bot");
 
 mountMarketAutoRefresh({
   scope: document,

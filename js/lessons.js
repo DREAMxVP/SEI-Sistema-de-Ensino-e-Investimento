@@ -25,7 +25,7 @@ function renderTracks(snapshot) {
           <span>Progresso atual: ${getModuleProgress(track.id, state)}%</span>
           <div class="progress-bar"><i style="width:${getModuleProgress(track.id, state)}%;"></i></div>
         </div>
-        <a class="panel-link" href="/module/${track.id}">Abrir módulo</a>
+        <a class="panel-link" href="module.html?id=${track.id}">Abrir módulo</a>
       </article>
     `)
     .join("");

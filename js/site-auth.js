@@ -40,7 +40,7 @@
   }
 
   function redirectToDashboard() {
-    window.location.href = "/dashboard";
+    window.location.href = "dashboard.html";
   }
 
   function getActiveSession() {

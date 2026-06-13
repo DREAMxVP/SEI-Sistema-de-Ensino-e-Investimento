@@ -33,7 +33,7 @@ function renderDashboardLearning() {
           <h3>${module.titulo}</h3>
           <p>${module.descricao}</p>
           <p class="topic-example">Progresso: ${module.progress}%</p>
-          <a class="panel-link" href="/module/${module.id}">Abrir módulo</a>
+          <a class="panel-link" href="module.html?id=${module.id}">Abrir módulo</a>
         </article>
       `)
       .join("");
@@ -67,7 +67,7 @@ function configureLogout() {
 
   button.addEventListener("click", () => {
     localStorage.removeItem("sei-active-user");
-    window.location.href = "/dashboard";
+    window.location.href = "dashboard.html";
   });
 }
 

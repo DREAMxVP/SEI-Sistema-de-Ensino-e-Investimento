@@ -8,8 +8,15 @@ import {
 } from "./learning-state.js";
 
 function getModuleIdFromPath() {
+  const params = new URLSearchParams(window.location.search);
+  const queryId = params.get("id");
+  if (queryId) {
+    return queryId;
+  }
+
   const parts = window.location.pathname.split("/").filter(Boolean);
-  return parts[1] || "iniciante";
+  const last = parts[parts.length - 1] || "";
+  return last && !last.endsWith(".html") ? last : "iniciante";
 }
 
 function renderModule() {
@@ -38,7 +45,7 @@ function renderModule() {
         const completed = isLessonCompleted(lesson.id, state);
         const status = completed ? "✅ Concluída" : unlocked ? "🔓 Disponível" : "🔒 Bloqueada";
         const action = unlocked
-          ? `<a class="panel-link" href="/lesson/${lesson.id}">Abrir aula</a>`
+          ? `<a class="panel-link" href="lesson.html?id=${lesson.id}">Abrir aula</a>`
           : `<span class="panel-link" aria-disabled="true">Complete a aula anterior</span>`;
 
         return `
@@ -60,7 +67,7 @@ function renderModule() {
 
   if (continueButton) {
     const nextLesson = getNextLessonForModule(moduleData.id, state);
-    continueButton.href = nextLesson ? `/lesson/${nextLesson.id}` : "/modules";
+    continueButton.href = nextLesson ? `lesson.html?id=${nextLesson.id}` : "modules.html";
     continueButton.textContent = nextLesson ? "Continuar módulo" : "Voltar para módulos";
   }
 }

@@ -7,8 +7,15 @@ import {
 } from "./learning-state.js";
 
 function getLessonIdFromPath() {
+  const params = new URLSearchParams(window.location.search);
+  const queryId = params.get("id");
+  if (queryId) {
+    return queryId;
+  }
+
   const parts = window.location.pathname.split("/").filter(Boolean);
-  return parts[1] || "fundamentos-1";
+  const last = parts[parts.length - 1] || "";
+  return last && !last.endsWith(".html") ? last : "fundamentos-1";
 }
 
 function renderLesson() {
@@ -17,7 +24,7 @@ function renderLesson() {
   const state = loadLearningState();
 
   if (!lessonInfo) {
-    window.location.href = "/modules";
+    window.location.href = "modules.html";
     return;
   }
 
@@ -32,7 +39,7 @@ function renderLesson() {
   const feedback = document.getElementById("lessonFeedback");
 
   if (!isLessonUnlocked(lesson.id, state)) {
-    window.location.href = `/module/${module.id}`;
+    window.location.href = `module.html?id=${module.id}`;
     return;
   }
 
@@ -40,7 +47,7 @@ function renderLesson() {
   if (summary) summary.textContent = `${lesson.resumo} • Módulo: ${module.titulo}`;
   if (content) content.textContent = lesson.conteudo;
   if (example) example.textContent = lesson.exemplo;
-  if (quizButton) quizButton.href = `/quiz/${lesson.quiz.id}`;
+  if (quizButton) quizButton.href = `quiz.html?id=${lesson.quiz.id}`;
 
   if (feedback && isLessonCompleted(lesson.id, state)) {
     feedback.textContent = "Aula já concluída anteriormente. Você pode revisar o conteúdo e refazer o quiz.";

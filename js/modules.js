@@ -19,7 +19,7 @@ function renderModules() {
           <span>Progresso do módulo: ${getModuleProgress(item.id, state)}%</span>
           <div class="progress-bar"><i style="width:${getModuleProgress(item.id, state)}%;"></i></div>
         </div>
-        <a class="panel-link" href="/module/${item.id}">Abrir módulo</a>
+        <a class="panel-link" href="module.html?id=${item.id}">Abrir módulo</a>
       </article>
     `)
     .join("");

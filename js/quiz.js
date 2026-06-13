@@ -2,15 +2,22 @@ import { getQuizById } from "./learning-data.js";
 import { submitQuiz } from "./learning-state.js";
 
 function getQuizIdFromPath() {
+  const params = new URLSearchParams(window.location.search);
+  const queryId = params.get("id");
+  if (queryId) {
+    return queryId;
+  }
+
   const parts = window.location.pathname.split("/").filter(Boolean);
-  return parts[1] || "fundamentos-1";
+  const last = parts[parts.length - 1] || "";
+  return last && !last.endsWith(".html") ? last : "fundamentos-1";
 }
 
 function renderQuiz() {
   const quizId = getQuizIdFromPath();
   const quizInfo = getQuizById(quizId) || getQuizById("fundamentos-1");
   if (!quizInfo) {
-    window.location.href = "/modules";
+    window.location.href = "modules.html";
     return;
   }
 
@@ -69,7 +76,7 @@ function renderQuiz() {
 
     if (result) {
       const status = submission.approved ? "✅ Aprovado" : "⚠️ Continue praticando";
-      result.innerHTML = `${status} • Pontuação: <strong>${submission.score}%</strong> (${submission.correctCount}/${submission.total}) • XP ganho: <strong>+${submission.xpGained}</strong>. <a class="panel-link" href="/lesson/${lesson.id}">Revisar aula</a>`;
+      result.innerHTML = `${status} • Pontuação: <strong>${submission.score}%</strong> (${submission.correctCount}/${submission.total}) • XP ganho: <strong>+${submission.xpGained}</strong>. <a class="panel-link" href="lesson.html?id=${lesson.id}">Revisar aula</a>`;
     }
   });
 }

@@ -6,6 +6,7 @@ const chatForm = document.getElementById("chatForm");
 const chatInput = document.getElementById("chatInput");
 
 let latestSnapshot = null;
+let isLoading = false;
 
 function appendMessage(text, role) {
   if (!chatMessages) {
@@ -19,55 +20,81 @@ function appendMessage(text, role) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function buildTutorReply(question) {
-  const lower = question.toLowerCase();
-  const snapshot = getDashboardSnapshot();
-
-  const cdiText = latestSnapshot ? formatRate(latestSnapshot.cdi) : "--";
-  const selicText = latestSnapshot ? formatRate(latestSnapshot.selic) : "--";
-  const ipcaText = latestSnapshot ? formatRate(latestSnapshot.ipca) : "--";
-  const ibovText = latestSnapshot ? formatPoints(latestSnapshot.ibov) : "--";
-
-  if (lower.includes("cdi") || lower.includes("selic")) {
-    return `Hoje o CDI está em ${cdiText} e a Selic em ${selicText}. Em geral, renda fixa pós-fixada tende a acompanhar esse nível de juros.`;
+function setLoadingState(loading) {
+  isLoading = loading;
+  if (chatForm && chatInput) {
+    chatInput.disabled = loading;
+    chatForm.querySelector('button[type="submit"]').disabled = loading;
+    if (loading) {
+      chatForm.querySelector('button[type="submit"]').textContent = 'Aguarde...';
+    } else {
+      chatForm.querySelector('button[type="submit"]').textContent = 'Perguntar';
+    }
   }
+}
 
-  if (lower.includes("infla") || lower.includes("ipca")) {
-    return `O IPCA atual está em ${ipcaText}. Para crescer patrimônio em termos reais, busque investimentos com retorno acima da inflação.`;
+/**
+ * Chama o endpoint /api/ask-tutor com a pergunta do usuário
+ * @param {string} question - Pergunta do usuário
+ * @returns {Promise<string>} - Resposta do tutor IA
+ */
+async function askTutorAI(question) {
+  try {
+    const payload = {
+      question: question,
+      marketSnapshot: latestSnapshot ? {
+        cdi: latestSnapshot.cdi,
+        selic: latestSnapshot.selic,
+        ipca: latestSnapshot.ipca,
+        ibov: latestSnapshot.ibov,
+        ifix: latestSnapshot.ifix
+      } : {}
+    };
+
+    const response = await fetch('/api/ask-tutor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('API Error:', error);
+      return error.response || 'Erro ao processar sua pergunta. Tente novamente.';
+    }
+
+    const data = await response.json();
+    console.log('Tutor Response:', data);
+    
+    return data.response || 'Desculpe, não consegui gerar uma resposta.';
+  } catch (error) {
+    console.error('Error calling tutor API:', error);
+    return `Desculpe, ocorreu um erro ao processar sua pergunta: ${error.message}. Tente novamente.`;
   }
-
-  if (lower.includes("bolsa") || lower.includes("ibov") || lower.includes("ações")) {
-    return `O Ibovespa está em ${ibovText}. Use esse índice como referência de mercado, mas foque em diversificação e horizonte de longo prazo.`;
-  }
-
-  if (lower.includes("reserva") || lower.includes("emergência")) {
-    return "Comece pela reserva de emergência: de 6 a 12 meses de despesas em ativos de baixo risco e liquidez diária.";
-  }
-
-  if (lower.includes("estudo") || lower.includes("trilha") || lower.includes("módulo") || lower.includes("modulo")) {
-    const suggestions = getRecommendations(2);
-    return `Seu progresso atual é ${snapshot.overallProgress}% e você está no nível ${snapshot.level}. Sugestões: ${suggestions.join(" ")}`;
-  }
-
-  return `Bom ponto. Cenário atual: CDI ${cdiText}, Selic ${selicText}, IPCA ${ipcaText} e Ibovespa ${ibovText}. Seu nível está em ${snapshot.level} com ${snapshot.xp} XP. Se quiser, monto um plano de estudo + alocação por perfil.`;
 }
 
 if (chatForm && chatInput) {
-  chatForm.addEventListener("submit", (event) => {
+  chatForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const question = chatInput.value.trim();
-    if (!question) {
+    if (!question || isLoading) {
       return;
     }
 
     appendMessage(question, "user");
-    const response = buildTutorReply(question);
-    appendMessage(response, "bot");
     chatInput.value = "";
+    
+    setLoadingState(true);
+    const response = await askTutorAI(question);
+    setLoadingState(false);
+    
+    appendMessage(response, "bot");
   });
 }
 
-appendMessage("Olá! Sou seu tutor financeiro. Posso responder dúvidas e sugerir sua próxima aula com base no seu progresso.", "bot");
+appendMessage("Olá! Sou seu tutor de investimento especializado. Posso responder dúvidas sobre estratégias, instrumentos financeiros, análise de mercado e planejamento. O que deseja saber? 💰📈", "bot");
 
 mountMarketAutoRefresh({
   scope: document,

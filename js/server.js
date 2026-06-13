@@ -3,6 +3,7 @@ const path = require('path');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const db = require('./db');
+const { askClaudeInvestmentAdvisor, buildFallbackResponse, isInvestmentQuestion } = require('./claude-investment-advisor');
 
 const app = express();
 const publicRoot = path.join(__dirname, '..');
@@ -89,6 +90,70 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Endpoint para Claude Investment Advisor
+app.post('/api/ask-tutor', async (req, res) => {
+  try {
+    const { question, marketSnapshot } = req.body;
+
+    if (!question || typeof question !== 'string') {
+      return res.status(400).json({ 
+        error: 'Campo "question" obrigatório e deve ser string.' 
+      });
+    }
+
+    const trimmedQuestion = question.trim();
+    if (trimmedQuestion.length === 0) {
+      return res.status(400).json({ error: 'Pergunta não pode ser vazia.' });
+    }
+
+    // Se a pergunta não é sobre investimento, retorna fallback imediatamente
+    if (!isInvestmentQuestion(trimmedQuestion)) {
+      const fallbackResponse = buildFallbackResponse(trimmedQuestion, marketSnapshot || {});
+      return res.json({ 
+        response: fallbackResponse,
+        source: 'fallback',
+        investmentQuestion: false 
+      });
+    }
+
+    // Tenta usar Claude se disponível
+    const claudeKey = process.env.CLAUDE_API_KEY;
+    if (!claudeKey) {
+      console.warn('[TUTOR] Claude API key não configurada, usando fallback');
+      const fallbackResponse = buildFallbackResponse(trimmedQuestion, marketSnapshot || {});
+      return res.json({ 
+        response: fallbackResponse,
+        source: 'fallback',
+        investmentQuestion: true 
+      });
+    }
+
+    const claudeResponse = await askClaudeInvestmentAdvisor(
+      trimmedQuestion,
+      claudeKey,
+      marketSnapshot || {}
+    );
+
+    return res.json({ 
+      response: claudeResponse,
+      source: 'claude',
+      investmentQuestion: true 
+    });
+  } catch (error) {
+    console.error('[TUTOR API ERROR]', error);
+    
+    // Fallback em caso de erro
+    const question = req.body?.question || 'Pergunta não recebida';
+    const fallbackResponse = buildFallbackResponse(question, req.body?.marketSnapshot || {});
+    
+    return res.status(500).json({ 
+      response: fallbackResponse,
+      source: 'fallback_error',
+      error: error.message 
+    });
+  }
+});
+
 app.get('/main', (_req, res) => {
   return res.redirect('/pages/main.html');
 });
@@ -102,6 +167,7 @@ app.get('/quiz/:id', (_req, res) => sendPage(res, 'pages/quiz.html'));
 app.get('/simulator', (_req, res) => sendPage(res, 'pages/simulator.html'));
 app.get('/glossary', (_req, res) => sendPage(res, 'pages/glossary.html'));
 app.get('/ai-tutor', (_req, res) => sendPage(res, 'pages/tutor.html'));
+app.get('/tools', (_req, res) => sendPage(res, 'pages/tools.html'));
 app.get('/profile', (_req, res) => sendPage(res, 'pages/profile.html'));
 
 app.use(express.static(publicRoot));

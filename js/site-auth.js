@@ -39,6 +39,24 @@
     return String(value || "").trim().toLowerCase();
   }
 
+  function normalizeName(value) {
+    return String(value || "").toUpperCase();
+  }
+
+  function setupRegisterNameUppercase() {
+    var nameInput = document.getElementById("registerName");
+    if (!nameInput) {
+      return;
+    }
+
+    nameInput.style.textTransform = "uppercase";
+    nameInput.addEventListener("input", function () {
+      var cursorPosition = nameInput.selectionStart;
+      nameInput.value = normalizeName(nameInput.value);
+      nameInput.setSelectionRange(cursorPosition, cursorPosition);
+    });
+  }
+
   function redirectToDashboard() {
     window.location.href = "dashboard.html";
   }
@@ -138,6 +156,13 @@
 
       wrapper.appendChild(toggleButton);
       input.dataset.toggleReady = "true";
+
+      // Remove spaces from password
+      input.addEventListener("input", function () {
+        if (input.value.includes(" ")) {
+          input.value = input.value.replace(/\s/g, "");
+        }
+      });
     });
   }
 
@@ -148,7 +173,7 @@
       var nameInput = document.getElementById("registerName");
       var emailInput = document.getElementById("registerEmail");
       var passwordInput = document.getElementById("registerPassword");
-      var name = nameInput.value.trim();
+      var name = normalizeName(nameInput.value);
       var email = normalizeEmail(emailInput.value);
       var password = passwordInput.value;
 
@@ -250,6 +275,7 @@
   setupPasswordToggles();
 
   if (registerForm) {
+    setupRegisterNameUppercase();
     handleRegister(registerForm);
   }
 

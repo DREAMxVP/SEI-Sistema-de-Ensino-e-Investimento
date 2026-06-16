@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhe do Módulo | SEI</title>
     <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="../css/auth-guard.css">
 </head>
 
 <body>
@@ -19,6 +20,7 @@
         </a>
         <nav class="site-nav">
             <a href="modules.html">Módulos</a>
+            <a href="interactive-guide.html">Guia Interativo</a>
             <a href="glossary.html">Glossário</a>
             <a href="simulator.html">Simulador</a>
             <a href="tutor.html">Tutor IA</a>
@@ -42,11 +44,13 @@
             <article class="panel-card">
                 <h3>Progresso</h3>
                 <p id="moduleProgress">0%</p>
+                <br>
                 <a id="moduleContinueButton" class="btn-primary" href="modules.html">Continuar</a>
             </article>
         </section>
     </main>
 
+    <script type="module" src="../js/auth-guard.js"></script>
     <script type="module" src="../js/module.js"></script>
 </body>
 

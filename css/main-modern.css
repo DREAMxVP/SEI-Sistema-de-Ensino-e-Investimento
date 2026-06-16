@@ -45,11 +45,11 @@ body {
 }
 
 .LogoMain {
-    width: 2.45rem;
-    height: 2.45rem;
+    width: 2.9rem;
+    height: 2.9rem;
     object-fit: contain;
     border-radius: 999px;
-    padding: 0.18rem;
+    padding: 0.24rem;
     background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(95, 242, 167, 0.28) 35%, rgba(27, 179, 102, 0.92) 100%);
     box-shadow: 0 10px 24px rgba(27, 179, 102, 0.28);
 }

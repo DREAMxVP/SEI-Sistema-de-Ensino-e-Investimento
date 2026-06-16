@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | SEI</title>
     <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="../css/auth-guard.css">
 </head>
 
 <body>
@@ -19,77 +20,81 @@
         </a>
         <nav class="site-nav">
             <a href="modules.html">Módulos</a>
+            <a href="interactive-guide.html">Guia Interativo</a>
             <a href="glossary.html">Glossário</a>
             <a href="simulator.html">Simulador</a>
             <a href="tutor.html">Tutor IA</a>
-            <a href="dashboard.html" style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Dashboard</a>
+            <a href="dashboard.html"
+                style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Dashboard</a>
             <a href="profile.html">Perfil</a>
         </nav>
     </header>
 
-        <main id="mainContent" class="dash-main">
-            <header class="dash-topbar">
-                <div>
-                    <p class="eyebrow">Dashboard</p>
-                    <h1 id="welcomeTitle">Olá!</h1>
-                </div>
-                <div class="hero-actions">
-                    <a class="btn-primary" href="main.html">Abrir painel avançado</a>
-                    <a class="btn-secondary" href="modules.html">Ir para módulos</a>
-                </div>
-            </header>
+    <main id="mainContent" class="dash-main">
+        <header class="dash-topbar">
+            <div>
+                <p class="eyebrow">Dashboard</p>
+                <h1 id="welcomeTitle">Olá!</h1>
+            </div>
+            <div class="hero-actions">
+                <a class="btn-primary" href="main.html">Abrir painel avançado</a>
+                <a class="btn-secondary" href="modules.html">Ir para módulos</a>
+            </div>
+        </header>
 
-            <section class="dash-cards" aria-label="Indicadores principais">
-                <article class="metric-card" data-indicator-card="cdi">
-                    <h2>CDI</h2>
-                    <p data-indicator-value="cdi">--</p>
-                </article>
-                <article class="metric-card" data-indicator-card="selic">
-                    <h2>SELIC</h2>
-                    <p data-indicator-value="selic">--</p>
-                </article>
-                <article class="metric-card" data-indicator-card="ipca">
-                    <h2>IPCA</h2>
-                    <p data-indicator-value="ipca">--</p>
-                </article>
-                <article class="metric-card" data-indicator-card="ibov">
-                    <h2>Ibovespa</h2>
-                    <p data-indicator-value="ibov">--</p>
-                </article>
-            </section>
-            <p class="ticker-meta" id="dashboardTickerMeta">Atualizando indicadores...</p>
+        <section class="dash-cards" aria-label="Indicadores principais">
+            <article class="metric-card" data-indicator-card="cdi">
+                <h2>CDI</h2>
+                <p data-indicator-value="cdi">--</p>
+            </article>
+            <article class="metric-card" data-indicator-card="selic">
+                <h2>SELIC</h2>
+                <p data-indicator-value="selic">--</p>
+            </article>
+            <article class="metric-card" data-indicator-card="ipca">
+                <h2>IPCA</h2>
+                <p data-indicator-value="ipca">--</p>
+            </article>
+            <article class="metric-card" data-indicator-card="ibov">
+                <h2>Ibovespa</h2>
+                <p data-indicator-value="ibov">--</p>
+            </article>
+        </section>
+        <p class="ticker-meta" id="dashboardTickerMeta">Atualizando indicadores...</p>
 
-            <section class="dash-grid" aria-label="Módulos de aprendizado">
-                <article class="panel-card">
-                    <h3>Seu nível</h3>
-                    <p>Nível atual: <strong id="dashboardLevelValue">Iniciante</strong></p>
-                    <p>XP acumulado: <strong id="dashboardXpValue">0</strong></p>
-                    <p>Progresso geral: <strong id="dashboardOverallValue">0%</strong></p>
-                </article>
+        <section class="dash-grid" aria-label="Módulos de aprendizado">
+            <article class="panel-card">
+                <h3>Seu nível</h3>
+                <p>Nível atual: <strong id="dashboardLevelValue">Iniciante</strong></p>
+                <p>XP acumulado: <strong id="dashboardXpValue">0</strong></p>
+                <p>Progresso geral: <strong id="dashboardOverallValue">0%</strong></p>
+            </article>
 
-                <article class="panel-card">
-                    <h3>Recomendações</h3>
-                    <ul id="dashboardRecommendations" class="summary-list"></ul>
-                </article>
+            <article class="panel-card">
+                <h3>Recomendações</h3>
+                <ul id="dashboardRecommendations" class="summary-list"></ul>
+            </article>
 
-                <article class="panel-card">
-                    <h3>Simulação rápida</h3>
-                    <p>Se investir R$ 200/mês por 10 anos a 11% a.a., pode chegar em torno de <strong>R$ 41.332</strong>.</p>
-                    <a class="panel-link" href="main.html#hubSimulacoes">Abrir simuladores</a>
-                </article>
+            <article class="panel-card">
+                <h3>Simulação rápida</h3>
+                <p>Se investir R$ 200/mês por 10 anos a 11% a.a., pode chegar em torno de <strong>R$ 41.332</strong>.
+                </p>
+                <a class="panel-link" href="main.html#hubSimulacoes">Abrir simuladores</a>
+            </article>
 
-                <article class="panel-card full-width">
-                    <h3>Módulos disponíveis</h3>
-                    <section id="dashboardModulesList" class="topic-grid" aria-label="Módulos disponíveis"></section>
-                </article>
+            <article class="panel-card full-width">
+                <h3>Módulos disponíveis</h3>
+                <section id="dashboardModulesList" class="topic-grid" aria-label="Módulos disponíveis"></section>
+            </article>
 
-                <article class="panel-card full-width">
-                    <h3>Resumo da sua evolução</h3>
-                    <div id="dashboardProgressBars"></div>
-                </article>
-            </section>
-        </main>
+            <article class="panel-card full-width">
+                <h3>Resumo da sua evolução</h3>
+                <div id="dashboardProgressBars"></div>
+            </article>
+        </section>
+    </main>
 
+    <script type="module" src="../js/auth-guard.js"></script>
     <script type="module" src="../js/dashboard.js"></script>
 </body>
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aulas | SEI</title>
     <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="../css/auth-guard.css">
 </head>
 
 <body>
@@ -17,7 +18,9 @@
             <span>SEI • Sistema de Ensino e Investimento</span>
         </a>
         <nav class="site-nav">
-            <a href="modules.html" style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Módulos</a>
+            <a href="modules.html"
+                style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Módulos</a>
+            <a href="interactive-guide.html">Guia Interativo</a>
             <a href="glossary.html">Glossário</a>
             <a href="simulator.html">Simulador</a>
             <a href="tutor.html">Tutor IA</a>
@@ -56,6 +59,7 @@
         <section id="lessonTracks" class="topic-grid" aria-label="Trilhas de aprendizado"></section>
     </main>
 
+    <script type="module" src="../js/auth-guard.js"></script>
     <script type="module" src="../js/lessons.js"></script>
 </body>
 

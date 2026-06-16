@@ -19,11 +19,13 @@
         </a>
         <nav class="site-nav">
             <a href="modules.html">Módulos</a>
+            <a href="interactive-guide.html">Guia Interativo</a>
             <a href="glossary.html">Glossário</a>
             <a href="simulator.html">Simulador</a>
             <a href="tutor.html">Tutor IA</a>
             <a href="dashboard.html">Dashboard</a>
-            <a href="profile.html" style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Perfil</a>
+            <a href="profile.html"
+                style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Perfil</a>
         </nav>
     </header>
 
@@ -31,6 +33,8 @@
         <section class="hero mini-hero">
             <p class="eyebrow">Perfil</p>
             <h1 id="profileName">Seu perfil</h1>
+            <button id="loginButton" class="btn-secondary" style="display: none;">Fazer login</button>
+            <button id="registerButton" class="btn-primary" style="display: none;">Criar conta</button>
             <p id="profileEmail" class="hero-text"></p>
         </section>
 
@@ -42,9 +46,12 @@
             <article class="panel-card">
                 <h3>Próximo passo</h3>
                 <p>Continue de onde parou e evolua sua trilha.</p>
+                <br>
                 <a class="btn-primary" href="modules.html">Ir para módulos</a>
             </article>
         </section>
+
+
     </main>
 
     <script type="module" src="../js/profile.js"></script>

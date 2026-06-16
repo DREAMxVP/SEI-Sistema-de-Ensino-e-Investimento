@@ -1,0 +1,94 @@
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 12, 21, 0.78);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  padding: 1.2rem;
+}
+
+.auth-overlay-card {
+  width: min(520px, 100%);
+  background: rgba(13, 23, 38, 0.96);
+  border: 1px solid rgba(123, 190, 255, 0.18);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  border-radius: 24px;
+  padding: 2rem;
+  text-align: center;
+  color: #f5fbff;
+}
+
+.auth-overlay-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(41, 113, 255, 0.18);
+  color: #b8d9ff;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+}
+
+.auth-overlay-card h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.auth-overlay-card p {
+  margin: 1rem auto 1.6rem;
+  max-width: 36rem;
+  color: rgba(225, 238, 255, 0.82);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.auth-overlay-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-overlay-button {
+  border: none;
+  background: linear-gradient(135deg, #0e8f19 0%, #0b6d14 40%, #084a0f 100%);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 16px 32px rgba(22, 84, 161, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-overlay-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 36px rgba(22, 84, 161, 0.32);
+}
+
+.auth-blocked main,
+.auth-blocked .content-page,
+.auth-blocked .topic-grid,
+.auth-blocked .tool-grid,
+.auth-blocked .panel-card,
+.auth-blocked .card,
+.auth-blocked .feature-grid {
+  filter: blur(4px) saturate(0.8);
+  pointer-events: none;
+  user-select: none;
+}
+
+.auth-blocked header,
+.auth-blocked footer,
+.auth-blocked nav,
+.auth-blocked .site-header,
+.auth-blocked .hero,
+.auth-blocked .dashboard,
+.auth-blocked .topic-card {
+  filter: blur(4px);
+  pointer-events: none;
+}

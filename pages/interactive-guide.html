@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Interativo de Investimentos | SEI</title>
+    <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="../css/auth-guard.css">
+    <link rel="stylesheet" href="../css/interactive-guide.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+    <header class="site-header">
+        <a class="brand" href="../index.html">
+            <span class="brand-dot" aria-hidden="true">
+                <img class="brand-logo" src="../src/img/logo-sei-transparente.png" alt="">
+            </span>
+            <span>SEI • Sistema de Ensino e Investimento</span>
+        </a>
+        <nav class="site-nav">
+            <a href="modules.html">Módulos</a>
+            <a href="interactive-guide.html"
+                style="color: var(--text); border-color: var(--border); background: rgba(25, 42, 61, 0.55);">Guia
+                Interativo</a>
+            <a href="glossary.html">Glossário</a>
+            <a href="simulator.html">Simulador</a>
+            <a href="tutor.html">Tutor IA</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="profile.html">Perfil</a>
+        </nav>
+    </header>
+
+    <main id="mainContent" class="content-page">
+        <section class="hero mini-hero">
+            <p class="eyebrow">Aprenda a investir</p>
+            <h1>Seu guia interativo para a liberdade financeira</h1>
+            <p class="hero-text">Explore a estrutura completa do nosso curso, veja vídeos didáticos recomendados e
+                acompanhe sua jornada com um diário de reflexões.</p>
+        </section>
+
+        <!-- Tabs de navegação -->
+        <section class="guide-tabs">
+            <button class="guide-tab-button active" data-tab="structure">Estrutura do curso</button>
+            <button class="guide-tab-button" data-tab="videos">Vídeos recomendados</button>
+            <button class="guide-tab-button" data-tab="diary">Meu diário</button>
+        </section>
+
+        <!-- Tab 1: Estrutura do Curso -->
+        <section id="structure-tab" class="guide-tab-content active">
+            <article class="level-card">
+                <div class="level-header iniciante">
+                    <span class="level-badge">Nível 1</span>
+                    <h2>Iniciante: Fundamentos de investimento</h2>
+                </div>
+                <p class="level-description">Construa base sólida com organização financeira, objetivos claros e
+                    primeiros passos seguros.</p>
+
+                <div class="lessons-list">
+                    <article class="lesson-item">
+                        <h3>📌 Reserva de emergência</h3>
+                        <p>O primeiro passo para investir com segurança. Monte uma reserva entre 6 e 12 meses de
+                            despesas em ativos de liquidez diária.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Se seu custo mensal é R$ 2.500, a meta
+                            inicial fica entre R$ 15.000 e R$ 30.000.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="mepoupe-reserva">Ver vídeo</button>
+                            <span class="xp-badge">+40 XP</span>
+                        </div>
+                    </article>
+
+                    <article class="lesson-item">
+                        <h3>🎯 Objetivos financeiros</h3>
+                        <p>Defina metas para escolher melhor seus investimentos. Separar por prazo (curto, médio, longo)
+                            ajuda a montar carteiras.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Curto: reserva; médio: viagem; longo:
+                            aposentadoria.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="primorico-metas">Ver vídeo</button>
+                            <span class="xp-badge">+40 XP</span>
+                        </div>
+                    </article>
+
+                    <article class="lesson-item">
+                        <h3>💰 Primeiros aportes com consistência</h3>
+                        <p>Disciplina supera timing de mercado. Automatize aportes mensais e acompanhe evolução com foco
+                            em constância.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Aportar R$ 300 todo mês por 24 meses cria
+                            hábito e acelera patrimônio.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="mepoupe-aportes">Ver vídeo</button>
+                            <span class="xp-badge">+45 XP</span>
+                        </div>
+                    </article>
+                </div>
+            </article>
+
+            <article class="level-card">
+                <div class="level-header intermediario">
+                    <span class="level-badge">Nível 2</span>
+                    <h2>Intermediário: Renda fixa e inflação</h2>
+                </div>
+                <p class="level-description">Compare produtos pós-fixados e entenda retorno real acima da inflação.</p>
+
+                <div class="lessons-list">
+                    <article class="lesson-item">
+                        <h3>📊 CDI, SELIC e Tesouro Selic</h3>
+                        <p>Entenda o trio base da renda fixa. SELIC é taxa básica; CDI referencia produtos bancários;
+                            Tesouro acompanha com risco soberano.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Em SELIC alta, pós-fixados tendem a pagar
+                            melhor no curto e médio prazo.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="primorico-selic">Ver vídeo</button>
+                            <span class="xp-badge">+50 XP</span>
+                        </div>
+                    </article>
+
+                    <article class="lesson-item">
+                        <h3>🏦 CDB, LCI e LCA na prática</h3>
+                        <p>Como comparar rentabilidade líquida e prazo. Avalie percentual do CDI, liquidez e tributação.
+                        </p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Um CDB 110% CDI pode superar uma LCI menor,
+                            dependendo do prazo.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="mepoupe-cdb">Ver vídeo</button>
+                            <span class="xp-badge">+50 XP</span>
+                        </div>
+                    </article>
+
+                    <article class="lesson-item">
+                        <h3>📈 Inflação e IPCA</h3>
+                        <p>Proteja seu patrimônio da inflação. Entenda IPCA e escolha investimentos que ganhem acima da
+                            inflação.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Se inflação é 10% a.a., um investimento com
+                            8% perde poder de compra.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="primorico-inflacao">Ver vídeo</button>
+                            <span class="xp-badge">+50 XP</span>
+                        </div>
+                    </article>
+                </div>
+            </article>
+
+            <article class="level-card">
+                <div class="level-header avancado">
+                    <span class="level-badge">Nível 3</span>
+                    <h2>Avançado: Ações, fundos e estratégias</h2>
+                </div>
+                <p class="level-description">Domine análise de ativos, construa carteiras diversificadas e aplique
+                    estratégias para longo prazo.</p>
+
+                <div class="lessons-list">
+                    <article class="lesson-item">
+                        <h3>📊 Análise fundamental de ações</h3>
+                        <p>Estude balanços, índices e fundamentos. Diferencie empresas de qualidade para compor sua
+                            carteira.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Um P/L baixo não garante qualidade; analise
+                            também ROE, endividamento e crescimento.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="primorico-analise">Ver vídeo</button>
+                            <span class="xp-badge">+60 XP</span>
+                        </div>
+                    </article>
+
+                    <article class="lesson-item">
+                        <h3>🎯 Carteira por perfil de risco</h3>
+                        <p>Construa alocação alinhada com seu perfil. Diversifique entre renda fixa, ações, FIIs e
+                            exterior.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Perfil moderado: 45% renda fixa, 25% ações,
+                            20% FIIs, 10% exterior.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="mepoupe-carteira">Ver vídeo</button>
+                            <span class="xp-badge">+60 XP</span>
+                        </div>
+                    </article>
+
+                    <article class="lesson-item">
+                        <h3>💡 Rebalanceamento e decisões</h3>
+                        <p>Mantenha sua estratégia. Rebalanceie a cada 6 meses ou quando desvio passar de 5 pontos
+                            percentuais.</p>
+                        <p class="lesson-example"><strong>Exemplo:</strong> Se ações subiram muito, venda e recompre
+                            renda fixa para reequilibrar.</p>
+                        <div class="lesson-actions">
+                            <button class="btn-small" data-video="primorico-rebalanc">Ver vídeo</button>
+                            <span class="xp-badge">+60 XP</span>
+                        </div>
+                    </article>
+                </div>
+            </article>
+        </section>
+
+        <!-- Tab 2: Vídeos Recomendados -->
+        <section id="videos-tab" class="guide-tab-content">
+            <div class="videos-search"> <input type="text" id="videoSearch"
+                    placeholder="🔎 Pesquise por vídeo, canal ou tema..."> </div>
+            <div class="videos-grid" id="videosContainer"></div>
+        </section>
+
+        <!-- Tab 3: Meu Diário -->
+        <section id="diary-tab" class="guide-tab-content">
+            <div class="diary-container">
+                <div class="diary-form">
+                    <h3>Registre suas reflexões</h3>
+                    <p>Anote seus aprendizados, dúvidas e objetivos. O diário ajuda a consolidar conhecimento.</p>
+
+                    <form id="diaryForm" class="auth-form">
+                        <label for="diaryDate">Data</label>
+                        <input type="date" id="diaryDate" name="date" required>
+
+                        <label for="diaryTopic">Tópico/Aula</label>
+                        <input type="text" id="diaryTopic" name="topic" placeholder="Ex: Reserva de emergência"
+                            required>
+
+                        <label for="diaryReflection">Sua reflexão</label>
+                        <textarea id="diaryReflection" name="reflection"
+                            placeholder="O que aprendeu? Qual sua dúvida? Como vai aplicar?" rows="6"
+                            required></textarea>
+
+                        <label for="diaryLevel">Nível de compreensão</label>
+                        <select id="diaryLevel" name="level" required>
+                            <option value="">Escolha uma opção</option>
+                            <option value="compreendi">✅ Compreendi bem</option>
+                            <option value="parcial">⚠️ Compreendi parcialmente</option>
+                            <option value="duvida">❓ Tenho dúvidas</option>
+                        </select>
+
+                        <button type="submit" class="btn-primary">Salvar reflexão</button>
+                    </form>
+                </div>
+
+                <div class="diary-entries" id="diaryEntries">
+                    <p class="empty-state">Nenhuma reflexão registrada ainda.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Vídeo -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="closeVideoModal">&times;</button>
+            <h2 id="videoTitle"></h2>
+            <div class="video-embed" id="videoEmbed"></div>
+            <div class="video-info" id="videoInfo"></div>
+        </div>
+    </div>
+
+    <script type="module" src="../js/auth-guard.js"></script>
+    <script type="module" src="../js/interactive-guide.js"></script>
+</body>
+
+</html>

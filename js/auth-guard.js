@@ -1,88 +1,49 @@
 import { getActiveUser } from "./learning-state.js";
 
-const UNPROTECTED_PATHS = [
-  "/",
-  "/index.html",
-  "/login.html",
-  "/register.html",
-  "/pages/login.html",
-  "/pages/register.html"
-];
+const UNPROTECTED_PATHS = ["/login.html", "/register.html", "/index.html", "/", "/pages/login.html", "/pages/register.html"];
 
 function normalizePath(path) {
-  if (!path) return "/";
-
-  path = path.toLowerCase();
-
-  if (path !== "/") {
-    path = path.replace(/\/+$/, "");
-  }
-
-  return path;
+  return path.replace(/\/+$|\\/g, "/").toLowerCase();
 }
 
 function isProtectedPath() {
   const current = normalizePath(window.location.pathname);
-
-  return !UNPROTECTED_PATHS.some(
-    path => normalizePath(path) === current
-  );
+  return !UNPROTECTED_PATHS.includes(current);
 }
 
 function getRegisterTarget() {
-  const current = normalizePath(window.location.pathname);
-
-  return current.startsWith("/pages/")
-    ? "register.html"
-    : "pages/register.html";
+  return window.location.pathname.includes("/pages/") ? "register.html" : "pages/register.html";
 }
 
 function createAuthOverlay() {
-  if (document.querySelector(".auth-overlay")) {
-    return;
-  }
-
   const overlay = document.createElement("div");
-
   overlay.className = "auth-overlay";
-
   overlay.innerHTML = `
     <div class="auth-overlay-card">
-      <span class="auth-overlay-badge">
-        Acesso exclusivo
-      </span>
-
-      <h2>
-        Crie sua conta para aproveitar nossas ferramentas
-      </h2>
-
-      <p>
-        Você precisa criar uma conta para abrir módulos,
-        usar simuladores avançados e desbloquear conteúdo.
-      </p>
-
+      <span class="auth-overlay-badge">Acesso exclusivo</span>
+      <h2>Crie sua conta para aproveitar nossas ferramentas</h2>
+      <p>Você precisa de um acesso rápido para abrir módulos, usar simuladores avançados e desbloquear conteúdo de aprendizado.</p>
       <div class="auth-overlay-actions">
-        <button
-          type="button"
-          class="auth-overlay-button"
-          id="authOverlayRegister"
-        >
-          Criar conta
-        </button>
+        <button type="button" class="auth-overlay-button" id="authOverlayRegister">Criar conta</button>
       </div>
     </div>
   `;
 
+  overlay.addEventListener("click", function (event) {
+    if (event.target === overlay) {
+      event.stopPropagation();
+    }
+  });
+
   document.body.classList.add("auth-blocked");
   document.body.appendChild(overlay);
 
-  const button = document.getElementById(
-    "authOverlayRegister"
-  );
-
-  button?.addEventListener("click", () => {
-    window.location.assign(getRegisterTarget());
-  });
+  const button = document.getElementById("authOverlayRegister");
+  if (button) {
+    button.addEventListener("click", function () {
+      window.location.href = getRegisterTarget();
+    });
+  }
 }
 
 function ensureAuthenticated() {
@@ -91,26 +52,13 @@ function ensureAuthenticated() {
   }
 
   const activeUser = getActiveUser();
-
-  console.log("Verificando login:", {
-    path: window.location.pathname,
-    user: activeUser
-  });
-
-  if (!activeUser?.id) {
+  if (!activeUser || !activeUser.id) {
     createAuthOverlay();
   }
 }
 
-function initAuthProtection() {
-  ensureAuthenticated();
-}
-
 if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    initAuthProtection
-  );
+  document.addEventListener("DOMContentLoaded", ensureAuthenticated);
 } else {
-  initAuthProtection();
+  ensureAuthenticated();
 }
